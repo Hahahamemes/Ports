@@ -91,7 +91,7 @@ using EloBuddy;
                 Game_OnGameStart(new EventArgs());
             }
 
-            EloBuddy.SDK.Events.Loading.OnLoadingComplete += Game_OnGameStart;
+            Game.OnLoad += Game_OnGameStart;
         }
 
         
