@@ -90,8 +90,8 @@ using EloBuddy;
             {
                 Game_OnGameStart(new EventArgs());
             }
-
-            EloBuddy.SDK.Events.Loading.OnLoadingComplete += Game_OnGameStart;
+           
+          EloBuddy.SDK.Events.Loading.OnLoadingComplete += Game_OnGameStart;
         }
 
         
