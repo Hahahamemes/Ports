@@ -574,7 +574,7 @@ using EloBuddy;
             }
 
             var prediction = spells[Spells.Q].GetPrediction(target);
-            if (prediction.Hitchance >= HitChance.VeryHigh && prediction.CastPosition.Distance(ObjectManager.Player.ServerPosition) < spells[Spells.Q].Range)
+            if (prediction.Hitchance >= HitChance.Low && prediction.CastPosition.Distance(ObjectManager.Player.ServerPosition) < spells[Spells.Q].Range)
             {
                 spells[Spells.Q].Cast(target);
             }
