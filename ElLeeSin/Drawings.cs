@@ -5,10 +5,11 @@ using EloBuddy;
     using System;
     using System.Linq;
 
+    using LeagueSharp;
     using LeagueSharp.Common;
 
     using SharpDX;
-    using EloBuddy;
+
     using Color = System.Drawing.Color;
 
     public class Drawings

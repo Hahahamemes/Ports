@@ -6,7 +6,7 @@ using EloBuddy;
     using System.Collections.Generic;
     using System.Linq;
 
-    using EloBuddy;
+    using LeagueSharp;
     using LeagueSharp.Common;
 
     using SharpDX;
