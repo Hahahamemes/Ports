@@ -1,9 +1,8 @@
 
 #pragma warning disable 618
 
-using EloBuddy; 
- using LeagueSharp.Common; 
- namespace ElUtilitySuite.Trackers
+using EloBuddy;
+namespace ElUtilitySuite.Trackers
 {
     //Recall tracker from BaseUlt
 
@@ -22,6 +21,7 @@ using EloBuddy;
 
     using Color = System.Drawing.Color;
     using Font = SharpDX.Direct3D9.Font;
+    using EloBuddy.SDK.Enumerations;
 
     #endregion
 
@@ -107,9 +107,10 @@ using EloBuddy;
         public void Load()
         {
             this.Heroes = ObjectManager.Get<AIHeroClient>().ToList();
-            this.Enemies = HeroManager.Enemies.ToList();
+            this.Enemies = HeroManager.AllHeroes.ToList();
 
             this.EnemyInfo = this.Enemies.Select(x => new EnemyInfo(x)).ToList();
+
             this.Map = LeagueSharp.Common.Utility.Map.GetMap().Type;
 
             this.Text = new Font(
@@ -123,7 +124,7 @@ using EloBuddy;
                     Quality = FontQuality.Default
                 });
 
-            Obj_AI_Base.OnTeleport += this.Obj_AI_Base_OnTeleport;
+            EloBuddy.SDK.Events.Teleport.OnTeleport += this.Obj_AI_Base_OnTeleport;
             Drawing.OnDraw += this.Drawing_OnDraw;
             Drawing.OnPreReset += args => { this.Text.OnLostDevice(); };
             Drawing.OnPostReset += args => { this.Text.OnResetDevice(); };
@@ -254,7 +255,7 @@ using EloBuddy;
             }
         }
 
-        private void Obj_AI_Base_OnTeleport(GameObject sender, GameObjectTeleportEventArgs args)
+        private void Obj_AI_Base_OnTeleport(GameObject sender, EloBuddy.SDK.Events.Teleport.TeleportEventArgs args)
         {
             var unit = sender as AIHeroClient;
 
@@ -263,15 +264,14 @@ using EloBuddy;
                 return;
             }
 
-            var recall = Packet.S2C.Teleport.Decoded(unit, args);
-            var enemyInfo =
-                this.EnemyInfo.Find(x => x.Player.NetworkId == recall.UnitNetworkId).RecallInfo.UpdateRecall(recall);
+            var recallinfo = new RecallInf(unit.NetworkId, args.Status, args.Type, args.Duration, args.Start);
+            var enemyInfo = this.EnemyInfo.Find(x => x.Player.NetworkId == unit.NetworkId).RecallInfo.UpdateRecall(recallinfo);
 
-            if (recall.Type == Packet.S2C.Teleport.Type.Recall)
+            if (args.Type == TeleportType.Recall)
             {
-                switch (recall.Status)
+                switch (args.Status)
                 {
-                    case Packet.S2C.Teleport.Status.Abort:
+                    case TeleportStatus.Abort:
                         if (this.Menu.Item("notifRecAborted").GetValue<bool>())
                         {
                             this.ShowNotification(
@@ -281,11 +281,20 @@ using EloBuddy;
                         }
 
                         break;
-                    case Packet.S2C.Teleport.Status.Finish:
+                    case TeleportStatus.Finish:
                         if (this.Menu.Item("notifRecFinished").GetValue<bool>())
                         {
                             this.ShowNotification(
                                 enemyInfo.Player.ChampionName + ": Recall FINISHED",
+                                Color.White,
+                                4000);
+                        }
+                        break;
+                    case TeleportStatus.Start:
+                        if (this.Menu.Item("notifRecFinished").GetValue<bool>())
+                        {
+                            this.ShowNotification(
+                                enemyInfo.Player.ChampionName + ": Recall STARTED",
                                 Color.White,
                                 4000);
                         }
@@ -334,11 +343,11 @@ using EloBuddy;
 
         private readonly EnemyInfo enemyInfo;
 
-        private Packet.S2C.Teleport.Struct abortedRecall;
+        private RecallInf abortedRecall;
 
         private int abortedT;
 
-        private Packet.S2C.Teleport.Struct recall;
+        private RecallInf recall;
 
         #endregion
 
@@ -347,10 +356,10 @@ using EloBuddy;
         public RecallInfo(EnemyInfo enemyInfo)
         {
             this.enemyInfo = enemyInfo;
-            this.recall = new Packet.S2C.Teleport.Struct(
+            this.recall = new RecallInf(
                 this.enemyInfo.Player.NetworkId,
-                Packet.S2C.Teleport.Status.Unknown,
-                Packet.S2C.Teleport.Type.Unknown,
+                TeleportStatus.Unknown,
+                TeleportType.Unknown,
                 0);
         }
 
@@ -397,8 +406,8 @@ using EloBuddy;
 
         public bool IsPorting()
         {
-            return this.recall.Type == Packet.S2C.Teleport.Type.Recall
-                   && this.recall.Status == Packet.S2C.Teleport.Status.Start;
+            return this.recall.Type == TeleportType.Recall
+                   && this.recall.Status == TeleportStatus.Start;
         }
 
         public bool ShouldDraw()
@@ -420,12 +429,11 @@ using EloBuddy;
             return drawtext;
         }
 
-        public EnemyInfo UpdateRecall(Packet.S2C.Teleport.Struct newRecall)
+        public EnemyInfo UpdateRecall(RecallInf newRecall)
         {
             this.EstimatedShootT = 0;
 
-            if (newRecall.Type == Packet.S2C.Teleport.Type.Recall
-                && newRecall.Status == Packet.S2C.Teleport.Status.Abort)
+            if (newRecall.Type == TeleportType.Recall && newRecall.Status == TeleportStatus.Abort)
             {
                 this.abortedRecall = this.recall;
                 this.abortedT = Utils.TickCount;
@@ -441,10 +449,28 @@ using EloBuddy;
 
         public bool WasAborted()
         {
-            return this.recall.Type == Packet.S2C.Teleport.Type.Recall
-                   && this.recall.Status == Packet.S2C.Teleport.Status.Abort;
+            return this.recall.Type == TeleportType.Recall
+                   && this.recall.Status == TeleportStatus.Abort;
         }
 
         #endregion
+    }
+
+    public class RecallInf
+    {
+        public int NetworkID;
+        public int Duration;
+        public int Start;
+        public TeleportType Type;
+        public TeleportStatus Status;
+
+        public RecallInf(int netid, TeleportStatus stat, TeleportType tpe, int dura, int star = 0)
+        {
+            NetworkID = netid;
+            Status = stat;
+            Type = tpe;
+            Duration = dura;
+            Start = star;
+        }
     }
 }
