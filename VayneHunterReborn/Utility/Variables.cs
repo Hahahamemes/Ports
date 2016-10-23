@@ -47,7 +47,6 @@ using EloBuddy;
             new FlashRepel(),
             new FlashCondemn(),
             new TurnAround(),
-            new ThreshLanternCatcher(),
             new BuyBlueTrinket()
         };
 
