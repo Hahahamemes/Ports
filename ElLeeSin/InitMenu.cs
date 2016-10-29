@@ -34,7 +34,8 @@ using EloBuddy;
             Menu.SubMenu("Combo").AddItem(new MenuItem("ElLeeSin.Combo.W2", "Use W").SetValue(true));
             Menu.SubMenu("Combo").AddItem(new MenuItem("ElLeeSin.Combo.E", "Use E").SetValue(true));
             Menu.SubMenu("Combo").AddItem(new MenuItem("ElLeeSin.Combo.R", "Use R").SetValue(true));
-            Menu.SubMenu("Combo").AddItem(new MenuItem("ElLeeSin.Combo.StarKill1", "Use starcombo to kill").SetValue(false));
+            Menu.SubMenu("Combo")
+                .AddItem(new MenuItem("ElLeeSin.Combo.StarKill1", "Use starcombo to kill").SetValue(false));
             Menu.SubMenu("Combo")
                 .AddItem(new MenuItem("ElLeeSin.Combo.PassiveStacks", "Min Stacks").SetValue(new Slider(1, 1, 2)));
 
