@@ -31,16 +31,16 @@ namespace ElLeeSin
             Menu.SubMenu("Combo").AddItem(new MenuItem("ElLeeSin.Combo.E", "Use E").SetValue(true));
             Menu.SubMenu("Combo").AddItem(new MenuItem("ElLeeSin.Combo.R", "Use R").SetValue(true));
             Menu.SubMenu("Combo")
-                .AddItem(new MenuItem("ElLeeSin.Combo.StarKill1", "Use starcombo to kill").SetValue(false));
+                .AddItem(new MenuItem("ElLeeSin.Combo.StarKill1", "Use BuckFrandon to kill").SetValue(false));
             Menu.SubMenu("Combo")
                 .AddItem(new MenuItem("ElLeeSin.Combo.PassiveStacks", "Min Stacks").SetValue(new Slider(1, 1, 2)));
 
             Menu.SubMenu("Combo")
                 .SubMenu("Wardjump")
-                .AddItem(new MenuItem("ElLeeSin.Combo.W", "Wardjump in combo").SetValue(false));
+                .AddItem(new MenuItem("ElLeeSin.Combo.W", "Wardjump In Combo").SetValue(false));
             Menu.SubMenu("Combo")
                 .SubMenu("Wardjump")
-                .AddItem(new MenuItem("ElLeeSin.Combo.Mode.WW", "Out of AA range").SetValue(false));
+                .AddItem(new MenuItem("ElLeeSin.Combo.Mode.WW", "Out Of AA range").SetValue(false));
 
             Menu.SubMenu("Combo").AddItem(new MenuItem("ElLeeSin.Combo.KS.R", "KS R").SetValue(true));
             Menu.SubMenu("Combo")
@@ -48,7 +48,7 @@ namespace ElLeeSin
                     new MenuItem("starCombo", "Star Combo").SetValue(
                         new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
 
-            Menu.SubMenu("Combo").AddItem(new MenuItem("ElLeeSin.Combo.AAStacks", "Wait for Passive").SetValue(false));
+            Menu.SubMenu("Combo").AddItem(new MenuItem("ElLeeSin.Combo.AAStacks", "Wait For Passive").SetValue(false));
 
             var harassMenu = Menu.AddSubMenu(new Menu("Harass", "Harass"));
             {
@@ -61,10 +61,10 @@ namespace ElLeeSin
 
             var kickMenu = Menu.AddSubMenu(new Menu("Kick (R)", "Kick"));
             {
-                kickMenu.AddItem(new MenuItem("ElLeeSin.Combo.New", "Kick multiple targets:").SetValue(true));
+                kickMenu.AddItem(new MenuItem("ElLeeSin.Combo.New", "Kick Multiple Targets:").SetValue(true));
                 kickMenu.AddItem(
-                    new MenuItem("ElLeeSin.Combo.R.Count", "R target hit count").SetValue(new Slider(3, 2, 4)));
-                kickMenu.AddItem(new MenuItem("ElLeeSin.Combo.New.R.Kill", "Kill enemy behind").SetValue(false));
+                    new MenuItem("ElLeeSin.Combo.R.Count", "R Target Hit Count").SetValue(new Slider(3, 2, 4)));
+                kickMenu.AddItem(new MenuItem("ElLeeSin.Combo.New.R.Kill", "Kill Enemy Behind").SetValue(false));
             }
 
             var waveclearMenu = Menu.AddSubMenu(new Menu("Clear", "Clear"));
@@ -89,19 +89,19 @@ namespace ElLeeSin
                     .SetFontStyle(FontStyle.Bold, Color.BlueViolet);
                 insecMenu.AddItem(new MenuItem("insecMode", "Left click target to Insec").SetValue(true));
                 insecMenu.AddItem(new MenuItem("insecOrbwalk", "Orbwalking").SetValue(true));
-                insecMenu.AddItem(new MenuItem("ElLeeSin.Flash.Insec", "Flash Insec when no ward").SetValue(false));
+                insecMenu.AddItem(new MenuItem("ElLeeSin.Flash.Insec", "Flash Insec When No Ward").SetValue(false));
                 insecMenu.AddItem(new MenuItem("waitForQBuff", "Wait For Q").SetValue(false));
-                insecMenu.AddItem(new MenuItem("checkOthers2", "Use units to insec").SetValue(true));
+                insecMenu.AddItem(new MenuItem("checkOthers2", "Use Units To Insec").SetValue(true));
                 insecMenu.AddItem(new MenuItem("clickInsec", "Click Insec").SetValue(true));
                 insecMenu.AddItem(new MenuItem("bonusRangeA", "Ally Bonus Range").SetValue(new Slider(0, 0, 1000)));
                 insecMenu.AddItem(new MenuItem("bonusRangeT", "Towers Bonus Range").SetValue(new Slider(0, 0, 1000)));
 
                 insecMenu.SubMenu("Insec Modes")
-                    .AddItem(new MenuItem("ElLeeSin.Insec.Ally", "Insec to allies").SetValue(true));
+                    .AddItem(new MenuItem("ElLeeSin.Insec.Ally", "Insec To Allies").SetValue(true));
                 insecMenu.SubMenu("Insec Modes")
-                    .AddItem(new MenuItem("ElLeeSin.Insec.Tower", "Insec to tower").SetValue(false));
+                    .AddItem(new MenuItem("ElLeeSin.Insec.Tower", "Insec To Tower").SetValue(false));
                 insecMenu.SubMenu("Insec Modes")
-                    .AddItem(new MenuItem("ElLeeSin.Insec.Original.Pos", "Insec to original pos").SetValue(true));
+                    .AddItem(new MenuItem("ElLeeSin.Insec.Original.Pos", "Insec To Original Pos").SetValue(true));
                 insecMenu.AddItem(
                     new MenuItem("ElLeeSin.Insec.UseInstaFlash", "Flash + R").SetValue(
                         new KeyBind("G".ToCharArray()[0], KeyBindType.Press)));
@@ -110,17 +110,17 @@ namespace ElLeeSin
             var wardjumpMenu = Menu.AddSubMenu(new Menu("Wardjump and Escape", "Wardjump"));
             {
                 wardjumpMenu.AddItem(
-                    new MenuItem("ElLeeSin.Escape", "Escape key").SetValue(
+                    new MenuItem("ElLeeSin.Escape", "Escape Key").SetValue(
                         new KeyBind("A".ToCharArray()[0], KeyBindType.Press)));
                 wardjumpMenu.AddItem(new MenuItem("escapeMode", "Enable Jungle Escape").SetValue(true));
                 wardjumpMenu.AddItem(
-                    new MenuItem("ElLeeSin.Wardjump", "Wardjump key").SetValue(
+                    new MenuItem("ElLeeSin.Wardjump", "Wardjump Key").SetValue(
                         new KeyBind("G".ToCharArray()[0], KeyBindType.Press)));
                 wardjumpMenu.AddItem(
-                    new MenuItem("ElLeeSin.Wardjump.MaxRange", "Ward jump on max range").SetValue(false));
-                wardjumpMenu.AddItem(new MenuItem("ElLeeSin.Wardjump.Mouse", "Jump to mouse").SetValue(true));
-                wardjumpMenu.AddItem(new MenuItem("ElLeeSin.Wardjump.Minions", "Jump to minions").SetValue(true));
-                wardjumpMenu.AddItem(new MenuItem("ElLeeSin.Wardjump.Champions", "Jump to champions").SetValue(true));
+                    new MenuItem("ElLeeSin.Wardjump.MaxRange", "Ward Jump On Max Range").SetValue(false));
+                wardjumpMenu.AddItem(new MenuItem("ElLeeSin.Wardjump.Mouse", "Jump To Mouse").SetValue(true));
+                wardjumpMenu.AddItem(new MenuItem("ElLeeSin.Wardjump.Minions", "Jump To Minions").SetValue(true));
+                wardjumpMenu.AddItem(new MenuItem("ElLeeSin.Wardjump.Champions", "Jump To Champions").SetValue(true));
             }
 
             var drawMenu = Menu.AddSubMenu(new Menu("Drawings", "Drawings"));
@@ -135,8 +135,8 @@ namespace ElLeeSin
                 drawMenu.AddItem(new MenuItem("ElLeeSin.Draw.W", "Draw W").SetValue(false));
                 drawMenu.AddItem(new MenuItem("ElLeeSin.Draw.E", "Draw E").SetValue(false));
                 drawMenu.AddItem(new MenuItem("ElLeeSin.Draw.R", "Draw R").SetValue(false));
-                drawMenu.AddItem(new MenuItem("ElLeeSin.Draw.Escape", "Draw Escape spots").SetValue(false));
-                drawMenu.AddItem(new MenuItem("ElLeeSin.Draw.Q.Width", "Draw Escape Q width").SetValue(false));
+                drawMenu.AddItem(new MenuItem("ElLeeSin.Draw.Escape", "Draw Escape Spots").SetValue(false));
+                drawMenu.AddItem(new MenuItem("ElLeeSin.Draw.Q.Width", "Draw Escape Q Width").SetValue(false));
             }
 
             var miscMenu = Menu.AddSubMenu(new Menu("Misc", "Misc"));
