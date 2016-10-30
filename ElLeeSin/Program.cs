@@ -1,6 +1,6 @@
-using EloBuddy; 
- using LeagueSharp.Common; 
- namespace ElLeeSin
+using EloBuddy;
+using LeagueSharp.Common;
+namespace ElLeeSin
 {
     using System;
     using System.Collections.Generic;
@@ -1044,39 +1044,35 @@ using EloBuddy;
                         var pred1 = spells[Spells.Q].GetPrediction(target);
                         if (pred1.Hitchance >= HitChance.High)
                         {
-                            if (pred1.CollisionObjects.Count == 0)
-                            {
-                                if (spells[Spells.Q].Cast(pred1.CastPosition))
-                                {
-                                    return;
-                                }
-                            }
-                            else
-                            {
-                                CastQ(target, ParamBool("ElLeeSin.Smite.Q"));
-                            }
+                            CastQ(target, ParamBool("ElLeeSin.Smite.Q"));
                         }
 
-                        if (ParamBool("checkOthers1"))
+                        if (!ParamBool("checkOthers2"))
                         {
-                            var insectObjects =
-                                HeroManager.Enemies.Where(
-                                        x =>
-                                            x.IsValidTarget(spells[Spells.Q].Range) && !x.Compare(target)
-                                            && (spells[Spells.Q].GetHealthPrediction(x) > spells[Spells.Q].GetDamage(x))
-                                            && (x.Distance(target) < target.DistanceToPlayer())
-                                            && (x.Distance(target) < 550))
-                                    .OrderBy(i => i.Distance(target))
-                                    .ThenByDescending(i => i.Health)
+                            return;
+                        }
+
+                        var insectObjects =
+                            HeroManager.Enemies.Where(
+                                    x =>
+                                        x.IsValidTarget(spells[Spells.Q].Range) && !x.Compare(target)
+                                        && (spells[Spells.Q].GetHealthPrediction(x) > spells[Spells.Q].GetDamage(x))
+                                        && (x.Distance(target) < target.DistanceToPlayer()) && (x.Distance(target) < 750))
+                                .Concat(MinionManager.GetMinions(ObjectManager.Player.ServerPosition, spells[Spells.Q].Range, MinionTypes.All, MinionTeam.NotAlly))
+                                    .Where(
+                                        m =>
+                                        m.IsValidTarget(spells[Spells.Q].Range)
+                                        && spells[Spells.Q].GetHealthPrediction(m) > spells[Spells.Q].GetDamage(m)
+                                        && m.Distance(target) < 400f)
+                                        .OrderBy(i => i.Distance(target))
                                     .ToList();
 
-                            if (!insectObjects.Any())
-                            {
-                                return;
-                            }
-
-                            insectObjects.ForEach(i => spells[Spells.Q].Cast(i));
+                        if (insectObjects.Count == 0)
+                        {
+                            return;
                         }
+
+                        insectObjects.ForEach(i => spells[Spells.Q].Cast(i));
                     }
 
                     if (!target.HasQBuff() && Misc.IsQOne)
@@ -1356,7 +1352,7 @@ using EloBuddy;
             }
         }
 
-       
+
 
         private static void OnCreate(GameObject sender, EventArgs args)
         {
