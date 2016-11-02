@@ -785,6 +785,38 @@ using EloBuddy;
             return sumIntersectDist;
         }
 
+        public static Vector3 GetNearWallPoint(Vector3 start, Vector3 end)
+        {
+            var direction = (end - start).Normalized();
+            var distance = start.Distance(end);
+            for (var i = 20; i < distance; i += 20)
+            {
+                var v = end - direction * i;
+                if (!v.IsWall())
+                {
+                    return v;
+                }
+            }
+
+            return Vector3.Zero;
+        }
+
+        public static Vector3 GetNearWallPoint(Vector2 start, Vector2 end)
+        {
+            var direction = (end - start).Normalized();
+            var distance = start.Distance(end);
+            for (var i = 20; i < distance; i += 20)
+            {
+                var v = end - direction * i;
+                if (!v.IsWall())
+                {
+                    return v.To3D();
+                }
+            }
+
+            return Vector3.Zero;
+        }
+
         public static float GetIntersectDistance(Spell spell, Vector2 start, Vector2 end)
         {
             if (spell == null)
@@ -849,7 +881,7 @@ using EloBuddy;
 
                 closestDistance = Math.Min(closestDistance, GetClosestDistanceApproach(spell, pos, speed, delay, heroPos, extraDist));
 
-                if (pos.InSkillShot(spell, ObjectCache.myHeroCache.boundingRadius - 10) 
+                if (pos.InSkillShot(spell, ObjectCache.myHeroCache.boundingRadius - 6) 
                     || PredictSpellCollision(spell, pos, speed, delay, heroPos, extraDist, useServerPosition)
                     || (spell.info.spellType != SpellType.Line && pos.isNearEnemy(minComfortDistance)))
                 {
@@ -941,6 +973,26 @@ using EloBuddy;
                 if (spell.info.spellName == "VeigarEventHorizon")
                 {
                     var wallRadius = 65;
+                    var midRadius = spell.radius - wallRadius;
+
+                    if (spellHitTime == 0)
+                    {
+                        return 0;
+                    }
+
+                    if (tHeroPos.Distance(spell.endPos) >= spell.radius)
+                    {
+                        return Math.Max(0, tHeroPos.Distance(spell.endPos) - midRadius - wallRadius);
+                    }
+                    else
+                    {
+                        return Math.Max(0, midRadius - tHeroPos.Distance(spell.endPos) - wallRadius);
+                    }
+                }
+
+                if (spell.info.spellName == "DariusCleave")
+                {
+                    var wallRadius = 225;
                     var midRadius = spell.radius - wallRadius;
 
                     if (spellHitTime == 0)
@@ -1098,6 +1150,7 @@ using EloBuddy;
                     return CheckMoveToDirection(EvadeSpell.lastSpellEvadeCommand.targetPosition, movePos);
                 }
             }*/
+
             var startPoint = myHero.Position;
             
             if (myHero.IsDashing())
@@ -1162,6 +1215,21 @@ using EloBuddy;
                                 return true;
                             }
                             else if (from.Distance(spell.endPos) > spell.radius && cpa2 < spell.radius + 10)
+                            {
+                                return true;
+                            }
+                        }
+                        else if (spell.info.spellName == "DariusCleave")
+                        {
+                            var cpa3 = MathUtilsCPA.CPAPointsEx(from, dir * ObjectCache.myHeroCache.moveSpeed, spell.endPos, new Vector2(0, 0), movePos, spell.endPos);
+
+                            if (from.Distance(spell.endPos) < spell.radius &&
+                                !(from.Distance(spell.endPos) < spell.radius - 230 &&
+                                  movePos.Distance(spell.endPos) < spell.radius - 230))
+                            {
+                                return true;
+                            }
+                            else if (from.Distance(spell.endPos) > spell.radius && cpa3 < spell.radius + 10)
                             {
                                 return true;
                             }

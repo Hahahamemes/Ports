@@ -80,7 +80,7 @@ using EloBuddy;
                 }
                 else
                 {
-                    EloBuddy.SDK.Events.Loading.OnLoadingComplete += Game_OnGameLoad;
+                    Game.OnLoad += Game_OnGameLoad;
                 }
             });
         }
@@ -99,9 +99,9 @@ using EloBuddy;
                 SpellDetector.OnProcessDetectedSpells += SpellDetector_OnProcessDetectedSpells;
                 Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
 
-                /*Console.WriteLine("<font color=\"#66CCFF\" >Yomie's </font><font color=\"#CCFFFF\" >ezEvade</font> - " +
+                Chat.Print("<font color=\"#66CCFF\" >Yomie's </font><font color=\"#CCFFFF\" >ezEvade</font> - " +
                    "<font color=\"#FFFFFF\" >Version " + Assembly.GetExecutingAssembly().GetName().Version + "</font>");
-                */
+
 
                 menu = new Menu("ezEvade", "ezEvade", true);
 
@@ -373,6 +373,7 @@ using EloBuddy;
                 menu.Item("DodgeDangerousKeyEnabled").SetValue(true);
                 menu.Item("DodgeDangerousKey2").SetValue(new KeyBind(109, KeyBindType.Press));
                 menu.Item("HigherPrecision").SetValue(true);
+                menu.Item("CheckSpellCollision").SetValue(true);
                 menu.Item("PreventDodgingUnderTower").SetValue(true);
                 menu.Item("ShowStatus").SetValue(false);
                 menu.Item("DrawSpellPos").SetValue(true);

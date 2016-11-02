@@ -100,7 +100,7 @@ using EloBuddy;
                     {
                         var start = sphere.Position;
                         var end = hero.ServerPosition + (sphere.Position - hero.ServerPosition).Normalized() * spellData.range;
-                        var data = spellData.CopyData();
+                        var data = (SpellData) spellData.Clone();
                         data.spellDelay = sphere.Distance(hero.ServerPosition) / spellData.projectileSpeed * 1000;
                         SpellDetector.CreateSpellData(hero, start, end, data, sphere);
                     }
@@ -116,7 +116,7 @@ using EloBuddy;
                     {
                         var start = spherePosition;
                         var end = hero.ServerPosition + (spherePosition - hero.ServerPosition).Normalized() * spellData.range;
-                        var data = spellData.CopyData();
+                        var data = (SpellData) spellData.Clone();
                         data.spellDelay = spherePosition.Distance(hero.ServerPosition) / spellData.projectileSpeed * 1000;
                         SpellDetector.CreateSpellData(hero, start, end, data, null);
                     }

@@ -187,7 +187,7 @@ using EloBuddy;
                 {
                     bool canEvade = true;
                     //bool canEvade = !(Evade.lastPosInfo != null && Evade.lastPosInfo.undodgeableSpells.Contains(spell.spellID));
-                  
+             
                     if (spell.spellType == SpellType.Line)
                     {
                         Vector2 spellPos = spell.currentSpellPosition;
@@ -225,6 +225,10 @@ using EloBuddy;
                         if (spell.info.spellName == "VeigarEventHorizon")
                         {
                             Render.Circle.DrawCircle(new Vector3(spell.endPos.X, spell.endPos.Y, spell.height), (int) spell.radius - 125, !canEvade ? Color.Yellow : spellDrawingConfig.Color, spellDrawingWidth);
+                        }
+                        else if (spell.info.spellName == "DariusCleave")
+                        {
+                            Render.Circle.DrawCircle(new Vector3(spell.endPos.X, spell.endPos.Y, spell.height), (int) spell.radius - 220, !canEvade ? Color.Yellow : spellDrawingConfig.Color, spellDrawingWidth);
                         }
                     }
                     else if (spell.spellType == SpellType.Arc)

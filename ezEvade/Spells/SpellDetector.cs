@@ -81,7 +81,6 @@ using EloBuddy;
                 missile.SData.Name != null && onMissileSpells.TryGetValue(missile.SData.Name.ToLower(), out spellData)
                 && missile.StartPosition != null && missile.EndPosition != null)
             {
-
                 if (missile.StartPosition.Distance(myHero.Position) < spellData.range + 1000)
                 {
                     var hero = missile.SpellCaster;
@@ -102,11 +101,11 @@ using EloBuddy;
 
                             var dir = (missile.EndPosition.To2D() - missile.StartPosition.To2D()).Normalized();
 
-                            if (spell.info.isThreeWay == false && spell.info.isSpecial == false)
+                            if (spell.info.missileName.ToLower() == missile.SData.Name.ToLower()) // todo: fix urf spells
                             {
-                                if (spell.info.missileName == missile.SData.Name.ToLower()) // todo: fix urf spells
+                                if (spell.heroID == hero.NetworkId && dir.AngleBetween(spell.direction) < 10)
                                 {
-                                    if (spell.heroID == hero.NetworkId && dir.AngleBetween(spell.direction) < 10)
+                                    if (spell.info.isThreeWay == false && spell.info.isSpecial == false)
                                     {
                                         spell.spellObject = obj;
                                         objectAssigned = true;
@@ -138,13 +137,10 @@ using EloBuddy;
                 return;
 
             MissileClient missile = (MissileClient)obj;
-            //SpellData spellData;
 
             foreach (var spell in spells.Values.ToList().Where(
                     s => (s.spellObject != null && s.spellObject.NetworkId == obj.NetworkId))) //isAlive
             {
-                //Console.WriteLine("Distance: " + obj.Position.Distance(myHero.Position));
-
                 DelayAction.Add(1, () => DeleteSpell(spell.spellID));
             }
         }      
@@ -157,6 +153,7 @@ using EloBuddy;
                 DelayAction.Add(1, () => DeleteSpell(spell.spellID));
             }
         }
+
         private void Game_ProcessSpell(Obj_AI_Base hero, GameObjectProcessSpellCastEventArgs args)
         {
             try
@@ -180,7 +177,6 @@ using EloBuddy;
                                     Spell spell = entry.Value;
 
                                     var dir = (args.End.To2D() - args.Start.To2D()).Normalized();
-
                                     if (spell.spellObject != null)
                                     {
                                         if (spell.info.spellName.ToLower() == args.SData.Name.ToLower()) // todo: fix urf spells
@@ -197,7 +193,7 @@ using EloBuddy;
 
                             if (foundMissile == false || spellData.dontcheckDuplicates)
                             {
-                                CreateSpellData(hero, hero.ServerPosition, args.End, spellData, null);
+                                CreateSpellData(hero, hero.ServerPosition, args.End, spellData);
                             }
                         }
                     }
@@ -218,12 +214,7 @@ using EloBuddy;
                 CreateSpellData(hero, spellStartPos, spellEndPos, spellData,
                     obj, extraEndTick, false, spellData.spellType, false);
 
-                var expData = spellData.CopyData();
-
-                if (expData.spellType == SpellType.Line && !expData.name.Contains("_exp"))
-                    expData.name = spellData.name + "_exp";
-
-                CreateSpellData(hero, spellStartPos, spellEndPos, expData,
+                CreateSpellData(hero, spellStartPos, spellEndPos, spellData,
                     obj, extraEndTick, true, SpellType.Circular, false);
 
                 return;
@@ -231,10 +222,10 @@ using EloBuddy;
 
             if (spellStartPos.Distance(myHero.Position) < spellData.range + 1000)
             {
-                Vector2 startPosition = spellStartPos.To2D();
-                Vector2 endPosition = spellEndPos.To2D();
-                Vector2 direction = (endPosition - startPosition).Normalized();
-                float endTick = 0;
+                var startPosition = spellStartPos.To2D();
+                var endPosition = spellEndPos.To2D();
+                var direction = (endPosition - startPosition).Normalized();
+                var endTick = 0f;
 
                 if (spellType == SpellType.None)
                 {
@@ -251,6 +242,15 @@ using EloBuddy;
                 {
                     endTick = spellData.spellDelay + (spellData.range / spellData.projectileSpeed) * 1000;
                     endPosition = startPosition + direction * spellData.range;
+
+                    if (spellData.fixedRange) // for all lines
+                    {
+                        if (endPosition.Distance(startPosition) > spellData.range)
+                            endPosition = startPosition + direction * spellData.range;
+
+                        if (endPosition.Distance(startPosition) < spellData.range)
+                            endPosition = startPosition + direction * spellData.range;
+                    }
 
                     if (spellData.useEndPosition)
                     {
@@ -274,14 +274,14 @@ using EloBuddy;
                     {
                         endTick = endTick + 1000 * startPosition.Distance(endPosition) / spellData.projectileSpeed;
 
-                        if (spellData.spellType == SpellType.Line && spellData.hasEndExplosion && !spellData.useEndPosition)
+                        if (spellData.spellType == SpellType.Line && spellData.hasEndExplosion)
                         {
-                            if (ObjectCache.menuCache.cache["CheckSpellCollision"].GetValue<bool>())
-                                endPosition = startPosition;
-                            else
+                            if (!spellData.useEndPosition)
+                            {
                                 endPosition = startPosition + direction * spellData.range;
+                            }
                         }
-                    }
+                    }              
                 }
                 else if (spellType == SpellType.Arc)
                 {
@@ -398,15 +398,14 @@ using EloBuddy;
             foreach (KeyValuePair<int, Spell> entry in detectedSpells)
             {
                 Spell spell = entry.Value;
+
                 var collisionObject = spell.CheckSpellCollision();
                 if (collisionObject != null)
                 {
                     spell.predictedEndPos = spell.GetSpellProjection(collisionObject.ServerPosition.To2D());
 
-                    var radius = spell.info.name.Contains("_exp") ? spell.info.secondaryRadius : spell.radius;
-
                     if (spell.currentSpellPosition.Distance(collisionObject.ServerPosition) <
-                        collisionObject.BoundingRadius + radius)
+                        collisionObject.BoundingRadius + spell.radius)
                     {
                         DelayAction.Add(1, () => DeleteSpell(entry.Key));
                     }

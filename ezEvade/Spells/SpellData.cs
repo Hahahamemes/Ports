@@ -27,7 +27,7 @@ using EloBuddy;
         YasuoWall
     }
 
-    public class SpellData
+    public class SpellData : ICloneable
     {            
         public string charName;
         public SpellSlot spellKey = SpellSlot.Q;
@@ -59,6 +59,7 @@ using EloBuddy;
         public bool hasEndExplosion = false;
         public bool dontcheckDuplicates = false;
         public bool isSpecial = false;
+        public bool updatePosition = true;
         public float extraDrawHeight = 0;
         public string[] extraSpellNames = { };
         public string[] extraMissileNames = { };
@@ -86,6 +87,11 @@ using EloBuddy;
             this.radius = radius;
             this.dangerlevel = dangerlevel;
             this.spellType = spellType;
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }
