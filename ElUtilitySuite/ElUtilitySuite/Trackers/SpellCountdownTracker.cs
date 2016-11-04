@@ -157,15 +157,15 @@ using EloBuddy;
 
             menu.AddItem(new MenuItem("XPos", "X Position").SetValue(new Slider(Drawing.Width - BoxWidth, 0, Drawing.Width)));
             menu.AddItem(new MenuItem("YPos", "Y Position").SetValue(new Slider(Drawing.Height - BoxHeight * 4, 0, Drawing.Height)));
-            menu.AddItem(new MenuItem("DrawCards", "Draw Cards").SetValue(false));
-            menu.AddItem(new MenuItem("DrawTeleport", "Draw Teleports").SetValue(false));
+            menu.AddItem(new MenuItem("DrawCards", "Draw Cards").SetValue(true));
+            menu.AddItem(new MenuItem("DrawTeleport", "Draw Teleports").SetValue(true));
             menu.AddItem(new MenuItem("AddTestCard", "Draw Test Card").SetValue(false).DontSave());
             menu.AddItem(new MenuItem("empty-line-3000", string.Empty));
 
             foreach (var enemy in HeroManager.Enemies)
             {
                 menu.AddItem(new MenuItem($"Track.{enemy.CharData.BaseSkinName}", "Track " + enemy.ChampionName))
-                    .SetValue(false);
+                    .SetValue(true);
             }
 
             menu.Item("AddTestCard").ValueChanged += (sender, args) =>

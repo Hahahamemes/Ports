@@ -71,7 +71,10 @@ using EloBuddy;
         /// <value>
         ///     <c>true</c> if combo mode is active; otherwise, <c>false</c>.
         /// </value>
-        public bool ComboModeActive => Entry.Menu.Item("usecombo").GetValue<KeyBind>().Active || Orbwalking.Orbwalker.Instances.Any(x => x.ActiveMode == Orbwalking.OrbwalkingMode.Combo);
+        public bool ComboModeActive
+            =>
+            Entry.Menu.Item("usecombo").GetValue<KeyBind>().Active
+            || Orbwalking.Orbwalker.Instances.Any(x => x.ActiveMode == Orbwalking.OrbwalkingMode.Combo);
 
         #endregion
 
@@ -88,7 +91,11 @@ using EloBuddy;
         /// <summary>
         ///     Long hair dont care
         /// </summary>
-        public static readonly List<string> TrueStandard = new List<string> { "Stun", "Charm", "Flee", "Fear", "Taunt", "Polymorph", "Suppression" };
+        public static readonly List<string> TrueStandard = new List<string>
+                                                               {
+                                                                   "Stun", "Charm", "Flee", "Fear", "Taunt",
+                                                                   "Polymorph", "Suppression"
+                                                               };
 
         /// <summary>
         ///     Credits to Exory
@@ -99,8 +106,12 @@ using EloBuddy;
         /// <summary>
         ///     Invalid stun buff casters
         /// </summary>
-        public static readonly List<string> InvalidStunCasters = new List<string> { "Amumu", "LeeSin", "Alistar", "Hecarim", "Blitzcrank" };
-        
+        public static readonly List<string> InvalidStunCasters = new List<string>
+                                                                     {
+                                                                         "Amumu", "LeeSin", "Alistar", "Hecarim",
+                                                                         "Blitzcrank"
+                                                                     };
+
         /// <summary>
         ///     Invalid root buff casters
         /// </summary>
@@ -119,33 +130,32 @@ using EloBuddy;
         /// </summary>
         static Cleanse2()
         {
-
             Spells = new List<CleanseIgnore>
                          {
-                            new CleanseIgnore { Champion = "Ashe", Spellname = "frostarrow" },
-                            new CleanseIgnore { Champion = "Ashe", Spellname = "ashepassiveslow" },
-                            new CleanseIgnore { Champion = "Vi", Spellname = "vir" },
-                            new CleanseIgnore { Champion = "Yasuo", Spellname = "yasuorknockupcombo" },
-                            new CleanseIgnore { Champion = "Yasuo", Spellname = "yasuorknockupcombotar" },
-                            new CleanseIgnore { Champion = "Zyra", Spellname = "zyrabramblezoneknockup" },
-                            new CleanseIgnore { Champion = "Velkoz", Spellname = "velkozresearchstack" },
-                            new CleanseIgnore { Champion = "Darius", Spellname = "dariusaxebrabcone" },
-                            new CleanseIgnore { Champion = "Fizz", Spellname = "fizzmoveback" },
-                            new CleanseIgnore { Champion = "Blitzcrank", Spellname = "rocketgrab2" },
-                            new CleanseIgnore { Champion = "Alistar", Spellname = "pulverize" },
-                            new CleanseIgnore { Champion = "Azir", Spellname = "azirqslow" },
-                            new CleanseIgnore { Champion = "Rammus", Spellname = "powerballslow" },
-                            new CleanseIgnore { Champion = "Rammus", Spellname = "powerballstun" },
-                            new CleanseIgnore { Champion = "MonkeyKing", Spellname = "monkeykingspinknockup" },
-                            new CleanseIgnore { Champion = "Alistar", Spellname = "headbutttarget" },
-                            new CleanseIgnore { Champion = "Hecarim", Spellname = "hecarimrampstuncheck" },
-                            new CleanseIgnore { Champion = "Hecarim", Spellname = "hecarimrampattackknockback" },
-                            new CleanseIgnore { Spellname = "frozenheartaura" },
-                            new CleanseIgnore { Spellname = "frozenheartauracosmetic" },
-                            new CleanseIgnore { Spellname = "itemsunfirecapeaura" },
-                            new CleanseIgnore { Spellname = "blessingofthelizardelderslow" },
-                            new CleanseIgnore { Spellname = "dragonburning" },
-                            new CleanseIgnore { Spellname = "chilled" }
+                             new CleanseIgnore { Champion = "Ashe", Spellname = "frostarrow" },
+                             new CleanseIgnore { Champion = "Ashe", Spellname = "ashepassiveslow" },
+                             new CleanseIgnore { Champion = "Vi", Spellname = "vir" },
+                             new CleanseIgnore { Champion = "Yasuo", Spellname = "yasuorknockupcombo" },
+                             new CleanseIgnore { Champion = "Yasuo", Spellname = "yasuorknockupcombotar" },
+                             new CleanseIgnore { Champion = "Zyra", Spellname = "zyrabramblezoneknockup" },
+                             new CleanseIgnore { Champion = "Velkoz", Spellname = "velkozresearchstack" },
+                             new CleanseIgnore { Champion = "Darius", Spellname = "dariusaxebrabcone" },
+                             new CleanseIgnore { Champion = "Fizz", Spellname = "fizzmoveback" },
+                             new CleanseIgnore { Champion = "Blitzcrank", Spellname = "rocketgrab2" },
+                             new CleanseIgnore { Champion = "Alistar", Spellname = "pulverize" },
+                             new CleanseIgnore { Champion = "Azir", Spellname = "azirqslow" },
+                             new CleanseIgnore { Champion = "Rammus", Spellname = "powerballslow" },
+                             new CleanseIgnore { Champion = "Rammus", Spellname = "powerballstun" },
+                             new CleanseIgnore { Champion = "MonkeyKing", Spellname = "monkeykingspinknockup" },
+                             new CleanseIgnore { Champion = "Alistar", Spellname = "headbutttarget" },
+                             new CleanseIgnore { Champion = "Hecarim", Spellname = "hecarimrampstuncheck" },
+                             new CleanseIgnore { Champion = "Hecarim", Spellname = "hecarimrampattackknockback" },
+                             new CleanseIgnore { Spellname = "frozenheartaura" },
+                             new CleanseIgnore { Spellname = "frozenheartauracosmetic" },
+                             new CleanseIgnore { Spellname = "itemsunfirecapeaura" },
+                             new CleanseIgnore { Spellname = "blessingofthelizardelderslow" },
+                             new CleanseIgnore { Spellname = "dragonburning" },
+                             new CleanseIgnore { Spellname = "chilled" }
                          };
         }
 
@@ -175,7 +185,6 @@ using EloBuddy;
             #endregion
         }
 
-
         /// <summary>
         ///     Creates the menu.
         /// </summary>
@@ -185,35 +194,40 @@ using EloBuddy;
             this.CreateItems();
             this.BuffsToCleanse = this.Items.SelectMany(x => x.WorksOn).Distinct();
 
-            var predicate = new Func<Menu, bool>(x => x.Name == "SummonersMenu");
-            var menu = rootMenu.Children.Any(predicate)
-                           ? rootMenu.Children.First(predicate)
-                           : rootMenu.AddSubMenu(new Menu("Summoners", "SummonersMenu"));
-
+            //var predicate = new Func<Menu, bool>(x => x.Name == "SummonersMenu");
+            //var menu = rootMenu.Children.Any(predicate)
+            //               ? rootMenu.Children.First(predicate)
+            //               : rootMenu.AddSubMenu(new Menu("Summoners", "SummonersMenu"));
 
             Menu = new Menu("Cleanse/QSS", "BuffTypeStyleCleanser").SetFontStyle(FontStyle.Bold, Color.Red);
             {
                 var newCleanseMenu = Menu.SubMenu("Cleanse NEW").SetFontStyle(FontStyle.Bold, Color.Green);
 
-                newCleanseMenu.SubMenu("Humanizer Delay").AddItem(
-                          new MenuItem("MinHumanizerDelay", "Min Humanizer Delay (MS)").SetValue(new Slider(100, 0, 500)));
-                newCleanseMenu.SubMenu("Humanizer Delay").AddItem(
-                    new MenuItem("MaxHumanizerDelay", "Max Humanizer Delay (MS)").SetValue(new Slider(150, 0, 500)));
-                newCleanseMenu.SubMenu("Humanizer Delay").AddItem(new MenuItem("HumanizerEnabled", "Enabled").SetValue(false));
-
+                newCleanseMenu.SubMenu("Humanizer Delay")
+                    .AddItem(
+                        new MenuItem("MinHumanizerDelay", "Min Humanizer Delay (MS)").SetValue(new Slider(100, 0, 500)));
+                newCleanseMenu.SubMenu("Humanizer Delay")
+                    .AddItem(
+                        new MenuItem("MaxHumanizerDelay", "Max Humanizer Delay (MS)").SetValue(new Slider(150, 0, 500)));
+                newCleanseMenu.SubMenu("Humanizer Delay")
+                    .AddItem(new MenuItem("HumanizerEnabled", "Enabled").SetValue(false));
 
                 foreach (var buffType in this.BuffsToCleanse.Select(x => x.ToString()))
                 {
-                    newCleanseMenu.SubMenu("Buff Types").AddItem(new MenuItem($"3Cleanse{buffType}", buffType).SetValue(TrueStandard.Contains($"{buffType}")));
+                    newCleanseMenu.SubMenu("Buff Types")
+                        .AddItem(
+                            new MenuItem($"3Cleanse{buffType}", buffType).SetValue(TrueStandard.Contains($"{buffType}")));
                 }
 
-                newCleanseMenu.AddItem(new MenuItem("MinDuration", "Minimum Duration (MS)").SetValue(new Slider(500, 0, 25000)))
-                .SetTooltip("The minimum duration of the spell to get cleansed");
+                newCleanseMenu.AddItem(
+                        new MenuItem("MinDuration", "Minimum Duration (MS)").SetValue(new Slider(500, 0, 25000)))
+                    .SetTooltip("The minimum duration of the spell to get cleansed");
 
                 newCleanseMenu.AddItem(new MenuItem("CleanseEnabled.ComboOnly", "Only use in combo").SetValue(false));
 
                 newCleanseMenu.AddItem(new MenuItem("CleanseEnabled.Health", "Cleanse on health").SetValue(false));
-                newCleanseMenu.AddItem(new MenuItem("Cleanse.HealthPercent", "Cleanse when HP <=").SetValue(new Slider(75)));
+                newCleanseMenu.AddItem(
+                    new MenuItem("Cleanse.HealthPercent", "Cleanse when HP <=").SetValue(new Slider(75)));
 
                 newCleanseMenu.AddItem(new MenuItem("CleanseEnabled", "Enabled").SetValue(true))
                     .SetTooltip("Settings also apply on mikael's crucible.");
@@ -221,10 +235,10 @@ using EloBuddy;
                     .SetFontStyle(FontStyle.Bold, Color.GreenYellow)
                     .SetTooltip("Counts for QSS and Mikaels usage");
 
-
                 foreach (var allies in HeroManager.Allies)
                 {
-                    newCleanseMenu.AddItem(new MenuItem($"3cleanseon{allies.ChampionName}", "Use on " + allies.ChampionName))
+                    newCleanseMenu.AddItem(
+                            new MenuItem($"3cleanseon{allies.ChampionName}", "Use on " + allies.ChampionName))
                         .SetValue(true);
                 }
 
@@ -242,6 +256,7 @@ using EloBuddy;
         {
             this.Random = new Random(Environment.TickCount);
             HeroManager.Allies.ForEach(x => this.BuffIndexesHandled.Add(x.NetworkId, new List<int>()));
+
             Game.OnUpdate += this.OnUpdate;
         }
 
@@ -260,9 +275,9 @@ using EloBuddy;
                                      {
                                          Slot =
                                              () =>
-                                             Player.GetSpellSlot("summonerboost") == SpellSlot.Unknown
-                                                 ? SpellSlot.Unknown
-                                                 : Player.GetSpellSlot("summonerboost"),
+                                                 Player.GetSpellSlot("summonerboost") == SpellSlot.Unknown
+                                                     ? SpellSlot.Unknown
+                                                     : Player.GetSpellSlot("summonerboost"),
                                          WorksOn =
                                              new[]
                                                  {
@@ -282,10 +297,9 @@ using EloBuddy;
                                          WorksOn =
                                              new[]
                                                  {
-                                                     BuffType.Blind, BuffType.Charm, BuffType.Flee,
-                                                     BuffType.Slow, BuffType.Polymorph, BuffType.Silence,
-                                                     BuffType.Snare, BuffType.Stun, BuffType.Taunt,
-                                                     BuffType.Damage, BuffType.Suppression
+                                                     BuffType.Blind, BuffType.Charm, BuffType.Flee, BuffType.Slow,
+                                                     BuffType.Polymorph, BuffType.Silence, BuffType.Snare, BuffType.Stun,
+                                                     BuffType.Taunt, BuffType.Damage, BuffType.Suppression
                                                  },
                                          Priority = 0
                                      },
@@ -299,10 +313,9 @@ using EloBuddy;
                                          WorksOn =
                                              new[]
                                                  {
-                                                     BuffType.Blind, BuffType.Charm, BuffType.Flee,
-                                                     BuffType.Slow, BuffType.Polymorph, BuffType.Silence,
-                                                     BuffType.Snare, BuffType.Stun, BuffType.Taunt,
-                                                     BuffType.Damage, BuffType.Suppression
+                                                     BuffType.Blind, BuffType.Charm, BuffType.Flee, BuffType.Slow,
+                                                     BuffType.Polymorph, BuffType.Silence, BuffType.Snare, BuffType.Stun,
+                                                     BuffType.Taunt, BuffType.Damage, BuffType.Suppression
                                                  },
                                          Priority = 0
                                      },
@@ -316,10 +329,9 @@ using EloBuddy;
                                          WorksOn =
                                              new[]
                                                  {
-                                                     BuffType.Blind, BuffType.Charm, BuffType.Flee,
-                                                     BuffType.Slow, BuffType.Polymorph, BuffType.Silence,
-                                                     BuffType.Snare, BuffType.Stun, BuffType.Taunt,
-                                                     BuffType.Damage, BuffType.Suppression
+                                                     BuffType.Blind, BuffType.Charm, BuffType.Flee, BuffType.Slow,
+                                                     BuffType.Polymorph, BuffType.Silence, BuffType.Snare, BuffType.Stun,
+                                                     BuffType.Taunt, BuffType.Damage, BuffType.Suppression
                                                  },
                                          Priority = 0
                                      },
@@ -333,9 +345,8 @@ using EloBuddy;
                                          WorksOn =
                                              new[]
                                                  {
-                                                     BuffType.Stun, BuffType.Snare, BuffType.Taunt,
-                                                     BuffType.Silence, BuffType.Slow,
-                                                     BuffType.Fear, BuffType.Suppression
+                                                     BuffType.Stun, BuffType.Snare, BuffType.Taunt, BuffType.Silence,
+                                                     BuffType.Slow, BuffType.Fear, BuffType.Suppression
                                                  },
                                          WorksOnAllies = true, Priority = 1
                                      }
@@ -350,27 +361,13 @@ using EloBuddy;
         /// <returns></returns>
         private Spell GetBestCleanseItem(GameObject ally, BuffInstance buff)
         {
-            foreach (var item in Items.OrderBy(x => x.Priority))
-            {
-                if (!item.WorksOn.Any(x => buff.Type.HasFlag(x)))
-                {
-                    continue;
-                }
-
-                if (!(ally.IsMe || item.WorksOnAllies))
-                {
-                    continue;
-                }
-
-                if (!item.Spell.IsReady() || !item.Spell.IsInRange(ally) || item.Spell.Slot == SpellSlot.Unknown)
-                {
-                    continue;
-                }
-
-                return item.Spell;
-            }
-
-            return null;
+            return
+                this.Items.OrderBy(x => x.Priority)
+                    .Where(x => x.WorksOn.Any(y => buff.Type.HasFlag(y)))
+                    .Where(x => ally.IsMe || x.WorksOnAllies)
+                    .Where(x => x.Spell.IsReady() && x.Spell.IsInRange(ally) && x.Spell.Slot != SpellSlot.Unknown)
+                    .Select(item => item.Spell)
+                    .FirstOrDefault();
         }
 
         private void OnUpdate(EventArgs args)
@@ -387,20 +384,36 @@ using EloBuddy;
 
             foreach (var ally in HeroManager.Allies.Where(x => x.IsValidTarget(800f, false)))
             {
-                foreach (
-                    var buff in
-                        ally.Buffs.Where(
-                            x =>
-                            this.BuffsToCleanse.Contains(x.Type) && x.Caster.Type == GameObjectType.AIHeroClient && x.Caster.IsEnemy))
+                foreach (var buff in
+                    ally.Buffs.Where(
+                        x =>
+                            this.BuffsToCleanse.Contains(x.Type) && x.Caster.Type == GameObjectType.AIHeroClient
+                            && x.Caster.IsEnemy))
                 {
                     if (!Menu.Item($"3Cleanse{buff.Type}").IsActive()
-                        || Menu.Item("MinDuration").GetValue<Slider>().Value / 1000f
-                        > buff.EndTime - buff.StartTime || this.BuffIndexesHandled[ally.NetworkId].Contains(buff.Index) || Spells.Any(b => buff.Name.Equals(b.Spellname, StringComparison.InvariantCultureIgnoreCase) || !Menu.Item($"3cleanseon{ally.ChampionName}").IsActive()))
+                        || Menu.Item("MinDuration").GetValue<Slider>().Value / 1000f > buff.EndTime - buff.StartTime
+                        || this.BuffIndexesHandled[ally.NetworkId].Contains(buff.Index)
+                        || Spells.Any(
+                            b =>
+                                buff.Name.Equals(b.Spellname, StringComparison.InvariantCultureIgnoreCase)
+                                || !Menu.Item($"3cleanseon{ally.ChampionName}").IsActive()))
                     {
                         continue;
                     }
 
-                    if (buff.Type == BuffType.Snare && InvalidRootCasters.Contains(((AIHeroClient)buff.Caster).ChampionName, StringComparer.InvariantCultureIgnoreCase) || buff.Type == BuffType.Snare && InvalidSnareCasters.Contains(((AIHeroClient)buff.Caster).ChampionName, StringComparer.InvariantCultureIgnoreCase) || buff.Type == BuffType.Stun && InvalidStunCasters.Contains(((AIHeroClient)buff.Caster).ChampionName, StringComparer.InvariantCultureIgnoreCase))
+                    // FIXME: Are you sure this works?
+                    if (buff.Type == BuffType.Snare
+                        && InvalidRootCasters.Contains(
+                            ((AIHeroClient)buff.Caster).ChampionName,
+                            StringComparer.InvariantCultureIgnoreCase)
+                        || buff.Type == BuffType.Snare
+                        && InvalidSnareCasters.Contains(
+                            ((AIHeroClient)buff.Caster).ChampionName,
+                            StringComparer.InvariantCultureIgnoreCase)
+                        || buff.Type == BuffType.Stun
+                        && InvalidStunCasters.Contains(
+                            ((AIHeroClient)buff.Caster).ChampionName,
+                            StringComparer.InvariantCultureIgnoreCase))
                     {
                         continue;
                     }
@@ -410,7 +423,7 @@ using EloBuddy;
                     {
                         continue;
                     }
-    
+
                     this.BuffIndexesHandled[ally.NetworkId].Add(buff.Index);
 
                     if (Menu.Item("HumanizerEnabled").IsActive())
@@ -423,31 +436,39 @@ using EloBuddy;
                                     Menu.Item("MaxHumanizerDelay").GetValue<Slider>().Value),
                                 (buff.StartTime - buff.EndTime) * 1000),
                             () =>
-                            {
-                                if (Menu.Item("CleanseEnabled.Health").IsActive())
                                 {
-                                    if (Menu.Item("Cleanse.HealthPercent").GetValue<Slider>().Value <= ObjectManager.Player.HealthPercent)
+                                    if (Menu.Item("CleanseEnabled.Health").IsActive())
+                                    {
+                                        if (
+                                            !(Menu.Item("Cleanse.HealthPercent").GetValue<Slider>().Value
+                                              <= ObjectManager.Player.HealthPercent))
+                                        {
+                                            return;
+                                        }
+
+                                        cleanseItem.Cast(ally);
+                                        this.BuffIndexesHandled[ally.NetworkId].Remove(buff.Index);
+                                    }
+                                    else
                                     {
                                         cleanseItem.Cast(ally);
                                         this.BuffIndexesHandled[ally.NetworkId].Remove(buff.Index);
                                     }
-                                }
-                                else
-                                {
-                                    cleanseItem.Cast(ally);
-                                    this.BuffIndexesHandled[ally.NetworkId].Remove(buff.Index);
-                                }
-                            });
+                                });
                     }
                     else
                     {
                         if (Menu.Item("CleanseEnabled.Health").IsActive())
                         {
-                            if (Menu.Item("Cleanse.HealthPercent").GetValue<Slider>().Value <= ObjectManager.Player.HealthPercent)
+                            if (
+                                !(Menu.Item("Cleanse.HealthPercent").GetValue<Slider>().Value
+                                  <= ObjectManager.Player.HealthPercent))
                             {
-                                cleanseItem.Cast(ally);
-                                this.BuffIndexesHandled[ally.NetworkId].Remove(buff.Index);
+                                continue;
                             }
+
+                            cleanseItem.Cast(ally);
+                            this.BuffIndexesHandled[ally.NetworkId].Remove(buff.Index);
                         }
                         else
                         {
@@ -467,19 +488,6 @@ using EloBuddy;
     /// </summary>
     public class CleanseItem
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="CleanseItem" /> class.
-        /// </summary>
-        public CleanseItem()
-        {
-            this.Range = float.MaxValue;
-            this.WorksOnAllies = false;
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -496,7 +504,7 @@ using EloBuddy;
         /// <value>
         ///     The range.
         /// </value>
-        public float Range { get; set; }
+        public float Range { get; set; } = float.MaxValue;
 
         /// <summary>
         ///     Gets or sets the slot delegate.
@@ -528,7 +536,7 @@ using EloBuddy;
         /// <value>
         ///     <c>true</c> if the spell works on allies; otherwise, <c>false</c>.
         /// </value>
-        public bool WorksOnAllies { get; set; }
+        public bool WorksOnAllies { get; set; } = false;
 
         #endregion
     }

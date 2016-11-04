@@ -603,9 +603,9 @@ namespace ElUtilitySuite.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap jhin {
+        internal static System.Drawing.Bitmap Jhin {
             get {
-                object obj = ResourceManager.GetObject("jhin", resourceCulture);
+                object obj = ResourceManager.GetObject("Jhin", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -706,16 +706,6 @@ namespace ElUtilitySuite.Properties {
         internal static System.Drawing.Bitmap Kindred {
             get {
                 object obj = ResourceManager.GetObject("Kindred", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Kled {
-            get {
-                object obj = ResourceManager.GetObject("Kled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1213,9 +1203,9 @@ namespace ElUtilitySuite.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap taliyah {
+        internal static System.Drawing.Bitmap Taliyah {
             get {
-                object obj = ResourceManager.GetObject("taliyah", resourceCulture);
+                object obj = ResourceManager.GetObject("Taliyah", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1257,16 +1247,6 @@ namespace ElUtilitySuite.Properties {
             get {
                 object obj = ResourceManager.GetObject("Thresh", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Thumbs {
-            get {
-                object obj = ResourceManager.GetObject("Thumbs", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         

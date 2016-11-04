@@ -438,7 +438,7 @@ using EloBuddy;
 
                 _initialized = true;
 
-                EloBuddy.SDK.Events.Loading.OnLoadingComplete += delegate
+                CustomEvents.Game.OnGameLoad += delegate
                 {
                     Player = ObjectManager.Player;
 
