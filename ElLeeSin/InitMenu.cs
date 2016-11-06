@@ -46,7 +46,7 @@
             Menu.SubMenu("Combo").AddItem(new MenuItem("ElLeeSin.Combo.KS.R", "KS R").SetValue(true));
             Menu.SubMenu("Combo")
                 .AddItem(
-                    new MenuItem("starCombo", "Star Combo").SetValue(
+                    new MenuItem("starCombo", "BuckFrandon Combo :^)").SetValue(
                         new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
 
             Menu.SubMenu("Combo").AddItem(new MenuItem("ElLeeSin.Combo.AAStacks", "Wait for Passive").SetValue(false));
