@@ -1,18 +1,14 @@
-using EloBuddy; 
- using LeagueSharp.Common; 
- namespace ElLeeSin
+﻿namespace ElLeeSin
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    using ElLeeSin.Utilities;
-
     using LeagueSharp;
     using LeagueSharp.Common;
 
     using SharpDX;
-
+    using EloBuddy;
     using Color = System.Drawing.Color;
 
     internal class JumpHandler
@@ -21,7 +17,7 @@ using EloBuddy;
 
         public static bool InitQ;
 
-        private static readonly List<Vector3> JunglePos = new List<Vector3>
+        private static readonly List<Vector3> JunglePos = new List<Vector3>()
                                                               {
                                                                   new Vector3(6271.479f, 12181.25f, 56.47668f),
                                                                   new Vector3(6971.269f, 10839.12f, 55.2f),
@@ -84,14 +80,12 @@ using EloBuddy;
 
         private static void Draw()
         {
-            if (!InitMenu.Menu.Item("escapeMode").GetValue<bool>()
-                || !InitMenu.Menu.Item("ElLeeSin.Draw.Escape").GetValue<bool>())
+            if (!InitMenu.Menu.Item("escapeMode").GetValue<bool>() || !InitMenu.Menu.Item("ElLeeSin.Draw.Escape").GetValue<bool>())
             {
                 return;
             }
 
-            if (active && Program.spells[Program.Spells.Q].IsReady()
-                && InitMenu.Menu.Item("ElLeeSin.Draw.Q.Width").GetValue<bool>())
+            if (active && Program.spells[Program.Spells.Q].IsReady() && InitMenu.Menu.Item("ElLeeSin.Draw.Q.Width").GetValue<bool>())
             {
                 rect.Draw(Color.White);
             }
@@ -101,7 +95,10 @@ using EloBuddy;
                 {
                     if (pos.Distance(Player.Position) < 2000)
                     {
-                        Render.Circle.DrawCircle(pos, 100, rect.IsOutside(pos.To2D()) ? Color.White : Color.DeepSkyBlue);
+                        Render.Circle.DrawCircle(
+                            pos,
+                            100,
+                            (rect.IsOutside(pos.To2D()) ? Color.White : Color.DeepSkyBlue));
                     }
                 }
                 else
@@ -116,6 +113,7 @@ using EloBuddy;
 
         private static void Escape()
         {
+
             Program.Orbwalk(Game.CursorPos);
 
             if (BuffedEnemy.IsValidTarget() && BuffedEnemy.IsValid<AIHeroClient>())
@@ -127,7 +125,7 @@ using EloBuddy;
             {
                 foreach (var point in JunglePos)
                 {
-                    if ((Player.Distance(point) < 100) || (Program.LastQ2 + 2000 < Environment.TickCount))
+                    if (Player.Distance(point) < 100 || Program.LastQ2 + 2000 < Environment.TickCount)
                     {
                         InitQ = false;
                     }
@@ -135,27 +133,24 @@ using EloBuddy;
             }
 
             rect = new Geometry.Polygon.Rectangle(
-                       Player.Position.To2D(),
-                       Player.Position.To2D().Extend(Game.CursorPos.To2D(), 1050),
-                       100);
+                Player.Position.To2D(),
+                Player.Position.To2D().Extend(Game.CursorPos.To2D(), 1050),
+                100);
 
-            if (Misc.IsQOne)
+            if (Program.QState && Program.spells[Program.Spells.Q].IsReady())
             {
-                if (Program.spells[Program.Spells.Q].IsReady())
+                foreach (var pos in JunglePos)
                 {
-                    foreach (var pos in JunglePos)
+                    if (rect.IsOutside(pos.To2D()))
                     {
-                        if (rect.IsOutside(pos.To2D()))
-                        {
-                            continue;
-                        }
-                        InitQ = true;
-                        Program.spells[Program.Spells.Q].Cast(pos);
-                        return;
+                        continue;
                     }
+                    InitQ = true;
+                    Program.spells[Program.Spells.Q].Cast(pos);
+                    return;
                 }
             }
-            else
+            else if (Program.spells[Program.Spells.Q].IsReady() && !Program.QState)
             {
                 Program.spells[Program.Spells.Q].Cast();
                 InitQ = true;

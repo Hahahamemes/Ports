@@ -1,14 +1,13 @@
-using EloBuddy; 
- using LeagueSharp.Common; 
- namespace ElLeeSin
+﻿namespace ElLeeSin
 {
     using System;
+    using System.Linq;
 
     using LeagueSharp;
     using LeagueSharp.Common;
 
     using SharpDX;
-
+    using EloBuddy;
     using Color = System.Drawing.Color;
 
     public class Drawings
@@ -18,13 +17,14 @@ using EloBuddy;
         public static void OnDraw(EventArgs args)
         {
             var newTarget = Program.ParamBool("insecMode")
-                                ? (TargetSelector.GetSelectedTarget()
-                                   ?? TargetSelector.GetTarget(
-                                       Program.spells[Program.Spells.Q].Range,
-                                       TargetSelector.DamageType.Physical))
-                                : TargetSelector.GetTarget(
-                                    Program.spells[Program.Spells.Q].Range,
-                                    TargetSelector.DamageType.Physical);
+                                 ? (TargetSelector.GetSelectedTarget()
+                                    ?? TargetSelector.GetTarget(
+                                         Program.spells[Program.Spells.Q].Range,
+                                        TargetSelector.DamageType.Physical))
+                                 : TargetSelector.GetTarget(
+                                      Program.spells[Program.Spells.Q].Range,
+                                     TargetSelector.DamageType.Physical);
+
 
             if (Program.ClicksecEnabled && Program.ParamBool("clickInsec"))
             {
@@ -37,10 +37,9 @@ using EloBuddy;
                 Drawing.DrawText(playerPos.X, playerPos.Y + 40, Color.White, "Flash Insec enabled");
             }
 
-            if (Program.ParamBool("Draw.Insec.Lines"))
+            if (Program.ParamBool("Draw.Insec.Lines")) //&& Program.spells[Program.Spells.R].IsReady()
             {
-                if ((newTarget != null) && newTarget.IsVisible && newTarget.IsValidTarget() && !newTarget.IsDead
-                    && (ObjectManager.Player.Distance(newTarget) < 3000))
+                if (newTarget != null && newTarget.IsVisible && newTarget.IsValidTarget() && !newTarget.IsDead && Program.Player.Distance(newTarget) < 3000)
                 {
                     Vector2 targetPos = Drawing.WorldToScreen(newTarget.Position);
                     Drawing.DrawLine(
@@ -58,6 +57,7 @@ using EloBuddy;
                         "Selected Target");
 
                     Drawing.DrawCircle(Program.GetInsecPos(newTarget), 100, Color.DeepSkyBlue);
+
                 }
             }
 
@@ -78,33 +78,33 @@ using EloBuddy;
                 && Program.ParamBool("ElLeeSin.Draw.WJDraw"))
             {
                 Render.Circle.DrawCircle(Program.JumpPos.To3D(), 20, Color.Red);
-                Render.Circle.DrawCircle(ObjectManager.Player.Position, 600, Color.Red);
+                Render.Circle.DrawCircle(Program.Player.Position, 600, Color.Red);
             }
             if (Program.ParamBool("ElLeeSin.Draw.Q"))
             {
                 Render.Circle.DrawCircle(
-                    ObjectManager.Player.Position,
+                    Program.Player.Position,
                     Program.spells[Program.Spells.Q].Range - 80,
                     Program.spells[Program.Spells.Q].IsReady() ? Color.LightSkyBlue : Color.Tomato);
             }
             if (Program.ParamBool("ElLeeSin.Draw.W"))
             {
                 Render.Circle.DrawCircle(
-                    ObjectManager.Player.Position,
+                    Program.Player.Position,
                     Program.spells[Program.Spells.W].Range - 80,
                     Program.spells[Program.Spells.W].IsReady() ? Color.LightSkyBlue : Color.Tomato);
             }
             if (Program.ParamBool("ElLeeSin.Draw.E"))
             {
                 Render.Circle.DrawCircle(
-                    ObjectManager.Player.Position,
+                    Program.Player.Position,
                     Program.spells[Program.Spells.E].Range - 80,
                     Program.spells[Program.Spells.E].IsReady() ? Color.LightSkyBlue : Color.Tomato);
             }
             if (Program.ParamBool("ElLeeSin.Draw.R"))
             {
                 Render.Circle.DrawCircle(
-                    ObjectManager.Player.Position,
+                    Program.Player.Position,
                     Program.spells[Program.Spells.R].Range - 80,
                     Program.spells[Program.Spells.R].IsReady() ? Color.LightSkyBlue : Color.Tomato);
             }
