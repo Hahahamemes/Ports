@@ -30,8 +30,7 @@ using LeagueSharp.Common;
 
 #endregion
 
-using EloBuddy; 
- using LeagueSharp.Common; 
+using EloBuddy;  
  namespace ElUtilitySuite.Vendor.SFX
 {
     /// <summary>

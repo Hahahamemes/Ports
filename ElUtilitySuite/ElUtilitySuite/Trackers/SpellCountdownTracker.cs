@@ -7,7 +7,7 @@ using EloBuddy;
     using System.Linq;
     using System.Reflection;
     using System.Security.Permissions;
-
+    using EloBuddy.SDK.Events;
     using LeagueSharp;
     using LeagueSharp.Common;
     using LeagueSharp.Data;
@@ -206,7 +206,7 @@ using EloBuddy;
             Drawing.OnDraw += this.Drawing_OnDraw;
 
             JungleTracker.CampDied += this.JungleTrackerCampDied;
-            Obj_AI_Base.OnTeleport += this.OnTeleport;
+            Teleport.OnTeleport += this.OnTeleport;
             Obj_AI_Base.OnBuffLose += this.OnBuffLose;
 
             Drawing.OnPreReset += args =>
@@ -315,7 +315,7 @@ using EloBuddy;
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void OnTeleport(Obj_AI_Base sender, GameObjectTeleportEventArgs args)
+        private void OnTeleport(Obj_AI_Base sender, Teleport.TeleportEventArgs packet)
         {
             try
             {
@@ -327,16 +327,15 @@ using EloBuddy;
                 var hero =  sender as AIHeroClient;
                 if (hero != null)
                 {
-                    var packet = Packet.S2C.Teleport.Decoded(sender, args);
-                    if (packet.Type == Packet.S2C.Teleport.Type.Teleport && 
-                        (packet.Status == Packet.S2C.Teleport.Status.Finish || packet.Status == Packet.S2C.Teleport.Status.Abort))
+                    if (packet.Type == EloBuddy.SDK.Enumerations.TeleportType.Teleport && 
+                        (packet.Status == EloBuddy.SDK.Enumerations.TeleportStatus.Finish|| packet.Status == EloBuddy.SDK.Enumerations.TeleportStatus.Abort))
                     {
                         var time = Game.Time;
                         LeagueSharp.Common.Utility.DelayAction.Add(
                             250,
                             delegate
                             {
-                                var cd = packet.Status == Packet.S2C.Teleport.Status.Finish ? 300 : 200;
+                                var cd = packet.Status == EloBuddy.SDK.Enumerations.TeleportStatus.Finish ? 300 : 200;
                                 var card = new Card
                                 {
                                     EndTime = time + cd,
