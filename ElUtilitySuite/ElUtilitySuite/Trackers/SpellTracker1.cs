@@ -7,7 +7,7 @@ using EloBuddy;
     using System.Drawing;
     using System.Linq;
     using System.Security.Permissions;
-
+    using EloBuddy.SDK.Events;
     using ElUtilitySuite.Properties;
     using ElUtilitySuite.Vendor.SFX;
 
@@ -383,8 +383,8 @@ using EloBuddy;
                         this._text.OnResetDevice();
                     };
 
-                Obj_AI_Base.OnProcessSpellCast += this.OnObjAiBaseProcessSpellCast;
-                Obj_AI_Base.OnTeleport += this.OnObjAiBaseTeleport;
+                Obj_AI_Base.OnSpellCast += this.OnObjAiBaseProcessSpellCast;
+                Teleport.OnTeleport += this.OnObjAiBaseTeleport;
             }
             catch (Exception e)
             {
@@ -392,7 +392,7 @@ using EloBuddy;
             }
         }
 
-        private void OnObjAiBaseTeleport(Obj_AI_Base sender, GameObjectTeleportEventArgs args)
+        private void OnObjAiBaseTeleport(Obj_AI_Base sender, Teleport.TeleportEventArgs packet)
         {
             try
             {
@@ -401,18 +401,22 @@ using EloBuddy;
                     return;
                 }
 
-                var packet = Packet.S2C.Teleport.Decoded(sender, args);
-                if (packet.Type == Packet.S2C.Teleport.Type.Teleport
-                    && (packet.Status == Packet.S2C.Teleport.Status.Finish
-                        || packet.Status == Packet.S2C.Teleport.Status.Abort))
+                var unit = sender as AIHeroClient;
+
+                if (unit == null || !unit.IsValid || unit.IsAlly)
+                    return;
+
+                if (packet.Type == EloBuddy.SDK.Enumerations.TeleportType.Teleport
+                    && (packet.Status == EloBuddy.SDK.Enumerations.TeleportStatus.Finish
+                        || packet.Status == EloBuddy.SDK.Enumerations.TeleportStatus.Abort))
                 {
                     var time = Game.Time;
                     LeagueSharp.Common.Utility.DelayAction.Add(
                         250,
                         delegate
                             {
-                                var cd = packet.Status == Packet.S2C.Teleport.Status.Finish ? 300 : 200;
-                                _teleports[packet.UnitNetworkId] = time + cd;
+                                var cd = packet.Status == EloBuddy.SDK.Enumerations.TeleportStatus.Finish ? 300 : 200;
+                                _teleports[unit.NetworkId] = time + cd;
                             });
                 }
             }
@@ -465,8 +469,8 @@ using EloBuddy;
                             return;
                         }
 
-                        var x = (int)hero.HPBarPosition.X - (hero.IsMe ? -10 : 8);
-                        var y = (int)hero.HPBarPosition.Y + (hero.IsEnemy ? 17 : (hero.IsMe ? 6 : 14));
+                        var x = (int)hero.HPBarPosition.X - (hero.IsMe ? -2 : 18);
+                        var y = (int)hero.HPBarPosition.Y + (hero.IsEnemy ? 2 : (hero.IsMe ? -4 : 2));
 
                         this._sprite.Begin(SpriteFlags.AlphaBlend);
                         var summonerData = this._summonerDatas[hero.NetworkId];
