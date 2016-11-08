@@ -1,6 +1,5 @@
-using EloBuddy; 
- using LeagueSharp.Common; 
- namespace ElUtilitySuite.Summoners
+using EloBuddy;
+namespace ElUtilitySuite.Summoners
 {
     using System;
     using System.Collections.Generic;
@@ -518,7 +517,7 @@ using EloBuddy;
                             ObjectManager.Get<Obj_AI_Minion>()
                                 .Where(
                                     m =>
-                                    m.Team == GameObjectTeam.Neutral && m.IsValidTarget()   );
+                                    m.Team == GameObjectTeam.Neutral && m.IsValidTarget());
 
                         foreach (var minion in minions.Where(m => m.IsHPBarRendered))
                         {
@@ -709,8 +708,6 @@ using EloBuddy;
             }
         }
 
-
-
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
@@ -724,7 +721,7 @@ using EloBuddy;
                     return;
                 }
 
-                foreach (var mob in MinionManager.GetMinions(950f, MinionTypes.All, MinionTeam.Neutral)
+                foreach (var mob in EloBuddy.SDK.EntityManager.MinionsAndMonsters.Monsters
                     .Where(m => !m.Name.Contains("Mini") && !m.Name.Contains("Respawn")))
                 {
                     if (mob.Distance(this.Player, false) - (this.Player.BoundingRadius)
@@ -733,7 +730,7 @@ using EloBuddy;
                         continue;
                     }
 
-                    if (this.Menu.Item(mob.CharData.BaseSkinName).IsActive())
+                    if (this.Menu.Item(mob.BaseSkinName).IsActive())
                     {
                         if (this.Menu.Item("Smite.Spell").IsActive())
                         {
@@ -750,18 +747,14 @@ using EloBuddy;
                     }
                 }
 
-                if (this.Menu.Item("ElSmite.Combo.Mode").GetValue<StringList>().SelectedIndex == 2)
-                {
-                    return;
-                }
-
                 if (!this.Menu.Item("Smite.Ammo").IsActive() || this.Menu.Item("Smite.Ammo").IsActive() && this.Player.GetSpell(this.SmiteSpell.Slot).Ammo > 1)
                 {
                     if (this.Menu.Item("ElSmite.Combo.Mode").GetValue<StringList>().SelectedIndex == 0
                         && this.Player.GetSpell(this.SmiteSpell.Slot)
                                .Name.Equals("s5_summonersmiteplayerganker", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        var kSableEnemy = HeroManager.Enemies.FirstOrDefault(hero => hero.IsValidTarget(SmiteRange) && hero.Health <= 20 + 8 * this.Player.Level);
+                        var kSableEnemy = EloBuddy.SDK.EntityManager.Heroes.Enemies.FirstOrDefault(hero => hero.IsValidTarget(SmiteRange) && SmiteDmg(hero) >= hero.Health);
+
                         if (kSableEnemy != null)
                         {
                             this.Player.Spellbook.CastSpell(this.SmiteSpell.Slot, kSableEnemy);
@@ -769,7 +762,7 @@ using EloBuddy;
                     }
 
                     if (this.Menu.Item("ElSmite.Combo.Mode").GetValue<StringList>().SelectedIndex == 1
-                        && this.Player.GetSpell(this.SmiteSpell.Slot).Name.Equals("s5_summonersmiteplayerganker", StringComparison.InvariantCultureIgnoreCase) || this.Player.GetSpell(this.SmiteSpell.Slot).Name.Equals("s5_summonersmiteduel", StringComparison.InvariantCultureIgnoreCase))
+                        && this.Player.GetSpell(this.SmiteSpell.Slot).Name.Equals("s5_summonersmiteduel", StringComparison.InvariantCultureIgnoreCase) || this.Player.GetSpell(this.SmiteSpell.Slot).Name.Equals("s5_summonersmiteduel", StringComparison.InvariantCultureIgnoreCase))
                     {
                         if (this.ComboModeActive)
                         {
@@ -786,6 +779,11 @@ using EloBuddy;
             {
                 Console.WriteLine($"An error occurred: {e}");
             }
+        }
+
+        public static float SmiteDmg(AIHeroClient target)
+        {
+            return (float)ObjectManager.Player.CalcDamage(target, Damage.DamageType.True, (20 + ObjectManager.Player.Level * 8));
         }
 
         private float SmiteDamage()
