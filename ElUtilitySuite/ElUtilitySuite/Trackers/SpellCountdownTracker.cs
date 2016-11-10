@@ -207,7 +207,7 @@ using EloBuddy;
 
             JungleTracker.CampDied += this.JungleTrackerCampDied;
             Teleport.OnTeleport += this.OnTeleport;
-            Obj_AI_Base.OnBuffLose += this.OnBuffLose;
+            //Obj_AI_Base.OnBuffLose += this.OnBuffLose;
 
             Drawing.OnPreReset += args =>
             {
