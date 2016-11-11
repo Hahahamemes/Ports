@@ -346,7 +346,7 @@ using EloBuddy;
             }
 
             camp.Dead = true;
-            camp.NextRespawnTime = Game.Time + camp.RespawnTime / 1000f - 3;
+            camp.NextRespawnTime = Game.Time + camp.RespawnTime / 1500f - 3;
             CampDied?.Invoke(this, camp);
         }
 
