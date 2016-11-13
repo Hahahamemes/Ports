@@ -27,29 +27,16 @@ namespace ReformedAIO.Champions.Yasuo.OrbwalkingMode.Lane
 
         private DashPosition dashPos;
 
-        private WallExtension wall;
-
-        private Obj_AI_Base Minion => MinionManager.GetMinions(ObjectManager.Player.Position,
-                 spell.Spell.Range).LastOrDefault(m => m.Distance(Game.CursorPos) <= spell.Spell.Range);
+        private static Obj_AI_Base Minion => MinionManager.GetMinions(ObjectManager.Player.Position,
+                 700).LastOrDefault(m => m.Distance(Game.CursorPos) <= 400 && !m.HasBuff("YasuoDashWrapper"));
 
         private void OnUpdate(EventArgs args)
         {
             if (Minion == null
                 || !CheckGuardians()
-                || (Menu.Item("ETurret").GetValue<bool>() && dashPos.DashEndPosition(Minion, spell.Spell.Range).UnderTurret(true))
-                || (Menu.Item("EEnemies").GetValue<Slider>().Value < ObjectManager.Player.CountEnemiesInRange(750)))
-            {
-                return;
-            }
-
-            var wallPoint = wall.FirstWallPoint(ObjectManager.Player.Position, Minion.Position);
-
-            if (wall.IsWallDash(wallPoint, spell.Spell.Range))
-            {
-                return;
-            }
-
-            if (Menu.Item("EKillable").GetValue<bool>() && Minion.Health > spell.Spell.GetDamage(Minion) + ObjectManager.Player.GetAutoAttackDamage(Minion))
+                || (Menu.Item("ETurret").GetValue<bool>() && (dashPos.DashEndPosition(Minion, spell.Spell.Range).UnderTurret(true) || Minion.UnderTurret(true)))
+                || (Menu.Item("EEnemies").GetValue<Slider>().Value < ObjectManager.Player.CountEnemiesInRange(750))
+                || (Menu.Item("EKillable").GetValue<bool>() && Minion.Health > spell.Spell.GetDamage(Minion)))
             {
                 return;
             }
@@ -76,8 +63,6 @@ namespace ReformedAIO.Champions.Yasuo.OrbwalkingMode.Lane
             base.OnLoad(sender, eventArgs);
 
             dashPos = new DashPosition();
-
-            wall = new WallExtension();
 
             Menu.AddItem(new MenuItem("EKillable", "Only Killable Minions").SetValue(true));
 

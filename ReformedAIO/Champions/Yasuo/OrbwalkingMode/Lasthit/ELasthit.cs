@@ -1,11 +1,13 @@
-﻿namespace ReformedAIO.Champions.Yasuo.OrbwalkingMode.Lasthit
+﻿using EloBuddy;
+using LeagueSharp.Common;
+namespace ReformedAIO.Champions.Yasuo.OrbwalkingMode.Lasthit
 {
     using System;
     using System.Linq;
 
     using LeagueSharp;
     using LeagueSharp.Common;
-    using EloBuddy;
+
     using ReformedAIO.Champions.Yasuo.Core.Spells;
     using ReformedAIO.Library.Dash_Handler;
     using ReformedAIO.Library.WallExtension;
@@ -25,8 +27,6 @@
 
         private DashPosition dashPos;
 
-        private WallExtension wall;
-
         private Obj_AI_Base Minion => MinionManager.GetMinions(ObjectManager.Player.Position,
                  spell.Spell.Range).LastOrDefault(m => m.Distance(Game.CursorPos) <= spell.Spell.Range);
 
@@ -37,13 +37,6 @@
                 || (Menu.Item("LasthitTurret").GetValue<bool>() && dashPos.DashEndPosition(Minion, spell.Spell.Range).UnderTurret(true))
                 || (Menu.Item("LasthitEnemies").GetValue<Slider>().Value < ObjectManager.Player.CountEnemiesInRange(750))
                 || Minion.Health > spell.Spell.GetDamage(Minion))
-            {
-                return;
-            }
-
-            var wallPoint = wall.FirstWallPoint(ObjectManager.Player.Position, Minion.Position);
-
-            if (wall.IsWallDash(wallPoint, spell.Spell.Range))
             {
                 return;
             }
@@ -70,8 +63,6 @@
             base.OnLoad(sender, eventArgs);
 
             dashPos = new DashPosition();
-
-            wall = new WallExtension();
 
             Menu.AddItem(new MenuItem("LasthitEnemies", "Don't E Into X Enemies").SetValue(new Slider(2, 0, 5)));
 

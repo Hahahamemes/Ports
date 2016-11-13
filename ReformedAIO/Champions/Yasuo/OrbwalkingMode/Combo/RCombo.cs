@@ -46,7 +46,7 @@ namespace ReformedAIO.Champions.Yasuo.OrbwalkingMode.Combo
 
             if (validtargets)
             {
-                spell.Spell.Cast();
+                LeagueSharp.Common.Utility.DelayAction.Add(Menu.Item("cDelay").GetValue<Slider>().Value, () => spell.Spell.Cast());
             }
         }
 
@@ -75,6 +75,8 @@ namespace ReformedAIO.Champions.Yasuo.OrbwalkingMode.Combo
             Menu.AddItem(new MenuItem("Turret", "Don't R Into Turret").SetValue(true));
 
             Menu.AddItem(new MenuItem("Enemies", "Use When X Enemies").SetValue(new Slider(3, 1, 5)));
+
+            Menu.AddItem(new MenuItem("cDelay", "Combo Delay (Hotfix)").SetValue(new Slider(200, 50, 400)));
         }
     }
 }

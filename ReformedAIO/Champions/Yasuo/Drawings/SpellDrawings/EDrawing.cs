@@ -1,6 +1,6 @@
-using EloBuddy; 
- using LeagueSharp.Common; 
- namespace ReformedAIO.Champions.Yasuo.Drawings.SpellDrawings
+using EloBuddy;
+using LeagueSharp.Common;
+namespace ReformedAIO.Champions.Yasuo.Drawings.SpellDrawings
 {
     using System;
     using System.Drawing;
@@ -10,12 +10,15 @@ using EloBuddy;
     using LeagueSharp.Common;
 
     using ReformedAIO.Champions.Yasuo.Core.Spells;
+    using ReformedAIO.Library.Dash_Handler;
 
     using RethoughtLib.FeatureSystem.Abstract_Classes;
 
     internal sealed class EDrawing : ChildBase
     {
         public override string Name { get; set; } = "E";
+
+        private DashPosition dashPos;
 
         private readonly ESpell spell;
 
@@ -25,7 +28,7 @@ using EloBuddy;
         }
 
         private Obj_AI_Base Minion => MinionManager.GetMinions(ObjectManager.Player.Position,
-                  spell.Spell.Range).LastOrDefault(m => m.Distance(Game.CursorPos) <= spell.Spell.Range);
+                  spell.Spell.Range).LastOrDefault(m => m.Distance(Game.CursorPos) <= ObjectManager.Player.AttackRange && !m.HasBuff("YasuoDashWrapper"));
 
         public void OnDraw(EventArgs args)
         {
@@ -38,6 +41,11 @@ using EloBuddy;
                 Minion.Position,
                 Minion.BoundingRadius,
                 spell.Spell.IsReady() ? Color.Cyan : Color.DarkSlateGray);
+
+            Render.Circle.DrawCircle(
+               dashPos.DashEndPosition(Minion, 475),
+               Minion.BoundingRadius,
+               spell.Spell.IsReady() ? Color.White : Color.DarkSlateGray);
         }
 
         protected override void OnDisable(object sender, FeatureBaseEventArgs eventArgs)
@@ -57,6 +65,8 @@ using EloBuddy;
         protected override void OnLoad(object sender, FeatureBaseEventArgs eventArgs)
         {
             base.OnLoad(sender, eventArgs);
+
+            dashPos = new DashPosition();
         }
     }
 }

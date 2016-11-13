@@ -1,8 +1,10 @@
+using EloBuddy;
+using LeagueSharp.Common;
 namespace ReformedAIO.Champions.Yasuo
 {
     using System.Collections.Generic;
     using System.Drawing;
-    using EloBuddy;
+
     using LeagueSharp;
     using LeagueSharp.Common;
 
@@ -17,6 +19,7 @@ namespace ReformedAIO.Champions.Yasuo
     using ReformedAIO.Champions.Yasuo.OrbwalkingMode.Lane;
     using ReformedAIO.Champions.Yasuo.OrbwalkingMode.Jungle;
     using ReformedAIO.Champions.Yasuo.OrbwalkingMode.Lasthit;
+    using ReformedAIO.Champions.Yasuo.Stack;
     using ReformedAIO.Champions.Yasuo.Utility;
 
     using ReformedAIO.Library.SpellParent;
@@ -133,8 +136,9 @@ namespace ReformedAIO.Champions.Yasuo
                                      laneParent,
                                      jungleParent,
                                      lasthitParent,
-                                     new Flee(eSpell),
                                      killstealParnet,
+                                     new YasuoQStack(qSpell),
+                                     new Flee(eSpell),
                                      drawingParent,
                                   });
 
