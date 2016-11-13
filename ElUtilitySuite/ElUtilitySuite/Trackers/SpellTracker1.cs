@@ -1,16 +1,13 @@
-using EloBuddy; 
- using LeagueSharp.Common; 
- namespace ElUtilitySuite.Trackers
+using EloBuddy;
+namespace ElUtilitySuite.Trackers
 {
     using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
     using System.Security.Permissions;
-    using EloBuddy.SDK.Events;
-    using ElUtilitySuite.Properties;
     using ElUtilitySuite.Vendor.SFX;
-
+    using ElUtilitySuite.Properties;
     using LeagueSharp;
     using LeagueSharp.Common;
 
@@ -19,6 +16,7 @@ using EloBuddy;
 
     using Font = SharpDX.Direct3D9.Font;
     using Rectangle = SharpDX.Rectangle;
+    using EloBuddy.SDK.Events;
 
     internal class SpellTracker : IPlugin
     {
@@ -224,8 +222,7 @@ using EloBuddy;
                 cooldownMenu.AddItem(
                     new MenuItem("cooldown-tracker-TimeFormat", "Time Format").SetValue(
                         new StringList(new[] { "mm:ss", "ss" })));
-                cooldownMenu.AddItem(
-                    new MenuItem("cooldown-tracker-FontSize", "Font Size").SetValue(new Slider(13, 3, 30)));
+                cooldownMenu.AddItem(new MenuItem("cooldown-tracker-FontSize", "Font Size").SetValue(new Slider(13, 3, 30)));
                 cooldownMenu.AddItem(new MenuItem("cooldown-tracker-Enemy", "Enemy").SetValue(true));
                 cooldownMenu.AddItem(new MenuItem("cooldown-tracker-Ally", "Ally").SetValue(true));
                 cooldownMenu.AddItem(new MenuItem("cooldown-tracker-Self", "Self").SetValue(true));
@@ -235,86 +232,86 @@ using EloBuddy;
 
             this.Menu = cooldownMenu;
 
-            this.Menu.Item("cooldown-tracker-Enemy").ValueChanged += delegate(object o, OnValueChangeEventArgs args)
+            this.Menu.Item("cooldown-tracker-Enemy").ValueChanged += delegate (object o, OnValueChangeEventArgs args)
+            {
+                if (_heroes == null)
                 {
-                    if (_heroes == null)
-                    {
-                        return;
-                    }
-                    var ally = Menu.Item("cooldown-tracker-Ally").GetValue<bool>();
-                    var enemy = args.GetNewValue<bool>();
-                    _heroes = ally && enemy
-                                  ? HeroManager.AllHeroes.ToList()
-                                  : (ally ? HeroManager.Allies : (enemy ? HeroManager.Enemies : new List<AIHeroClient>()))
-                                        .ToList();
-                    if (Menu.Item("cooldown-tracker-Self").GetValue<bool>())
-                    {
-                        if (_heroes.All(h => h.NetworkId != ObjectManager.Player.NetworkId))
-                        {
-                            _heroes.Add(ObjectManager.Player);
-                        }
-                    }
-                    else
-                    {
-                        _heroes.RemoveAll(h => h.NetworkId == ObjectManager.Player.NetworkId);
-                    }
-                };
-
-            this.Menu.Item("cooldown-tracker-Ally").ValueChanged += delegate(object o, OnValueChangeEventArgs args)
+                    return;
+                }
+                var ally = Menu.Item("cooldown-tracker-Ally").GetValue<bool>();
+                var enemy = args.GetNewValue<bool>();
+                _heroes = ally && enemy
+                              ? HeroManager.AllHeroes.ToList()
+                              : (ally ? HeroManager.Allies : (enemy ? HeroManager.Enemies : new List<AIHeroClient>()))
+                                    .ToList();
+                if (Menu.Item("cooldown-tracker-Self").GetValue<bool>())
                 {
-                    if (_heroes == null)
-                    {
-                        return;
-                    }
-                    var ally = args.GetNewValue<bool>();
-                    var enemy = Menu.Item("cooldown-tracker-Enemy").GetValue<bool>();
-                    _heroes = ally && enemy
-                                  ? HeroManager.AllHeroes.ToList()
-                                  : (ally
-                                         ? HeroManager.Allies
-                                         : (enemy ? HeroManager.Enemies : new List<AIHeroClient>())).ToList();
-                    if (Menu.Item("cooldown-tracker-Self").GetValue<bool>()
-                        && _heroes.All(h => h.NetworkId != ObjectManager.Player.NetworkId))
+                    if (_heroes.All(h => h.NetworkId != ObjectManager.Player.NetworkId))
                     {
                         _heroes.Add(ObjectManager.Player);
                     }
-                    if (Menu.Item("cooldown-tracker-Self").GetValue<bool>())
-                    {
-                        if (_heroes.All(h => h.NetworkId != ObjectManager.Player.NetworkId))
-                        {
-                            _heroes.Add(ObjectManager.Player);
-                        }
-                    }
-                    else
-                    {
-                        _heroes.RemoveAll(h => h.NetworkId == ObjectManager.Player.NetworkId);
-                    }
-                };
-
-            this.Menu.Item("cooldown-tracker-Self").ValueChanged += delegate(object o, OnValueChangeEventArgs args)
+                }
+                else
                 {
-                    if (_heroes == null)
+                    _heroes.RemoveAll(h => h.NetworkId == ObjectManager.Player.NetworkId);
+                }
+            };
+
+            this.Menu.Item("cooldown-tracker-Ally").ValueChanged += delegate (object o, OnValueChangeEventArgs args)
+            {
+                if (_heroes == null)
+                {
+                    return;
+                }
+                var ally = args.GetNewValue<bool>();
+                var enemy = Menu.Item("cooldown-tracker-Enemy").GetValue<bool>();
+                _heroes = ally && enemy
+                              ? HeroManager.AllHeroes.ToList()
+                              : (ally
+                                     ? HeroManager.Allies
+                                     : (enemy ? HeroManager.Enemies : new List<AIHeroClient>())).ToList();
+                if (Menu.Item("cooldown-tracker-Self").GetValue<bool>()
+                    && _heroes.All(h => h.NetworkId != ObjectManager.Player.NetworkId))
+                {
+                    _heroes.Add(ObjectManager.Player);
+                }
+                if (Menu.Item("cooldown-tracker-Self").GetValue<bool>())
+                {
+                    if (_heroes.All(h => h.NetworkId != ObjectManager.Player.NetworkId))
                     {
-                        return;
+                        _heroes.Add(ObjectManager.Player);
                     }
-                    var ally = Menu.Item("cooldown-tracker-Ally").GetValue<bool>();
-                    var enemy = Menu.Item("cooldown-tracker-Enemy").GetValue<bool>();
-                    _heroes = ally && enemy
-                                  ? HeroManager.AllHeroes.ToList()
-                                  : (ally ? HeroManager.Allies : (enemy ? HeroManager.Enemies : new List<AIHeroClient>()))
-                                        .ToList();
-                    if (args.GetNewValue<bool>())
+                }
+                else
+                {
+                    _heroes.RemoveAll(h => h.NetworkId == ObjectManager.Player.NetworkId);
+                }
+            };
+
+            this.Menu.Item("cooldown-tracker-Self").ValueChanged += delegate (object o, OnValueChangeEventArgs args)
+            {
+                if (_heroes == null)
+                {
+                    return;
+                }
+                var ally = Menu.Item("cooldown-tracker-Ally").GetValue<bool>();
+                var enemy = Menu.Item("cooldown-tracker-Enemy").GetValue<bool>();
+                _heroes = ally && enemy
+                              ? HeroManager.AllHeroes.ToList()
+                              : (ally ? HeroManager.Allies : (enemy ? HeroManager.Enemies : new List<AIHeroClient>()))
+                                    .ToList();
+                if (args.GetNewValue<bool>())
+                {
+                    if (_heroes.All(h => h.NetworkId != ObjectManager.Player.NetworkId))
                     {
-                        if (_heroes.All(h => h.NetworkId != ObjectManager.Player.NetworkId))
-                        {
-                            _heroes.Add(ObjectManager.Player);
-                        }
+                        _heroes.Add(ObjectManager.Player);
                     }
-                    else
-                    {
-                        _heroes.RemoveAll(h => h.NetworkId == ObjectManager.Player.NetworkId);
-                    }
-                };
+                }
+                else
+                {
+                    _heroes.RemoveAll(h => h.NetworkId == ObjectManager.Player.NetworkId);
+                }
+            };
         }
 
         /// <summary>
@@ -370,18 +367,18 @@ using EloBuddy;
                 Drawing.OnEndScene += this.OnDrawingEndScene;
 
                 Drawing.OnPreReset += args =>
-                    {
-                        this._line.OnLostDevice();
-                        this._sprite.OnLostDevice();
-                        this._text.OnLostDevice();
-                    };
+                {
+                    this._line.OnLostDevice();
+                    this._sprite.OnLostDevice();
+                    this._text.OnLostDevice();
+                };
 
                 Drawing.OnPostReset += args =>
-                    {
-                        this._line.OnResetDevice();
-                        this._sprite.OnResetDevice();
-                        this._text.OnResetDevice();
-                    };
+                {
+                    this._line.OnResetDevice();
+                    this._sprite.OnResetDevice();
+                    this._text.OnResetDevice();
+                };
 
                 Obj_AI_Base.OnSpellCast += this.OnObjAiBaseProcessSpellCast;
                 Teleport.OnTeleport += this.OnObjAiBaseTeleport;
@@ -414,10 +411,10 @@ using EloBuddy;
                     LeagueSharp.Common.Utility.DelayAction.Add(
                         250,
                         delegate
-                            {
-                                var cd = packet.Status == EloBuddy.SDK.Enumerations.TeleportStatus.Finish ? 300 : 200;
-                                _teleports[unit.NetworkId] = time + cd;
-                            });
+                        {
+                            var cd = packet.Status == EloBuddy.SDK.Enumerations.TeleportStatus.Finish ? 300 : 200;
+                            _teleports[unit.NetworkId] = time + cd;
+                        });
                 }
             }
             catch (Exception e)

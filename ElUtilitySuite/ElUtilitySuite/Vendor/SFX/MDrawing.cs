@@ -26,8 +26,9 @@
 
 #endregion
 
-using EloBuddy;
-namespace ElUtilitySuite.Vendor.SFX
+using EloBuddy; 
+ using LeagueSharp.Common; 
+ namespace ElUtilitySuite.Vendor.SFX
 {
     using System;
     using System.Collections.Generic;
@@ -86,11 +87,11 @@ namespace ElUtilitySuite.Vendor.SFX
                 Console.WriteLine(@"An error occurred: '{0}'", e);
             }
         }
-
+        
         private static void OnDrawingPostReset(EventArgs args)
         {
             try
-            {
+            { 
                 if (_sprite != null && !_sprite.IsDisposed)
                 {
                     _sprite.OnResetDevice();

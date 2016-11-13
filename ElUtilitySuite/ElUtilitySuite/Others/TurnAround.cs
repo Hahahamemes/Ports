@@ -21,7 +21,7 @@ using EloBuddy;
         {
             new SpellInfo("Cassiopeia", "CassiopeiaR", 1000f, false, true, 0.85f),
             new SpellInfo("Cassiopeia", "cassiopeiapetrifyinggaze", 1000f, false, true, 0.85f),
-            new SpellInfo("Tryndamere", "MockingShout", 900f, false, true, 0.65f)
+            new SpellInfo("Tryndamere", "MockingShout", 900f, false, false, 0.65f)
         };
 
         /// <summary>

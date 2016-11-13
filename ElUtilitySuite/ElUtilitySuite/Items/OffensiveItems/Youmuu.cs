@@ -39,8 +39,9 @@ using EloBuddy;
         {
             return this.Menu.Item("Youmuucombo").IsActive() && this.ComboModeActive
                    && HeroManager.Enemies.Any(
-                       x => x.Distance(this.Player) < Orbwalking.GetRealAutoAttackRange(this.Player));
+                       x => x.Distance(this.Player) < (ObjectManager.Player.IsChampion("Jhin") ? 550f : Orbwalking.GetRealAutoAttackRange(this.Player)));
         }
+
 
         #endregion
     }

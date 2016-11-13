@@ -9,6 +9,7 @@ using EloBuddy;
     using System.Reflection;
     using System.Security.Permissions;
 
+    using ElUtilitySuite.Logging;
     using ElUtilitySuite.Vendor.SFX;
 
     using LeagueSharp;
@@ -105,10 +106,8 @@ using EloBuddy;
                 foreach (var ally in HeroManager.Allies)
                 {
                     IncomingDamageManager.AddChampion(ally);
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine(@"[ELUTILITYSUITE] loaded champions: {0}", ally.ChampionName);
+                    Logging.Logging.AddEntry(LoggingEntryType.Info, "@Entry.cs: Loading champions: {0}", ally.ChampionName);
                 }
-                Console.ForegroundColor = ConsoleColor.White;
 
                 menu.AddItem(new MenuItem("seperator1", ""));
                 menu.AddItem(new MenuItem("usecombo", "Combo (Active)").SetValue(new KeyBind(32, KeyBindType.Press)));

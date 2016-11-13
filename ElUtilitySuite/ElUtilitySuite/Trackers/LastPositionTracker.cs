@@ -7,8 +7,7 @@ using EloBuddy;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
-    using EloBuddy.SDK.Events;
-    using EloBuddy.SDK.Enumerations;
+
     using ElUtilitySuite.Properties;
     using ElUtilitySuite.Vendor.SFX;
 
@@ -133,7 +132,7 @@ using EloBuddy;
             }
 
             Drawing.OnEndScene += this.OnDrawingEndScene;
-            Teleport.OnTeleport += this.OnObjAiBaseTeleport;
+            Obj_AI_Base.OnTeleport += this.OnObjAiBaseTeleport;
 
             Drawing.OnPreReset += args =>
                 {
@@ -300,27 +299,28 @@ using EloBuddy;
             }
         }
 
-        private void OnObjAiBaseTeleport(Obj_AI_Base sender, Teleport.TeleportEventArgs packet)
+        private void OnObjAiBaseTeleport(Obj_AI_Base sender, GameObjectTeleportEventArgs args)
         {
-            var unit = sender as AIHeroClient;
             try
             {
                 if (!this.Menu.Item("LastPosition.Enabled").IsActive())
                 {
                     return;
                 }
-                var lastPosition = this.lastPositions.FirstOrDefault(e => e.Hero.NetworkId == unit.NetworkId);
+
+                var packet = Packet.S2C.Teleport.Decoded(sender, args);
+                var lastPosition = this.lastPositions.FirstOrDefault(e => e.Hero.NetworkId == packet.UnitNetworkId);
                 if (lastPosition != null)
                 {
                     switch (packet.Status)
                     {
-                        case TeleportStatus.Start:
+                        case Packet.S2C.Teleport.Status.Start:
                             lastPosition.IsTeleporting = true;
                             break;
-                        case TeleportStatus.Abort:
+                        case Packet.S2C.Teleport.Status.Abort:
                             lastPosition.IsTeleporting = false;
                             break;
-                        case TeleportStatus.Finish:
+                        case Packet.S2C.Teleport.Status.Finish:
                             lastPosition.Teleported = true;
                             lastPosition.IsTeleporting = false;
                             lastPosition.LastSeen = Game.Time;

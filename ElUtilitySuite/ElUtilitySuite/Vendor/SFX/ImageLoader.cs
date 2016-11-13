@@ -20,9 +20,8 @@
 
 #endregion
 
-using EloBuddy; 
- using LeagueSharp.Common; 
- namespace ElUtilitySuite.Vendor.SFX
+using EloBuddy;
+namespace ElUtilitySuite.Vendor.SFX
 {
     using System;
     using System.Drawing;

@@ -1,13 +1,12 @@
-using EloBuddy; 
- using LeagueSharp.Common; 
- namespace ElUtilitySuite.Trackers
+using EloBuddy;
+namespace ElUtilitySuite.Trackers
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.Security.Permissions;
-    using EloBuddy.SDK.Events;
+
     using LeagueSharp;
     using LeagueSharp.Common;
     using LeagueSharp.Data;
@@ -17,6 +16,7 @@ using EloBuddy;
     using SharpDX.Direct3D9;
 
     using Color = System.Drawing.Color;
+    using EloBuddy.SDK.Events;
 
     internal class SpellCountdownTracker : IPlugin
     {
@@ -50,7 +50,7 @@ using EloBuddy;
         /// <summary>
         ///     The move right speed
         /// </summary>
-        private const int MoveRightSpeed = 1500;
+        private const int MoveRightSpeed = 1000;
 
         #endregion
 
@@ -207,7 +207,7 @@ using EloBuddy;
 
             JungleTracker.CampDied += this.JungleTrackerCampDied;
             Teleport.OnTeleport += this.OnTeleport;
-            //Obj_AI_Base.OnBuffLose += this.OnBuffLose;
+            Obj_AI_Base.OnBuffLose += this.OnBuffLose;
 
             Drawing.OnPreReset += args =>
             {
@@ -235,7 +235,7 @@ using EloBuddy;
                 try
                 {
                     var spellName = name.Split('.')[3];
-                    if (spellName != "Dragon" && spellName != "Baron" && spellName != "Teleport"  && spellName != "Rebirthready" && spellName != "Zacrebirthready")
+                    if (spellName != "Dragon" && spellName != "Baron" && spellName != "Teleport" && spellName != "Rebirthready" && spellName != "Zacrebirthready")
                     {
                         this.Spells.Add(Data.Get<SpellDatabase>().Spells.First(x => x.SpellName.Equals(spellName)));
 
@@ -253,7 +253,6 @@ using EloBuddy;
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine($"Failed to find load image for {name}. Please notify jQuery/ChewyMoon!");
                 }
             }
 
@@ -319,16 +318,16 @@ using EloBuddy;
         {
             try
             {
-               if (sender.IsAlly || !this.Menu.Item("DrawTeleport").IsActive())
+                if (sender.IsAlly || !this.Menu.Item("DrawTeleport").IsActive())
                 {
                     return;
                 }
-                
-                var hero =  sender as AIHeroClient;
+
+                var hero = sender as AIHeroClient;
                 if (hero != null)
                 {
-                    if (packet.Type == EloBuddy.SDK.Enumerations.TeleportType.Teleport && 
-                        (packet.Status == EloBuddy.SDK.Enumerations.TeleportStatus.Finish|| packet.Status == EloBuddy.SDK.Enumerations.TeleportStatus.Abort))
+                    if (packet.Type == EloBuddy.SDK.Enumerations.TeleportType.Teleport &&
+                        (packet.Status == EloBuddy.SDK.Enumerations.TeleportStatus.Finish || packet.Status == EloBuddy.SDK.Enumerations.TeleportStatus.Abort))
                     {
                         var time = Game.Time;
                         LeagueSharp.Common.Utility.DelayAction.Add(
@@ -427,11 +426,11 @@ using EloBuddy;
                     continue;
                 }
 
-                foreach (var spell in slots.Select(x => enemy.GetSpell(x)).Where(x => x.Level > 0 && x.CooldownExpires > 0 
+                foreach (var spell in slots.Select(x => enemy.GetSpell(x)).Where(x => x.Level > 0 && x.CooldownExpires > 0
                 && x.CooldownExpires - Game.Time <= Countdown))
                 {
-                    if (spell.CooldownExpires - Game.Time <= -3
-                        && this.StartX + (int)((-(spell.CooldownExpires - Game.Time) - 3) * MoveRightSpeed)
+                    if (spell.CooldownExpires - Game.Time <= -5
+                        && this.StartX + (int)((-(spell.CooldownExpires - Game.Time) - 5) * MoveRightSpeed)
                         >= Drawing.Width + i * MoveRightSpeed)
                     {
                         continue;
@@ -449,9 +448,9 @@ using EloBuddy;
                     var boxY = this.StartY - i * BoxSpacing - (i * BoxHeight);
                     var boxX = this.StartX;
 
-                    if (remainingTime <= -3)
+                    if (remainingTime <= -5)
                     {
-                        boxX += (int)((-remainingTime - 3) * MoveRightSpeed);
+                        boxX += (int)((-remainingTime - 5) * MoveRightSpeed);
                     }
 
                     var lineStart = new Vector2(boxX, boxY);
@@ -535,9 +534,9 @@ using EloBuddy;
                 var boxY = this.StartY - i * BoxSpacing - (i * BoxHeight);
                 var boxX = this.StartX;
 
-                if (remainingTime <= -3)
+                if (remainingTime <= -5)
                 {
-                    boxX += (int)((-remainingTime - 3) * MoveRightSpeed);
+                    boxX += (int)((-remainingTime - 5) * MoveRightSpeed);
                 }
 
                 var lineStart = new Vector2(boxX, boxY);
@@ -616,8 +615,8 @@ using EloBuddy;
         {
             this.Cards.RemoveAll(
                 x =>
-                x.EndTime - Game.Time <= -3
-                && this.StartX + (int)((-(x.EndTime - Game.Time) - 3) * MoveRightSpeed)
+                x.EndTime - Game.Time <= -5
+                && this.StartX + (int)((-(x.EndTime - Game.Time) - 5) * MoveRightSpeed)
                 >= Drawing.Width + this.Cards.Count * MoveRightSpeed);
         }
 

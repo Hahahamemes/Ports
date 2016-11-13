@@ -7,6 +7,7 @@ using EloBuddy;
     using System.Linq;
     using System.Security.Permissions;
 
+    using ElUtilitySuite.Logging;
     using ElUtilitySuite.Properties;
     using ElUtilitySuite.Vendor.SFX;
 
@@ -41,14 +42,13 @@ using EloBuddy;
             new WardStruct( 60 * 3, 1100, "SightWard", "ItemGhostWard", WardType.Green),
             new WardStruct( 75 * 2, 1100, "SightWard", "SightWard", WardType.Green),
             new WardStruct( 60 * 3, 1100, "MissileWard", "MissileWard", WardType.Green),
-            //new WardStruct( int.MaxValue, 1100, "VisionWard", "VisionWard", WardType.Pink), Removed in 6.22
             new WardStruct( 60 * 4, 212, "CaitlynTrap", "CaitlynYordleTrap", WardType.Trap),
             new WardStruct( 60 * 10, 212, "TeemoMushroom", "BantamTrap", WardType.Trap),
             new WardStruct( 60 * 1, 212, "ShacoBox", "JackInTheBox", WardType.Trap),
             new WardStruct( 60 * 2, 212, "Nidalee_Spear", "Bushwhack", WardType.Trap),
             new WardStruct( 60 * 10, 212, "Noxious_Trap", "BantamTrap", WardType.Trap),
             new WardStruct( 120 * 1, 130, "jhintrap", "JhinE", WardType.Trap),
-            new WardStruct(int.MaxValue, 900, "JammerDevice", "JammerDevice", WardType.Green), // Added in 6.22
+            new WardStruct(int.MaxValue, 900, "JammerDevice", "JammerDevice", WardType.Pink)
         };
 
         private Texture _greenWardTexture;
@@ -210,7 +210,7 @@ using EloBuddy;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logging.AddEntry(LoggingEntryType.Error, "@WardTracker.cs: An error occurred: {0}", e);
             }
         }
 
@@ -254,7 +254,7 @@ using EloBuddy;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logging.AddEntry(LoggingEntryType.Error, "@WardTracker.cs: An error occurred: {0}", e);
             }
         }
 
@@ -348,7 +348,7 @@ using EloBuddy;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logging.AddEntry(LoggingEntryType.Error, "@WardTracker.cs: An error occurred: {0}", e);
             }
         }
 
@@ -425,7 +425,7 @@ using EloBuddy;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logging.AddEntry(LoggingEntryType.Error, "@WardTracker.cs: An error occurred: {0}", e);
             }
         }
 
@@ -445,7 +445,7 @@ using EloBuddy;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logging.AddEntry(LoggingEntryType.Error, "@WardTracker.cs: An error occurred: {0}", e);
             }
         }
 
@@ -486,7 +486,7 @@ using EloBuddy;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logging.AddEntry(LoggingEntryType.Error, "@WardTracker.cs: An error occurred: {0}", e);
             }
         }
 
@@ -544,7 +544,7 @@ using EloBuddy;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logging.AddEntry(LoggingEntryType.Error, "@WardTracker.cs: An error occurred: {0}", e);
             }
         }
 
@@ -672,7 +672,7 @@ using EloBuddy;
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    Logging.AddEntry(LoggingEntryType.Error, "@WardTracker.cs: An error occurred: {0}", e);
                 }
             }
 
@@ -729,7 +729,7 @@ using EloBuddy;
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    Logging.AddEntry(LoggingEntryType.Error, "@WardTracker.cs: An error occurred: {0}", e);
                 }
                 return end;
             }
@@ -752,7 +752,7 @@ using EloBuddy;
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    Logging.AddEntry(LoggingEntryType.Error, "@WardTracker.cs: An error occurred: {0}", e);
                 }
                 return end;
             }
