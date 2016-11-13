@@ -1,10 +1,8 @@
-using EloBuddy; 
- using LeagueSharp.Common; 
- namespace ReformedAIO.Champions.Yasuo
+namespace ReformedAIO.Champions.Yasuo
 {
     using System.Collections.Generic;
     using System.Drawing;
-
+    using EloBuddy;
     using LeagueSharp;
     using LeagueSharp.Common;
 
@@ -14,10 +12,11 @@ using EloBuddy;
     using ReformedAIO.Champions.Yasuo.Drawings.SpellDrawings;
     using ReformedAIO.Champions.Yasuo.Killsteal;
     using ReformedAIO.Champions.Yasuo.OrbwalkingMode.Combo;
+    using ReformedAIO.Champions.Yasuo.OrbwalkingMode.Flee;
     using ReformedAIO.Champions.Yasuo.OrbwalkingMode.Harass;
     using ReformedAIO.Champions.Yasuo.OrbwalkingMode.Lane;
     using ReformedAIO.Champions.Yasuo.OrbwalkingMode.Jungle;
-
+    using ReformedAIO.Champions.Yasuo.OrbwalkingMode.Lasthit;
     using ReformedAIO.Champions.Yasuo.Utility;
 
     using ReformedAIO.Library.SpellParent;
@@ -29,7 +28,7 @@ using EloBuddy;
     using RethoughtLib.Orbwalker.Implementations;
 
     using Color = SharpDX.Color;
-   
+
     internal sealed class YasuoLoader : LoadableBase
     {
         public override string DisplayName { get; set; } = "Reformed Yasuo";
@@ -86,7 +85,6 @@ using EloBuddy;
             comboParent.Add(new List<Base>()
                                 {
                                     new QCombo(qSpell, q3Spell).Guardian(mustNotBeWindingUpGuardian).Guardian(qReadyGuardian),
-                                    //new WCombo(wSpell).Guardian(wReadyGuardian),
                                     new ECombo(eSpell).Guardian(mustNotBeWindingUpGuardian).Guardian(eReadyGuardian),
                                     new RCombo(rSpell, yasuoDmg).Guardian(mustNotBeWindingUpGuardian).Guardian(rReadyGuardian)
                                 });
@@ -106,6 +104,12 @@ using EloBuddy;
                                      new QJungle(qSpell, q3Spell).Guardian(mustNotBeWindingUpGuardian).Guardian(qReadyGuardian),
                                      new EJungle(eSpell).Guardian(mustNotBeWindingUpGuardian).Guardian(eReadyGuardian),
                                  });
+
+            lasthitParent.Add(new List<Base>()
+                                  {
+                                      new QLasthit(qSpell, q3Spell).Guardian(mustNotBeWindingUpGuardian).Guardian(qReadyGuardian),
+                                      new ELasthit(eSpell).Guardian(mustNotBeWindingUpGuardian).Guardian(eReadyGuardian),
+                                  });
 
             killstealParnet.Add(new List<Base>
                                     {
@@ -128,6 +132,7 @@ using EloBuddy;
                                      harassParent,
                                      laneParent,
                                      jungleParent,
+                                     lasthitParent,
                                      new Flee(eSpell),
                                      killstealParnet,
                                      drawingParent,

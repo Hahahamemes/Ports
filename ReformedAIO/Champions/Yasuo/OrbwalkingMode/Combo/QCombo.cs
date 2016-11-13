@@ -1,6 +1,6 @@
-using EloBuddy; 
- using LeagueSharp.Common; 
- namespace ReformedAIO.Champions.Yasuo.OrbwalkingMode.Combo
+using EloBuddy;
+using LeagueSharp.Common;
+namespace ReformedAIO.Champions.Yasuo.OrbwalkingMode.Combo
 {
     using System;
 
@@ -23,6 +23,8 @@ using EloBuddy;
 
         private readonly Q3Spell q3Spell;
 
+        private DashPosition dashPos;
+
         public QCombo(Q1Spell qSpell, Q3Spell q3Spell)
         {
             this.qSpell = qSpell;
@@ -40,7 +42,7 @@ using EloBuddy;
                 return;
             }
 
-            if (ObjectManager.Player.IsDashing() && ObjectManager.Player.Distance(Target) > 475)
+            if (ObjectManager.Player.IsDashing() && ObjectManager.Player.Distance(dashPos.DashEndPosition(Target, 475)) > qSpell.Spell.Range)
             {
                 return;
             }
@@ -73,18 +75,7 @@ using EloBuddy;
             }
             else
             {
-                switch (Menu.Item("Hitchance").GetValue<StringList>().SelectedIndex)
-                {
-                    case 0:
-                        qSpell.Spell.CastIfHitchanceEquals(Target, HitChance.Medium);
-                        break;
-                    case 1:
-                        qSpell.Spell.CastIfHitchanceEquals(Target, HitChance.High);
-                        break;
-                    case 2:
-                        qSpell.Spell.CastIfHitchanceEquals(Target, HitChance.VeryHigh);
-                        break;
-                }
+                qSpell.Spell.Cast(Target);
             }
         }
 
@@ -105,6 +96,8 @@ using EloBuddy;
         protected override void OnLoad(object sender, FeatureBaseEventArgs eventArgs)
         {
             base.OnLoad(sender, eventArgs);
+
+            dashPos = new DashPosition();
 
             Menu.AddItem(new MenuItem("Hitchance", "Hitchance").SetValue(new StringList(new[] { "Medium", "High", "Very High" }, 1)));
         }

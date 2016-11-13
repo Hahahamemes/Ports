@@ -1,26 +1,24 @@
-using EloBuddy;
-using LeagueSharp.Common;
-namespace ReformedAIO.Champions.Yasuo.OrbwalkingMode.Lane
+﻿namespace ReformedAIO.Champions.Yasuo.OrbwalkingMode.Lasthit
 {
     using System;
     using System.Linq;
 
     using LeagueSharp;
     using LeagueSharp.Common;
-
+    using EloBuddy;
     using ReformedAIO.Champions.Yasuo.Core.Spells;
     using ReformedAIO.Library.Dash_Handler;
     using ReformedAIO.Library.WallExtension;
 
     using RethoughtLib.FeatureSystem.Implementations;
 
-    internal sealed class ELane : OrbwalkingChild
+    internal sealed class ELasthit : OrbwalkingChild
     {
         public override string Name { get; set; } = "E";
 
         private readonly ESpell spell;
 
-        public ELane(ESpell spell)
+        public ELasthit(ESpell spell)
         {
             this.spell = spell;
         }
@@ -36,8 +34,9 @@ namespace ReformedAIO.Champions.Yasuo.OrbwalkingMode.Lane
         {
             if (Minion == null
                 || !CheckGuardians()
-                || (Menu.Item("ETurret").GetValue<bool>() && dashPos.DashEndPosition(Minion, spell.Spell.Range).UnderTurret(true))
-                || (Menu.Item("EEnemies").GetValue<Slider>().Value < ObjectManager.Player.CountEnemiesInRange(750)))
+                || (Menu.Item("LasthitTurret").GetValue<bool>() && dashPos.DashEndPosition(Minion, spell.Spell.Range).UnderTurret(true))
+                || (Menu.Item("LasthitEnemies").GetValue<Slider>().Value < ObjectManager.Player.CountEnemiesInRange(750))
+                || Minion.Health > spell.Spell.GetDamage(Minion))
             {
                 return;
             }
@@ -45,11 +44,6 @@ namespace ReformedAIO.Champions.Yasuo.OrbwalkingMode.Lane
             var wallPoint = wall.FirstWallPoint(ObjectManager.Player.Position, Minion.Position);
 
             if (wall.IsWallDash(wallPoint, spell.Spell.Range))
-            {
-                return;
-            }
-
-            if (Menu.Item("EKillable").GetValue<bool>() && Minion.Health > spell.Spell.GetDamage(Minion) + ObjectManager.Player.GetAutoAttackDamage(Minion))
             {
                 return;
             }
@@ -79,11 +73,9 @@ namespace ReformedAIO.Champions.Yasuo.OrbwalkingMode.Lane
 
             wall = new WallExtension();
 
-            Menu.AddItem(new MenuItem("EKillable", "Only Killable Minions").SetValue(true));
+            Menu.AddItem(new MenuItem("LasthitEnemies", "Don't E Into X Enemies").SetValue(new Slider(2, 0, 5)));
 
-            Menu.AddItem(new MenuItem("EEnemies", "Don't E Into X Enemies").SetValue(new Slider(1, 0, 5)));
-
-            Menu.AddItem(new MenuItem("ETurret", "Turret Check").SetValue(true));
+            Menu.AddItem(new MenuItem("LasthitTurret", "Turret Check").SetValue(true));
         }
     }
 }
