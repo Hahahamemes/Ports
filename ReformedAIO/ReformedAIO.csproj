@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5671E98A-57A2-40EB-8C87-00FEB6E322AC}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ReformedAIO</RootNamespace>
+    <AssemblyName>ReformedAIO</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>0</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ReformedAIO.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EloBuddy">
+      <HintPath>..\..\AppData\Roaming\EloBuddy\Addons\Libraries\EloBuddy.dll</HintPath>
+    </Reference>
+    <Reference Include="EloBuddy.Sandbox">
+      <HintPath>..\..\AppData\Roaming\EloBuddy\Addons\Libraries\EloBuddy.Sandbox.dll</HintPath>
+    </Reference>
+    <Reference Include="EloBuddy.SDK">
+      <HintPath>..\..\AppData\Roaming\EloBuddy\Addons\Libraries\EloBuddy.SDK.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\AppData\Roaming\EloBuddy\Addons\Libraries\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PortAIO.Common">
+      <HintPath>..\..\AppData\Roaming\EloBuddy\Addons\Libraries\PortAIO.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="RethoughtLib">
+      <HintPath>..\..\AppData\Roaming\EloBuddy\Addons\Libraries\RethoughtLib.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX">
+      <HintPath>..\..\AppData\Roaming\EloBuddy\Addons\Libraries\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D9">
+      <HintPath>..\..\AppData\Roaming\EloBuddy\Addons\Libraries\SharpDX.Direct3D9.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.XInput">
+      <HintPath>..\..\AppData\Roaming\EloBuddy\Addons\Libraries\SharpDX.XInput.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Champions\Annie\AnnieLoader.cs" />
+    <Compile Include="Champions\Annie\Core\Damage\AnnieDamage.cs" />
+    <Compile Include="Champions\Annie\Core\PassiveCount.cs" />
+    <Compile Include="Champions\Annie\Core\Spells\ESpell.cs" />
+    <Compile Include="Champions\Annie\Core\Spells\QSpell.cs" />
+    <Compile Include="Champions\Annie\Core\Spells\RSpell.cs" />
+    <Compile Include="Champions\Annie\Core\Spells\WSpell.cs" />
+    <Compile Include="Champions\Annie\Drawings\AnnieDamageDraw.cs" />
+    <Compile Include="Champions\Annie\Drawings\PassiveDraw.cs" />
+    <Compile Include="Champions\Annie\Drawings\QDraw.cs" />
+    <Compile Include="Champions\Annie\Drawings\RDraw.cs" />
+    <Compile Include="Champions\Annie\Drawings\WDraw.cs" />
+    <Compile Include="Champions\Annie\Killsteal\QKillsteal.cs" />
+    <Compile Include="Champions\Annie\Killsteal\RKillsteal.cs" />
+    <Compile Include="Champions\Annie\Killsteal\WKillsteal.cs" />
+    <Compile Include="Champions\Annie\OrbwalkingMode\Combo\ECombo.cs" />
+    <Compile Include="Champions\Annie\OrbwalkingMode\Combo\QCombo.cs" />
+    <Compile Include="Champions\Annie\OrbwalkingMode\Combo\RCombo.cs" />
+    <Compile Include="Champions\Annie\OrbwalkingMode\Combo\WCombo.cs" />
+    <Compile Include="Champions\Annie\OrbwalkingMode\Harass\EHarass.cs" />
+    <Compile Include="Champions\Annie\OrbwalkingMode\Harass\QHarass.cs" />
+    <Compile Include="Champions\Annie\OrbwalkingMode\Harass\WHarass.cs" />
+    <Compile Include="Champions\Annie\OrbwalkingMode\Jungleclear\EJungle.cs" />
+    <Compile Include="Champions\Annie\OrbwalkingMode\Jungleclear\QJungle.cs" />
+    <Compile Include="Champions\Annie\OrbwalkingMode\Jungleclear\WJungle.cs" />
+    <Compile Include="Champions\Annie\OrbwalkingMode\Laneclear\QLane.cs" />
+    <Compile Include="Champions\Annie\OrbwalkingMode\Laneclear\WLane.cs" />
+    <Compile Include="Champions\Annie\OrbwalkingMode\Lasthit\QLasthit.cs" />
+    <Compile Include="Champions\Annie\Stack\PassiveStack.cs" />
+    <Compile Include="Champions\Annie\TibbersAI\TibbersAI.cs" />
+    <Compile Include="Champions\Annie\Utility\AnnieSkinchanger.cs" />
+    <Compile Include="Champions\Ashe\AsheLoader.cs" />
+    <Compile Include="Champions\Ashe\Drawings\DmgDraw.cs" />
+    <Compile Include="Champions\Ashe\Drawings\WDraw.cs" />
+    <Compile Include="Champions\Ashe\Logic\ELogic.cs" />
+    <Compile Include="Champions\Ashe\Logic\QLogic.cs" />
+    <Compile Include="Champions\Ashe\Logic\RLogic.cs" />
+    <Compile Include="Champions\Ashe\Core\SetSpells.cs" />
+    <Compile Include="Champions\Ashe\OrbwalkingMode\Combo\ECombo.cs" />
+    <Compile Include="Champions\Ashe\OrbwalkingMode\Combo\QCombo.cs" />
+    <Compile Include="Champions\Ashe\OrbwalkingMode\Combo\RCombo.cs" />
+    <Compile Include="Champions\Ashe\OrbwalkingMode\Combo\WCombo.cs" />
+    <Compile Include="Champions\Ashe\OrbwalkingMode\JungleClear\QJungle.cs" />
+    <Compile Include="Champions\Ashe\OrbwalkingMode\JungleClear\WJungle.cs" />
+    <Compile Include="Champions\Ashe\OrbwalkingMode\LaneClear\QLane.cs" />
+    <Compile Include="Champions\Ashe\OrbwalkingMode\LaneClear\WLane.cs" />
+    <Compile Include="Champions\Ashe\OrbwalkingMode\Mixed\QMixed.cs" />
+    <Compile Include="Champions\Ashe\OrbwalkingMode\Mixed\WMixed.cs" />
+    <Compile Include="Champions\Ashe\Utility\AsheSkinchanger.cs" />
+    <Compile Include="Champions\Ashe\Variable.cs" />
+    <Compile Include="Bootstrap.cs" />
+    <Compile Include="Champions\Caitlyn\CaitlynLoader.cs" />
+    <Compile Include="Champions\Caitlyn\Drawings\DmgDraw.cs" />
+    <Compile Include="Champions\Caitlyn\Drawings\QDraw.cs" />
+    <Compile Include="Champions\Caitlyn\Drawings\RDraw.cs" />
+    <Compile Include="Champions\Caitlyn\Killsteal\QKillsteal.cs" />
+    <Compile Include="Champions\Caitlyn\Killsteal\RKillsteal.cs" />
+    <Compile Include="Champions\Caitlyn\Logic\ComboLogic.cs" />
+    <Compile Include="Champions\Caitlyn\OrbwalkingMode\Combo\ECombo.cs" />
+    <Compile Include="Champions\Caitlyn\OrbwalkingMode\Combo\QCombo.cs" />
+    <Compile Include="Champions\Caitlyn\OrbwalkingMode\Combo\WCombo.cs" />
+    <Compile Include="Champions\Caitlyn\OrbwalkingMode\Harass\EHarass.cs" />
+    <Compile Include="Champions\Caitlyn\OrbwalkingMode\Harass\QHarass.cs" />
+    <Compile Include="Champions\Caitlyn\OrbwalkingMode\Harass\WHarass.cs" />
+    <Compile Include="Champions\Caitlyn\OrbwalkingMode\Jungle\EJungle.cs" />
+    <Compile Include="Champions\Caitlyn\OrbwalkingMode\Jungle\QJungle.cs" />
+    <Compile Include="Champions\Caitlyn\OrbwalkingMode\Lane\QLane.cs" />
+    <Compile Include="Champions\Caitlyn\Spells\ESpell.cs" />
+    <Compile Include="Champions\Caitlyn\Spells\QSpell.cs" />
+    <Compile Include="Champions\Caitlyn\Spells\RSpell.cs" />
+    <Compile Include="Champions\Caitlyn\Spells\WSpell.cs" />
+    <Compile Include="Champions\Caitlyn\Utility\CaitlynSkinchanger.cs" />
+    <Compile Include="Champions\Diana\Utility\DianaSkinchanger.cs" />
+    <Compile Include="Champions\Ezreal\Core\Damage\EzrealDamage.cs" />
+    <Compile Include="Champions\Ezreal\Core\Spells\ESpell.cs" />
+    <Compile Include="Champions\Ezreal\Core\Spells\QSpell.cs" />
+    <Compile Include="Champions\Ezreal\Core\Spells\RSpell.cs" />
+    <Compile Include="Champions\Ezreal\Core\Spells\WSpell.cs" />
+    <Compile Include="Champions\Ezreal\Drawings\DmgDraw.cs" />
+    <Compile Include="Champions\Ezreal\Drawings\QDraw.cs" />
+    <Compile Include="Champions\Ezreal\Drawings\WDraw.cs" />
+    <Compile Include="Champions\Ezreal\EzrealLoader.cs" />
+    <Compile Include="Champions\Ezreal\Killsteal\EKillsteal.cs" />
+    <Compile Include="Champions\Ezreal\Killsteal\QKillsteal.cs" />
+    <Compile Include="Champions\Ezreal\Killsteal\RCombo.cs" />
+    <Compile Include="Champions\Ezreal\Killsteal\WKillsteal.cs" />
+    <Compile Include="Champions\Ezreal\OrbwalkingMode\Combo\ECombo.cs" />
+    <Compile Include="Champions\Ezreal\OrbwalkingMode\Combo\QCombo.cs" />
+    <Compile Include="Champions\Ezreal\OrbwalkingMode\Combo\RCombo.cs" />
+    <Compile Include="Champions\Ezreal\OrbwalkingMode\Combo\WCombo.cs" />
+    <Compile Include="Champions\Ezreal\OrbwalkingMode\Harass\QHarass.cs" />
+    <Compile Include="Champions\Ezreal\OrbwalkingMode\Harass\WHarass.cs" />
+    <Compile Include="Champions\Ezreal\OrbwalkingMode\JungleClear\QJungle.cs" />
+    <Compile Include="Champions\Ezreal\OrbwalkingMode\JungleClear\WJungle.cs" />
+    <Compile Include="Champions\Ezreal\OrbwalkingMode\LaneClear\QLane.cs" />
+    <Compile Include="Champions\Ezreal\OrbwalkingMode\LaneClear\WLane.cs" />
+    <Compile Include="Champions\Ezreal\OrbwalkingMode\Stack\StackTear.cs" />
+    <Compile Include="Champions\Ezreal\Utility\EzrealSkinchanger.cs" />
+    <Compile Include="Champions\Gnar\Core\Dmg.cs" />
+    <Compile Include="Champions\Gnar\Core\GnarState.cs" />
+    <Compile Include="Champions\Gnar\Core\Spells.cs" />
+    <Compile Include="Champions\Gnar\Drawings\Damage\GnarDamage.cs" />
+    <Compile Include="Champions\Gnar\Drawings\SpellRange\ERange.cs" />
+    <Compile Include="Champions\Gnar\Drawings\SpellRange\QRange.cs" />
+    <Compile Include="Champions\Gnar\Drawings\SpellRange\RRange.cs" />
+    <Compile Include="Champions\Gnar\Drawings\SpellRange\WRange.cs" />
+    <Compile Include="Champions\Gnar\GnarLoader.cs" />
+    <Compile Include="Champions\Gnar\Logic\FleeLogic.cs" />
+    <Compile Include="Champions\Gnar\Logic\GnarWallDetection.cs" />
+    <Compile Include="Champions\Gnar\OrbwalkingMode\Combo\ECombo.cs" />
+    <Compile Include="Champions\Gnar\OrbwalkingMode\Combo\QCombo.cs" />
+    <Compile Include="Champions\Gnar\OrbwalkingMode\Combo\RCombo.cs" />
+    <Compile Include="Champions\Gnar\OrbwalkingMode\Combo\WCombo.cs" />
+    <Compile Include="Champions\Gnar\OrbwalkingMode\Harass\QHarass.cs" />
+    <Compile Include="Champions\Gnar\OrbwalkingMode\Jungle\EJungle.cs" />
+    <Compile Include="Champions\Gnar\OrbwalkingMode\Jungle\QJungle.cs" />
+    <Compile Include="Champions\Gnar\OrbwalkingMode\Jungle\W2Jungle.cs" />
+    <Compile Include="Champions\Gnar\OrbwalkingMode\Lane\QLane.cs" />
+    <Compile Include="Champions\Gnar\OrbwalkingMode\Lane\W2Lane.cs" />
+    <Compile Include="Champions\Gnar\PermaActive\Flee.cs" />
+    <Compile Include="Champions\Gnar\PermaActive\Killsteal\QKillsteal.cs" />
+    <Compile Include="Champions\Gnar\PermaActive\Killsteal\WKillsteal.cs" />
+    <Compile Include="Champions\Gnar\Utility\GnarSkinchanger.cs" />
+    <Compile Include="Champions\Gragas\Utility\GragasSkinchanger.cs" />
+    <Compile Include="Champions\Lucian\Drawings\QDraw.cs" />
+    <Compile Include="Champions\Lucian\Spells\ESpell.cs" />
+    <Compile Include="Champions\Lucian\Spells\Q2Spell.cs" />
+    <Compile Include="Champions\Lucian\Spells\QSpell.cs" />
+    <Compile Include="Champions\Lucian\Spells\RSpell.cs" />
+    <Compile Include="Champions\Lucian\Utility\LucianSkinchanger.cs" />
+    <Compile Include="Champions\Olaf\Core\Damage\OlafDamage.cs" />
+    <Compile Include="Champions\Olaf\Core\Spells\ESpell.cs" />
+    <Compile Include="Champions\Olaf\Core\Spells\QSpell.cs" />
+    <Compile Include="Champions\Olaf\Core\Spells\RSpell.cs" />
+    <Compile Include="Champions\Olaf\Core\Spells\WSpell.cs" />
+    <Compile Include="Champions\Olaf\Drawings\EDraw.cs" />
+    <Compile Include="Champions\Olaf\Drawings\OlafDamageDraw.cs" />
+    <Compile Include="Champions\Olaf\Drawings\QDraw.cs" />
+    <Compile Include="Champions\Olaf\Killsteal\EKillsteal.cs" />
+    <Compile Include="Champions\Olaf\Killsteal\QKillsteal.cs" />
+    <Compile Include="Champions\Olaf\OlafLoader.cs" />
+    <Compile Include="Champions\Olaf\OrbwalkingMode\Combo\ECombo.cs" />
+    <Compile Include="Champions\Olaf\OrbwalkingMode\Combo\QCombo.cs" />
+    <Compile Include="Champions\Olaf\OrbwalkingMode\Combo\RCombo.cs" />
+    <Compile Include="Champions\Olaf\OrbwalkingMode\Combo\WCombo.cs" />
+    <Compile Include="Champions\Olaf\OrbwalkingMode\Jungle\EJungle.cs" />
+    <Compile Include="Champions\Olaf\OrbwalkingMode\Jungle\QJungle.cs" />
+    <Compile Include="Champions\Olaf\OrbwalkingMode\Jungle\WJungle.cs" />
+    <Compile Include="Champions\Olaf\OrbwalkingMode\Lane\ELane.cs" />
+    <Compile Include="Champions\Olaf\OrbwalkingMode\Lane\QLane.cs" />
+    <Compile Include="Champions\Olaf\OrbwalkingMode\Lane\WLane.cs" />
+    <Compile Include="Champions\Olaf\OrbwalkingMode\Mixed\EMixed.cs" />
+    <Compile Include="Champions\Olaf\OrbwalkingMode\Mixed\QMixed.cs" />
+    <Compile Include="Champions\Olaf\OrbwalkingMode\Mixed\WMixed.cs" />
+    <Compile Include="Champions\Olaf\Utility\OlafSkinchanger.cs" />
+    <Compile Include="Champions\Yasuo\Core\Damage\YasuoDamage.cs" />
+    <Compile Include="Champions\Yasuo\Core\Spells\ESpell.cs" />
+    <Compile Include="Champions\Yasuo\Core\Spells\Q1Spell.cs" />
+    <Compile Include="Champions\Yasuo\Core\Spells\Q3Spell.cs" />
+    <Compile Include="Champions\Yasuo\Core\Spells\RSpell.cs" />
+    <Compile Include="Champions\Yasuo\Core\Spells\WSpell.cs" />
+    <Compile Include="Champions\Yasuo\Drawings\Damage\YasuoDamageDrawing.cs" />
+    <Compile Include="Champions\Yasuo\Drawings\SpellDrawings\EDrawing.cs" />
+    <Compile Include="Champions\Yasuo\Drawings\SpellDrawings\QDrawing.cs" />
+    <Compile Include="Champions\Yasuo\Killsteal\EKillsteal.cs" />
+    <Compile Include="Champions\Yasuo\Killsteal\QKillsteal.cs" />
+    <Compile Include="Champions\Yasuo\OrbwalkingMode\Combo\ECombo.cs" />
+    <Compile Include="Champions\Yasuo\OrbwalkingMode\Combo\QCombo.cs" />
+    <Compile Include="Champions\Yasuo\OrbwalkingMode\Combo\RCombo.cs" />
+    <Compile Include="Champions\Yasuo\OrbwalkingMode\Flee\Flee.cs" />
+    <Compile Include="Champions\Yasuo\OrbwalkingMode\Harass\EHarass.cs" />
+    <Compile Include="Champions\Yasuo\OrbwalkingMode\Harass\QHarass.cs" />
+    <Compile Include="Champions\Yasuo\OrbwalkingMode\Jungle\EJungle.cs" />
+    <Compile Include="Champions\Yasuo\OrbwalkingMode\Jungle\QJungle.cs" />
+    <Compile Include="Champions\Yasuo\OrbwalkingMode\Lane\ELane.cs" />
+    <Compile Include="Champions\Yasuo\OrbwalkingMode\Lane\QLane.cs" />
+    <Compile Include="Champions\Yasuo\Utility\YasuoSkinchanger.cs" />
+    <Compile Include="Champions\Yasuo\YasuoLoader.cs" />
+    <Compile Include="Library\Dash Handler\DashPosition.cs" />
+    <Compile Include="Library\Get Information\GetRandom\GetRandom.cs" />
+    <Compile Include="Library\Get Information\JungleCamps\JungleCamps.cs" />
+    <Compile Include="Library\Get Information\HeroInfo\HeroInfo.cs" />
+    <Compile Include="Library\Spell Information\SpellInformation.cs" />
+    <Compile Include="Library\SpellParent\ISpellIndex.cs" />
+    <Compile Include="Library\SpellParent\SpellParent.cs" />
+    <Compile Include="Champions\Lucian\Spells\WSpell.cs" />
+    <Compile Include="Champions\Lucian\Drawings\DmgDraw.cs" />
+    <Compile Include="Champions\Lucian\Drawings\RDraw.cs" />
+    <Compile Include="Champions\Lucian\Drawings\WDraw.cs" />
+    <Compile Include="Champions\Lucian\Damage\LucDamage.cs" />
+    <Compile Include="Champions\Lucian\LucianLoader.cs" />
+    <Compile Include="Champions\Lucian\OrbwalkingMode\Combo\ECombo.cs" />
+    <Compile Include="Champions\Lucian\OrbwalkingMode\Combo\QCombo.cs" />
+    <Compile Include="Champions\Lucian\OrbwalkingMode\Combo\RCombo.cs" />
+    <Compile Include="Champions\Lucian\OrbwalkingMode\Combo\WCombo.cs" />
+    <Compile Include="Champions\Lucian\OrbwalkingMode\Harass\EHarass.cs" />
+    <Compile Include="Champions\Lucian\OrbwalkingMode\Harass\QHarass.cs" />
+    <Compile Include="Champions\Lucian\OrbwalkingMode\Harass\WHarass.cs" />
+    <Compile Include="Champions\Lucian\OrbwalkingMode\JungleClear\EJungleClear.cs" />
+    <Compile Include="Champions\Lucian\OrbwalkingMode\JungleClear\QJungleClear.cs" />
+    <Compile Include="Champions\Lucian\OrbwalkingMode\JungleClear\WJungleClear.cs" />
+    <Compile Include="Champions\Lucian\OrbwalkingMode\LaneClear\ELaneClear.cs" />
+    <Compile Include="Champions\Lucian\OrbwalkingMode\LaneClear\QLaneClear.cs" />
+    <Compile Include="Champions\Lucian\OrbwalkingMode\LaneClear\WLaneClear.cs" />
+    <Compile Include="Champions\Lucian\Killsteal\Q.cs" />
+    <Compile Include="Champions\Lucian\Killsteal\R.cs" />
+    <Compile Include="Champions\Lucian\Killsteal\W.cs" />
+    <Compile Include="Champions\Diana\DianaLoader.cs" />
+    <Compile Include="Champions\Diana\OrbwalkingMode\Misaya\MisayaCombo.cs" />
+    <Compile Include="Champions\Gragas\GragasLoader.cs" />
+    <Compile Include="Champions\Diana\Logic\CrescentStrikeLogic.cs" />
+    <Compile Include="Champions\Diana\Logic\FleeLogic.cs" />
+    <Compile Include="Champions\Diana\Killsteal\ksCrescentStrike.cs" />
+    <Compile Include="Champions\Diana\Killsteal\ksPaleCascade.cs" />
+    <Compile Include="Champions\Diana\Logic\LogicAll.cs" />
+    <Compile Include="Champions\Diana\Logic\MoonfallLogic.cs" />
+    <Compile Include="Champions\Diana\Logic\PaleCascadeLogic.cs" />
+    <Compile Include="Champions\Diana\Draw\DrawDmg.cs" />
+    <Compile Include="Champions\Diana\Draw\DrawE.cs" />
+    <Compile Include="Champions\Diana\Draw\DrawPred.cs" />
+    <Compile Include="Champions\Diana\Draw\DrawQ.cs" />
+    <Compile Include="Champions\Gragas\Draw\DrawE.cs" />
+    <Compile Include="Champions\Gragas\Draw\DrawIndicator.cs" />
+    <Compile Include="Champions\Gragas\Draw\DrawQ.cs" />
+    <Compile Include="Champions\Gragas\Draw\DrawR.cs" />
+    <Compile Include="Library\Dash Handler\DashSmart.cs" />
+    <Compile Include="Library\Drawings\HeroHealthBarIndicator.cs" />
+    <Compile Include="Champions\Diana\OrbwalkingMode\Combo\CrescentStrike.cs" />
+    <Compile Include="Champions\Diana\OrbwalkingMode\Combo\LunarRush.cs" />
+    <Compile Include="Champions\Diana\OrbwalkingMode\Combo\Moonfall.cs" />
+    <Compile Include="Champions\Diana\OrbwalkingMode\Combo\PaleCascade.cs" />
+    <Compile Include="Champions\Diana\OrbwalkingMode\Flee\FleeMode.cs" />
+    <Compile Include="Champions\Diana\OrbwalkingMode\Jungleclear\JungleCrescentStrike.cs" />
+    <Compile Include="Champions\Diana\OrbwalkingMode\Jungleclear\JungleLunarRush.cs" />
+    <Compile Include="Champions\Diana\OrbwalkingMode\Jungleclear\JungleMoonfall.cs" />
+    <Compile Include="Champions\Diana\OrbwalkingMode\Jungleclear\JunglePaleCascade.cs" />
+    <Compile Include="Champions\Diana\OrbwalkingMode\Laneclear\LaneCrescentStrike.cs" />
+    <Compile Include="Champions\Diana\OrbwalkingMode\Laneclear\LaneLunarRush.cs" />
+    <Compile Include="Champions\Diana\OrbwalkingMode\Mixed\MixedCrescentStrike.cs" />
+    <Compile Include="Champions\Diana\Variables.cs" />
+    <Compile Include="Champions\Gragas\Logic\LogicAll.cs" />
+    <Compile Include="Champions\Gragas\Logic\QLogic.cs" />
+    <Compile Include="Champions\Gragas\Logic\RLogic.cs" />
+    <Compile Include="Champions\Gragas\OrbwalkingMode\Combo\ECombo.cs" />
+    <Compile Include="Champions\Gragas\OrbwalkingMode\Combo\QCombo.cs" />
+    <Compile Include="Champions\Gragas\OrbwalkingMode\Combo\RCombo.cs" />
+    <Compile Include="Champions\Gragas\OrbwalkingMode\Combo\WCombo.cs" />
+    <Compile Include="Champions\Gragas\OrbwalkingMode\Jungle\EJungle.cs" />
+    <Compile Include="Champions\Gragas\OrbwalkingMode\Jungle\QJungle.cs" />
+    <Compile Include="Champions\Gragas\OrbwalkingMode\Jungle\WJungle.cs" />
+    <Compile Include="Champions\Gragas\OrbwalkingMode\Lane\LaneE.cs" />
+    <Compile Include="Champions\Gragas\OrbwalkingMode\Lane\LaneQ.cs" />
+    <Compile Include="Champions\Gragas\OrbwalkingMode\Lane\LaneW.cs" />
+    <Compile Include="Champions\Gragas\OrbwalkingMode\Mixed\QMixed.cs" />
+    <Compile Include="Champions\Gragas\Variable.cs" />
+    <Compile Include="Library\WallExtension\WallExtension.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SPrediction\ArcPrediction.cs" />
+    <Compile Include="SPrediction\CirclePrediction.cs" />
+    <Compile Include="SPrediction\ClipperWrapper.cs" />
+    <Compile Include="SPrediction\Collision.cs" />
+    <Compile Include="SPrediction\ConePrediction.cs" />
+    <Compile Include="SPrediction\ConfigMenu.cs" />
+    <Compile Include="SPrediction\Drawings.cs" />
+    <Compile Include="SPrediction\Geometry.cs" />
+    <Compile Include="SPrediction\LinePrediction.cs" />
+    <Compile Include="SPrediction\Obj_AI_HeroExtensions.cs" />
+    <Compile Include="SPrediction\PathTracker.cs" />
+    <Compile Include="SPrediction\Prediction.cs" />
+    <Compile Include="SPrediction\RingPrediction.cs" />
+    <Compile Include="SPrediction\SpellExtensions.cs" />
+    <Compile Include="SPrediction\StasisPrediction.cs" />
+    <Compile Include="SPrediction\Utility.cs" />
+    <Compile Include="SPrediction\VectorPrediction.cs" />
+    <Compile Include="Utility\ReformedUtility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Champions\Ezreal\OrbwalkingMode\Flee\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
