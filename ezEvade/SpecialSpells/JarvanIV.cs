@@ -25,17 +25,15 @@ using EloBuddy;
         {
             if (spellData.spellName == "JarvanIVDragonStrike")
             {
-                AIHeroClient hero = HeroManager.Enemies.FirstOrDefault(h => h.ChampionName == "JarvanIV");
-                if (hero == null)
+                var jarvaniv = HeroManager.AllHeroes.FirstOrDefault(h => h.ChampionName == "JarvanIV");
+                if (jarvaniv != null && jarvaniv.CheckTeam())
                 {
-                    return;
+                    Game.OnUpdate += Game_OnUpdate;
+                    AIHeroClient.OnProcessSpellCast += ProcessSpell_JarvanIVDemacianStandard;
+                    SpellDetector.OnProcessSpecialSpell += ProcessSpell_JarvanIVDragonStrike;
+                    Obj_AI_Minion.OnCreate += OnCreateObj_JarvanIVDragonStrike;
+                    Obj_AI_Minion.OnDelete += OnDeleteObj_JarvanIVDragonStrike;
                 }
-
-                Game.OnUpdate += Game_OnUpdate;
-                AIHeroClient.OnProcessSpellCast += ProcessSpell_JarvanIVDemacianStandard;
-                SpellDetector.OnProcessSpecialSpell += ProcessSpell_JarvanIVDragonStrike;
-                Obj_AI_Minion.OnCreate += OnCreateObj_JarvanIVDragonStrike;
-                Obj_AI_Minion.OnDelete += OnDeleteObj_JarvanIVDragonStrike;
             }            
         }
 

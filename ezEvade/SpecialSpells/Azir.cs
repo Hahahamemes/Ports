@@ -23,8 +23,8 @@ using EloBuddy;
         {
             if (spellData.spellName == "AzirQWrapper")
             {
-                var hero = HeroManager.Enemies.FirstOrDefault(h => h.ChampionName == "Azir");
-                if (hero == null)
+                var hero = HeroManager.AllHeroes.FirstOrDefault(h => h.ChampionName == "Azir");
+                if (hero == null || !hero.CheckTeam())
                 {
                     return;
                 }

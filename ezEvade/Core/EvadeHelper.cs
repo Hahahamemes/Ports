@@ -980,19 +980,14 @@ using EloBuddy;
                         return 0;
                     }
 
-                    if (tHeroPos.Distance(spell.endPos) >= spell.radius)
-                    {
-                        return Math.Max(0, tHeroPos.Distance(spell.endPos) - midRadius - wallRadius);
-                    }
-                    else
-                    {
-                        return Math.Max(0, midRadius - tHeroPos.Distance(spell.endPos) - wallRadius);
-                    }
+                    return tHeroPos.Distance(spell.endPos) >= spell.radius
+                        ? Math.Max(0, tHeroPos.Distance(spell.endPos) - midRadius - wallRadius)
+                        : Math.Max(0, midRadius - tHeroPos.Distance(spell.endPos) - wallRadius);
                 }
 
                 if (spell.info.spellName == "DariusCleave")
                 {
-                    var wallRadius = 225;
+                    var wallRadius = 115;
                     var midRadius = spell.radius - wallRadius;
 
                     if (spellHitTime == 0)
@@ -1000,14 +995,9 @@ using EloBuddy;
                         return 0;
                     }
 
-                    if (tHeroPos.Distance(spell.endPos) >= spell.radius)
-                    {
-                        return Math.Max(0, tHeroPos.Distance(spell.endPos) - midRadius - wallRadius);
-                    }
-                    else
-                    {
-                        return Math.Max(0, midRadius - tHeroPos.Distance(spell.endPos) - wallRadius);
-                    }
+                    return tHeroPos.Distance(spell.endPos) >= spell.radius
+                        ? Math.Max(0, tHeroPos.Distance(spell.endPos) - midRadius - wallRadius)
+                        : Math.Max(0, midRadius - tHeroPos.Distance(spell.endPos) - wallRadius);
                 }
 
                 var closestDist = Math.Max(0, tHeroPos.Distance(spell.endPos) - (spell.radius + extraDist));
@@ -1088,9 +1078,6 @@ using EloBuddy;
             {
                 return ObjectCache.myHeroCache.serverPos2D;
             }
-
-            //if (!myHero.IsMoving)
-            //    return myHero.Position.To2D();
 
             var serverPos = ObjectCache.myHeroCache.serverPos2D;
             var heroPos = myHero.Position.To2D();
@@ -1244,8 +1231,12 @@ using EloBuddy;
                                 spell.endPos, new Vector2(0, 0), spell.radius,
                                 out cHeroPos, out cSpellPos);
 
-                            var cHeroPosProjection = cHeroPos.ProjectOn(from, movePos);
+                            if (spell.info.spellName.Contains("_trap") && !(cpa2 < spell.radius + 10))
+                            {
+                                continue;
+                            }
 
+                            var cHeroPosProjection = cHeroPos.ProjectOn(from, movePos);
                             if (cHeroPosProjection.IsOnSegment && cpa2 != float.MaxValue)
                             {
                                 return true;
