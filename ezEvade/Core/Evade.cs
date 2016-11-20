@@ -103,7 +103,7 @@ using EloBuddy;
                 Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
 
 
-                Chat.Print(devModeOn ? "<b>ezEvade: Developer Mode On</b>" : "<b>ezEvade: Loaded!");
+                Chat.Print(devModeOn ? "<b>ezEvade: Developer Mode On</b>" : "<b>ezEvade: Loaded!</b>");
 
                 menu = new Menu("ezEvade", "ezEvade", true);
 

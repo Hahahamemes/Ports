@@ -232,7 +232,11 @@ using EloBuddy;
                     {
 
                         Render.Circle.DrawCircle(new Vector3(spell.endPos.X, spell.endPos.Y, spell.height), (int) spell.radius, !canEvade ? Color.Yellow : spellDrawingConfig.Color, spellDrawingWidth);
-                        Render.Circle.DrawCircle(new Vector3(spell.endPos.X, spell.endPos.Y, spell.height), (int) spell.radius + avoidRadius, !canEvade ? Color.Yellow : spellDrawingConfig.Color, Math.Max(spellDrawingWidth - 1, 1));
+
+                        if (Evade.devModeOn)
+                            Render.Circle.DrawCircle(new Vector3(spell.endPos.X, spell.endPos.Y, spell.height),
+                                (int) spell.radius + avoidRadius, !canEvade ? Color.Yellow : spellDrawingConfig.Color,
+                                Math.Max(spellDrawingWidth - 1, 1));
 
                         if (spell.info.spellName == "VeigarEventHorizon")
                         {

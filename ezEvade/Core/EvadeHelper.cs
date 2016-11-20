@@ -881,9 +881,9 @@ using EloBuddy;
 
                 closestDistance = Math.Min(closestDistance, GetClosestDistanceApproach(spell, pos, speed, delay, heroPos, extraDist));
 
-                if (pos.InSkillShot(spell, ObjectCache.myHeroCache.boundingRadius - 6) 
-                    || PredictSpellCollision(spell, pos, speed, delay, heroPos, extraDist, useServerPosition)
-                    || (spell.info.spellType != SpellType.Line && pos.isNearEnemy(minComfortDistance)))
+                if (pos.InSkillShot(spell, ObjectCache.myHeroCache.boundingRadius - 8)
+                   || PredictSpellCollision(spell, pos, speed, delay, heroPos, extraDist, useServerPosition)
+                   || (spell.info.spellType != SpellType.Line && pos.isNearEnemy(minComfortDistance)))
                 {
                     posDangerLevel = Math.Max(posDangerLevel, spell.dangerlevel);
                     posDangerCount += spell.dangerlevel;
@@ -912,7 +912,6 @@ using EloBuddy;
             if (spell.spellType == SpellType.Line && spell.info.projectileSpeed != float.MaxValue)
             {
                 var spellPos = spell.GetCurrentSpellPosition(true, delay);
-                var spellStartPos = spell.currentSpellPosition;
                 var spellEndPos = spell.GetSpellEndPosition();
                 var extendedPos = pos.ExtendDir(walkDir, ObjectCache.myHeroCache.boundingRadius + speed * delay / 1000);
 
@@ -932,7 +931,9 @@ using EloBuddy;
                     return 0;
                 }
 
-                var cpa = MathUtilsCPA.CPAPointsEx(heroPos, walkDir * speed, spellPos, spell.direction * spell.info.projectileSpeed, pos, spellEndPos, out cHeroPos, out cSpellPos);
+                var cpa = MathUtilsCPA.CPAPointsEx(
+                    heroPos, walkDir * speed, spellPos, spell.direction * spell.info.projectileSpeed,
+                    pos, spellEndPos, out cHeroPos, out cSpellPos);
 
                 cHeroPosProjection = cHeroPos.ProjectOn(heroPos, extendedPos);
                 cSpellPosProjection = cSpellPos.ProjectOn(spellPos, spellEndPos);
@@ -943,11 +944,8 @@ using EloBuddy;
                 {
                     return Math.Max(0, cpa - checkDist);
                 }
-                else
-                {
-                    return checkDist;
-                }
 
+                return checkDist;
 
                 //return MathUtils.ClosestTimeOfApproach(heroPos, walkDir * speed, spellPos, spell.direction * spell.info.projectileSpeed);
             }
@@ -1241,13 +1239,6 @@ using EloBuddy;
                             {
                                 return true;
                             }
-
-                            /*var cpa = MathUtilsCPA.CPAPointsEx(from, dir * ObjectCache.myHeroCache.moveSpeed, spell.endPos, new Vector2(0, 0), movePos, spell.endPos);
-
-                            if (cpa < spell.radius + 10)
-                            {
-                                return true;
-                            }*/
                         }
                     }
                     else if (spell.spellType == SpellType.Arc)
