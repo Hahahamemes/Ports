@@ -15,7 +15,7 @@ using EloBuddy;
         {
             try
             {
-                CustomEvents.Game.OnGameLoad += Entry.OnLoad;
+                EloBuddy.SDK.Events.Loading.OnLoadingComplete += Entry.OnLoad;
             }
             catch (Exception e)
             {
