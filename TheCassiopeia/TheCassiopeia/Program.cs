@@ -15,7 +15,7 @@ using EloBuddy;
 
         static void Main(string[] args)
         {
-            CustomEvents.Game.OnGameLoad += new Cassiopeia().Load;
+            EloBuddy.SDK.Events.Loading.OnLoadingComplete += new Cassiopeia().Load;
         }
     }
 }

@@ -34,7 +34,7 @@ using EloBuddy;
 
         private static void Main(string[] args)
         {
-            CustomEvents.Game.OnGameLoad += Game_OnGameLoad;
+            EloBuddy.SDK.Events.Loading.OnLoadingComplete += Game_OnGameLoad;
         }
 
         private static void Game_OnGameLoad(EventArgs args)

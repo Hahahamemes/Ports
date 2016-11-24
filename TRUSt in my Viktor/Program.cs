@@ -50,7 +50,7 @@ using EloBuddy;
         public static void Main(string[] args)
         {
             // Register events
-            CustomEvents.Game.OnGameLoad += Game_OnGameLoad;
+            EloBuddy.SDK.Events.Loading.OnLoadingComplete += Game_OnGameLoad;
 
         }
 
