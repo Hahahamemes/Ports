@@ -81,7 +81,7 @@ using EloBuddy;
                 }
                 else
                 {
-                    EloBuddy.SDK.Events.Loading.OnLoadingComplete += Game_OnGameLoad;
+                    Game.OnLoad += Game_OnGameLoad;
                 }
             });
         }
@@ -205,10 +205,7 @@ using EloBuddy;
 
                 if (devModeOn)
                 {
-                    var rootTestMenu = new Menu("ezEvade Tester", "ezEvadeTester", true);
-                    evadeTester = new EvadeTester(rootTestMenu);
                     LeagueSharp.Common.Utility.DelayAction.Add(100, () => loadTestMenu.Item("LoadSpellTester").SetValue(true));
-                    rootTestMenu.AddToMainMenu();
                 }
 
                 Console.WriteLine("ezEvade Loaded");
