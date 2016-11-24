@@ -72,15 +72,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\SebbyLibCache.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Common\HpBarDraw.cs" />
-    <Compile Include="Common\MultiLanguage.cs" />
-    <Compile Include="SebbyLib\Cache.cs" />
-    <Compile Include="SebbyLib\HealthPrediction.cs" />
-    <Compile Include="SebbyLib\Movement.cs" />
-    <Compile Include="SebbyLib\OktwCommon.cs" />
-    <Compile Include="SebbyLib\Orbwalking.cs" />
-    <Compile Include="SebbyLib\PredictionOktw.cs" />
+    <Compile Include="Prediction\OktwPrediction.cs" />
     <Compile Include="SPrediction\ArcPrediction.cs" />
     <Compile Include="SPrediction\CirclePrediction.cs" />
     <Compile Include="SPrediction\ClipperWrapper.cs" />
@@ -135,6 +130,7 @@
     <Compile Include="Utility\AutoLevels.cs" />
     <Compile Include="Utility\Cleaness.cs" />
     <Compile Include="Utility\Items.cs" />
+    <Compile Include="Utility\SkinChange.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
