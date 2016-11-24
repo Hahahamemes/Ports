@@ -1291,7 +1291,7 @@
 
         private static void Main(string[] args)
         {
-            CustomEvents.Game.OnGameLoad += Game_OnGameLoad;
+            EloBuddy.SDK.Events.Loading.OnLoadingComplete += Game_OnGameLoad;
         }
 
         private static void Obj_AI_Base_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
