@@ -48,10 +48,9 @@ using EloBuddy;
                 dangerlevel = 3,
                 missileName = "AatroxQ",
                 name = "Dark Flight",
-                projectileSpeed = 450,
                 radius = 285,
                 range = 650,
-                spellDelay = 250,
+                spellDelay = 650,
                 spellKey = SpellSlot.Q,
                 spellName = "AatroxQ",
                 spellType = SpellType.Circular
@@ -62,14 +61,13 @@ using EloBuddy;
             {
                 charName = "Aatrox",
                 dangerlevel = 2,
-                missileName = "AatroxE",
-                name = "Blade of Torment",
+                name = "Blade of Torment [Beta]",
                 projectileSpeed = 1200,
-                radius = 100,
+                radius = 40,
                 range = 1075,
                 spellDelay = 250,
                 spellKey = SpellSlot.E,
-                spellName = "AatroxE",
+                spellName = "AatroxEConeMissile",
                 spellType = SpellType.Line,
 
             });
@@ -198,8 +196,6 @@ using EloBuddy;
                 range = 1250,
                 spellDelay = 250,
                 spellKey = SpellSlot.Q,
-                secondaryRadius = 210,
-                extraDrawHeight = 165,
                 spellName = "FlashFrostSpell",
                 spellType = SpellType.Line
             });
@@ -220,7 +216,7 @@ using EloBuddy;
                 spellDelay = 250,
                 spellKey = SpellSlot.W,
                 spellName = "Incinerate",
-                spellType = SpellType.Cone,
+                spellType = SpellType.Cone
             });
 
             Spells.Add(
@@ -228,7 +224,6 @@ using EloBuddy;
             {
                 charName = "Annie",
                 dangerlevel = 4,
-                missileName = "Incinerate",
                 name = "Summom: Tibbers",
                 radius = 290,
                 range = 600,
@@ -264,7 +259,7 @@ using EloBuddy;
             {
                 angle = 5,
                 charName = "Ashe",
-                dangerlevel = 2,
+                dangerlevel = 1,
                 //missileName = "VolleyAttack",
                 name = "Volley",
                 projectileSpeed = 1500,
@@ -562,7 +557,7 @@ using EloBuddy;
                 charName = "Cassiopeia",
                 dangerlevel = 4,
                 name = "Petrifying Gaze",
-                radius = 20,
+                radius = 145,
                 range = 825,
                 spellDelay = 500,
                 spellKey = SpellSlot.R,
@@ -599,7 +594,7 @@ using EloBuddy;
                 name = "Noxious Blast",
                 radius = 200,
                 range = 850,
-                spellDelay = 825,
+                spellDelay = 750,
                 spellKey = SpellSlot.Q,
                 spellName = "CassiopeiaQ",
                 spellType = SpellType.Circular
@@ -617,7 +612,7 @@ using EloBuddy;
                 dangerlevel = 2,
                 missileName = "FeralScream",
                 name = "Feral Scream",
-                radius = 20,
+                radius = 80,
                 range = 650,
                 spellDelay = 250,
                 spellKey = SpellSlot.W,
@@ -722,7 +717,7 @@ using EloBuddy;
                 dangerlevel = 3,
                 missileName = "DariusAxeGrabCone",
                 name = "Axe Cone Grab",
-                radius = 20,
+                radius = 55,
                 range = 570,
                 spellDelay = 320,
                 spellKey = SpellSlot.E,
@@ -852,11 +847,11 @@ using EloBuddy;
             {
                 charName = "Ekko",
                 dangerlevel = 2,
-                missileName = "ekkowmis",
                 name = "Parallel Convergence",
+                projectileSpeed = 1650,
                 radius = 375,
-                range = 1600,
-                spellDelay = 2250,
+                range = 1750,
+                spellDelay = 3750,
                 spellKey = SpellSlot.W,
                 spellName = "ekkow",
                 spellType = SpellType.Circular
@@ -866,12 +861,13 @@ using EloBuddy;
             new SpellData
             {
                 charName = "Ekko",
-                dangerlevel = 3,
+                dangerlevel = 4,
                 missileName = "EkkoR",
                 name = "Chronobreak",
+                projectileSpeed = 1650,
                 radius = 375,
                 range = 1600,
-                spellDelay = 100,
+                spellDelay = 250,
                 spellKey = SpellSlot.R,
                 spellName = "EkkoR",
                 spellType = SpellType.Circular,
@@ -1017,19 +1013,21 @@ using EloBuddy;
                 charName = "Fizz",
                 dangerlevel = 4,
                 missileName = "FizzRMissile",
-                name = "Chum the Waters [Beta]",
+                name = "Chum the Waters",
                 projectileSpeed = 1350,
                 radius = 120,
-                range = 1275,
+                range = 1300,
                 spellDelay = 250,
                 spellKey = SpellSlot.R,
                 spellName = "FizzR",
                 spellType = SpellType.Line,
-                collisionObjects = new[] { CollisionObjectType.EnemyChampions, },
-                secondaryRadius = 250,
                 hasEndExplosion = true,
-                useEndPosition = true
+                useEndPosition = true,
+                isSpecial = true,
 
+                // this will be the radius if it come from FoW, 
+                // if vissible will be updated accordingly
+                secondaryRadius = 300
             });
 
             #endregion Fizz
@@ -1108,13 +1106,13 @@ using EloBuddy;
             {
                 charName = "Gnar",
                 dangerlevel = 4,
-                missileName = "GnarR",
+                projectileSpeed = 0,
                 name = "GNAR!",
-                radius = 590,
-                range = 590,
+                radius = 500,
+                range = 500,
                 spellDelay = 250,
                 spellKey = SpellSlot.R,
-                spellName = "GnarR", // todo: check wall
+                spellName = "GnarR",
                 spellType = SpellType.Circular
             });
 
@@ -1130,7 +1128,6 @@ using EloBuddy;
                 spellKey = SpellSlot.W,
                 spellName = "gnarbigw",
                 spellType = SpellType.Line,
-
             });
 
             Spells.Add(
@@ -1353,13 +1350,19 @@ using EloBuddy;
             {
                 charName = "Hecarim",
                 dangerlevel = 4,
-                name = "Onslaught of Shadows",
-                projectileSpeed = 1250,
-                radius = 40,
-                range = 1500,
-                spellDelay = 100,
+                name = "Onslaught of Shadows [Beta]",
+                projectileSpeed = 1100,
+                radius = 60,
+                range = 1525,
+                spellDelay = 0,
                 spellKey = SpellSlot.R,
                 spellName = "HecarimUltMissile",
+                extraMissileNames =
+                    new[]
+                    {
+                        "HecarimUltMissileSkn4R1", "HecarimUltMissileSkn4c", "HecarimUltMissileSkn4R2",
+                        "HecarimUltMissileSKn4L2", "HecarimUltMissileSkn4L1"
+                    },
                 spellType = SpellType.Line,
                 usePackets = true,
                 fixedRange = true
@@ -1792,7 +1795,7 @@ using EloBuddy;
                 missileName = "KarmaQMissile",
                 name = "Inner Flame",
                 projectileSpeed = 1700,
-                radius = 70,
+                radius = 60,
                 range = 1050,
                 spellDelay = 250,
                 spellKey = SpellSlot.Q,
@@ -1802,7 +1805,6 @@ using EloBuddy;
                 fixedRange = true
             });
 
-            //TODO: Fix end circle extra end time
             Spells.Add(
             new SpellData
             {
@@ -1811,16 +1813,15 @@ using EloBuddy;
                 missileName = "KarmaQMissileMantra",
                 name = "Soulflare (Mantra)",
                 projectileSpeed = 1700,
-                radius = 90,
+                radius = 80,
                 range = 1050,
                 spellDelay = 250,
                 spellKey = SpellSlot.Q,
                 spellName = "KarmaQMissileMantra",
                 spellType = SpellType.Line,
                 collisionObjects = new[] { CollisionObjectType.EnemyChampions, CollisionObjectType.EnemyMinions },
-                hasEndExplosion = true,
-                secondaryRadius = 250,
-                usePackets = true
+                //hasEndExplosion = true,
+                secondaryRadius = 250
 
             });
             #endregion Karma
@@ -1832,7 +1833,6 @@ using EloBuddy;
             {
                 charName = "Karthus",
                 dangerlevel = 2,
-                missileName = "KarthusLayWasteA1",
                 name = "Lay Waste",
                 radius = 190,
                 range = 875,
@@ -1869,7 +1869,7 @@ using EloBuddy;
                 charName = "Kassadin",
                 dangerlevel = 2,
                 name = "Force Pulse",
-                radius = 20,
+                radius = 80,
                 range = 700,
                 spellDelay = 250,
                 spellKey = SpellSlot.E,
@@ -2223,7 +2223,7 @@ using EloBuddy;
                 name = "Ice Shard",
                 projectileSpeed = 2200,
                 radius = 75,
-                range = 700,
+                range = 825,
                 spellDelay = 250,
                 spellKey = SpellSlot.Q,
                 spellName = "LissandraQ",
@@ -2237,10 +2237,9 @@ using EloBuddy;
                 charName = "Lissandra",
                 dangerlevel = 2,
                 name = "Ice Shard Extended",
-                missileName = "lissandraqshards",
                 projectileSpeed = 2200,
                 radius = 90,
-                range = 1025,
+                range = 825,
                 spellDelay = 250,
                 spellKey = SpellSlot.Q,
                 spellName = "LissandraQShards",
@@ -2321,7 +2320,7 @@ using EloBuddy;
                 extraMissileNames = new[] { "lucianrmissileoffhand" },
                 spellType = SpellType.Line,
                 collisionObjects = new[] { CollisionObjectType.EnemyChampions, CollisionObjectType.EnemyMinions },
-                dontcheckDuplicates = true,
+                usePackets = true,
                 fixedRange = true
             });
             
@@ -2479,7 +2478,7 @@ using EloBuddy;
                 charName = "Mordekaiser",
                 dangerlevel = 3,
                 name = "Syphon Of Destruction",
-                radius = 160,
+                radius = 80,
                 range = 675,
                 spellDelay = 250,
                 spellKey = SpellSlot.E,
@@ -2532,20 +2531,21 @@ using EloBuddy;
 
             #region MonkeyKing
 
-            //Spells.Add(
-            //new SpellData
-            //{
-            //    charName = "MonkeyKing",
-            //    dangerlevel = 4,
-            //    defaultOff = true,
-            //    name = "Cyclone",
-            //    radius = 450,
-            //    range = 450,
-            //    spellDelay = 0,
-            //    spellKey = SpellSlot.R,
-            //    spellName = "MonkeyKingSpinToWin",
-            //    spellType = SpellType.Circular
-            //});
+            Spells.Add(
+            new SpellData
+            {
+                charName = "MonkeyKing",
+                dangerlevel = 4,
+                name = "Cyclone [Beta]",
+                projectileSpeed = 0,
+                radius = 250,
+                range = 250,
+                spellDelay = 125,
+                spellKey = SpellSlot.R,
+                spellName = "MonkeyKingSpinToWin",
+                spellType = SpellType.Circular,
+                defaultOff = true
+            });
 
             #endregion MonkeyKing
 
@@ -2789,7 +2789,7 @@ using EloBuddy;
                 charName = "Pantheon",
                 dangerlevel = 2,
                 name = "Heartseeker",
-                radius = 50,
+                radius = 80,
                 range = 600,
                 extraEndTime = 750,
                 spellDelay = 1000,
@@ -2899,12 +2899,12 @@ using EloBuddy;
             {
                 charName = "RekSai",
                 dangerlevel = 3,
-                missileName = "ReksaiWBurrowed",
                 name = "Unburrow",
                 projectileSpeed = 2300,
                 radius = 160,
                 range = 160,
                 spellDelay = 250f,
+                extraEndTime = 500f,
                 spellKey = SpellSlot.W,
                 spellName = "ReksaiWBurrowed",
                 spellType = SpellType.Circular
@@ -3201,7 +3201,7 @@ using EloBuddy;
                 spellDelay = 500,
                 spellKey = SpellSlot.R,
                 spellName = "SionR",
-                spellType = SpellType.Line,
+                spellType = SpellType.None, // temp removal
                 collisionObjects = new[] { CollisionObjectType.EnemyChampions },
                 isSpecial = true
             });

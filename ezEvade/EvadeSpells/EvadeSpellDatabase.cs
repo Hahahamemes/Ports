@@ -63,7 +63,7 @@ using EloBuddy;
                 dangerlevel = 3,
                 name = "Overdrive",
                 spellName = "Overdrive",
-                spellDelay = 50,
+                spellDelay = 250,
                 spellKey = SpellSlot.W,
                 speedArray = new[] { 70f, 75f, 80f, 85f, 90f },
                 evadeType = EvadeType.MovementSpeedBuff,
@@ -121,7 +121,7 @@ using EloBuddy;
                 dangerlevel = 3,
                 name = "Blood Rush",
                 spellName = "DravenFury",
-                spellDelay = 50,
+                spellDelay = 250,
                 spellKey = SpellSlot.W,
                 speedArray = new[] { 40f, 45f, 50f, 55f, 60f },
                 evadeType = EvadeType.MovementSpeedBuff,
@@ -182,6 +182,25 @@ using EloBuddy;
 
             #endregion
 
+            #region Elise
+            Spells.Add(
+            new EvadeSpellData
+            {
+                charName = "Elise",
+                dangerlevel = 4,
+                name = "Rappel",
+                spellName = "EliseSpiderEInitial",
+                spellDelay = 50,
+                checkSpellName = true,
+                spellKey = SpellSlot.E,
+                evadeType = EvadeType.SpellShield,
+                castType = CastType.Self,
+                untargetable = true,
+                isSpecial = true
+            });
+
+            #endregion
+
             #region Evelynn
 
             Spells.Add(
@@ -191,7 +210,7 @@ using EloBuddy;
                 dangerlevel = 3,
                 name = "Darl Frenzy",
                 spellName = "EvelynnW",
-                spellDelay = 50,
+                spellDelay = 250,
                 spellKey = SpellSlot.W,
                 speedArray = new[] { 30f, 45f, 50f, 60f, 70f },
                 evadeType = EvadeType.MovementSpeedBuff,
@@ -317,7 +336,7 @@ using EloBuddy;
                 dangerlevel = 3,
                 name = "Decisive Strike",
                 spellName = "GarenQ",
-                spellDelay = 50,
+                spellDelay = 250,
                 spellKey = SpellSlot.Q,
                 speedArray = new[] { 35, 35f, 35f, 35f, 35f },
                 evadeType = EvadeType.MovementSpeedBuff,
@@ -409,7 +428,7 @@ using EloBuddy;
                 dangerlevel = 3,
                 name = "Inspire",
                 spellName = "KarmaSolkimShield",
-                spellDelay = 50,
+                spellDelay = 250,
                 spellKey = SpellSlot.E,
                 speedArray = new[] { 40f, 45f, 50f, 55f, 60f },
                 evadeType = EvadeType.MovementSpeedBuff,
@@ -464,7 +483,7 @@ using EloBuddy;
                 dangerlevel = 3,
                 name = "Divine Blessing",
                 spellName = "JudicatorDivineBlessing",
-                spellDelay = 50,
+                spellDelay = 250,
                 spellKey = SpellSlot.W,
                 speedArray = new[] { 18f, 21f, 24f, 27f, 30f },
                 evadeType = EvadeType.MovementSpeedBuff,
@@ -496,7 +515,7 @@ using EloBuddy;
                 dangerlevel = 4,
                 name = "Lightning Rush",
                 spellName = "KennenLightningRush",
-                spellDelay = 50,
+                spellDelay = 250,
                 spellKey = SpellSlot.E,
                 speedArray = new[] { 100f, 100f, 100f, 100f, 100f },
                 evadeType = EvadeType.MovementSpeedBuff,
@@ -573,7 +592,7 @@ using EloBuddy;
                 speed = 1400,
                 spellDelay = 50,
                 spellKey = SpellSlot.W,
-                evadeType = EvadeType.Dash,
+                evadeType = EvadeType.Shield,
                 castType = CastType.Target,
                 spellTargets = new[] { SpellTargets.AllyChampions, SpellTargets.AllyMinions },
             });
@@ -608,7 +627,7 @@ using EloBuddy;
                 dangerlevel = 3,
                 name = "Whimsy",
                 spellName = "LuluW",
-                spellDelay = 50,
+                spellDelay = 250,
                 spellKey = SpellSlot.W,
                 speedArray = new[] { 30f, 30f, 30f, 35f, 40f },
                 evadeType = EvadeType.MovementSpeedBuff,
@@ -682,7 +701,7 @@ using EloBuddy;
                 dangerlevel = 2,
                 name = "BloodBoil",
                 spellName = "BloodBoil",
-                spellDelay = 50,
+                spellDelay = 250,
                 spellKey = SpellSlot.W,
                 speedArray = new[] { 8f, 9f, 10f, 11f, 12f },
                 evadeType = EvadeType.MovementSpeedBuff,
@@ -720,7 +739,7 @@ using EloBuddy;
                 dangerlevel = 3,
                 name = "Steadfast Presence",
                 spellName = "PoppyW",
-                spellDelay = 50,
+                spellDelay = 250,
                 spellKey = SpellSlot.W,
                 speedArray = new[] { 27f, 29f, 31f, 33f, 35f },
                 evadeType = EvadeType.MovementSpeedBuff,
@@ -786,19 +805,19 @@ using EloBuddy;
 
             #region Sivir
 
-            Spells.Add(
-            new EvadeSpellData
-            {
-                charName = "Sivir",
-                dangerlevel = 4,
-                name = "On The Hunt",
-                spellName = "SivirR",
-                spellDelay = 250,
-                spellKey = SpellSlot.R,
-                speedArray = new[] { 60f, 60f, 60f, 60f, 60f },
-                evadeType = EvadeType.MovementSpeedBuff,
-                castType = CastType.Self
-            });
+            //Spells.Add(
+            //new EvadeSpellData
+            //{
+            //    charName = "Sivir",
+            //    dangerlevel = 4,
+            //    name = "On The Hunt",
+            //    spellName = "SivirR",
+            //    spellDelay = 250,
+            //    spellKey = SpellSlot.R,
+            //    speedArray = new[] { 60f, 60f, 60f, 60f, 60f },
+            //    evadeType = EvadeType.MovementSpeedBuff,
+            //    castType = CastType.Self
+            //});
 
             Spells.Add(
             new EvadeSpellData
@@ -824,7 +843,7 @@ using EloBuddy;
                 dangerlevel = 3,
                 name = "Exoskeleton",
                 spellName = "SkarnerExoskeleton",
-                spellDelay = 50,
+                spellDelay = 250,
                 spellKey = SpellSlot.W,
                 speedArray = new[] { 16f, 20f, 24f, 28f, 32f },
                 evadeType = EvadeType.MovementSpeedBuff,
@@ -892,7 +911,7 @@ using EloBuddy;
                 dangerlevel = 3,
                 name = "Song of Celerity",
                 spellName = "SonaE",
-                spellDelay = 50,
+                spellDelay = 250,
                 spellKey = SpellSlot.E,
                 speedArray = new[] { 13f, 14f, 15f, 16f, 25f },
                 evadeType = EvadeType.MovementSpeedBuff,
@@ -907,27 +926,10 @@ using EloBuddy;
             new EvadeSpellData
             {
                 charName = "Talon",
-                dangerlevel = 3,
-                name = "Cutthroat",
-                spellName = "TalonCutthroat",
-                range = 700,
-                speed = float.MaxValue,
-                spellDelay = 50,
-                spellKey = SpellSlot.E,
-                evadeType = EvadeType.Blink, //behind target
-                castType = CastType.Target,
-                spellTargets = new[] { SpellTargets.EnemyChampions, SpellTargets.EnemyMinions },
-            });
-
-
-            Spells.Add(
-            new EvadeSpellData
-            {
-                charName = "Talon",
                 dangerlevel = 4,
                 name = "Shadow Assualt",
                 spellName = "TalonShadowAssault",
-                spellDelay = 50,
+                spellDelay = 250,
                 spellKey = SpellSlot.R,
                 speedArray = new[] { 40f, 40f, 40f, 40f, 40f },
                 evadeType = EvadeType.MovementSpeedBuff,
@@ -945,7 +947,7 @@ using EloBuddy;
                 dangerlevel = 3,
                 name = "Move Quick",
                 spellName = "MoveQuick",
-                spellDelay = 50,
+                spellDelay = 250,
                 spellKey = SpellSlot.W,
                 speedArray = new[] { 10f, 14f, 18f, 22f, 26f },
                 evadeType = EvadeType.MovementSpeedBuff,
@@ -955,19 +957,19 @@ using EloBuddy;
             #endregion
 
             #region Trundle
-            Spells.Add(
-            new EvadeSpellData
-            {
-                charName = "Trundle",
-                dangerlevel = 4,
-                name = "Frozen Domain",
-                spellName = "TrundleW",
-                spellDelay = 50,
-                spellKey = SpellSlot.W,
-                speedArray = new[] { 20f, 25f, 30f, 35f, 40f },
-                evadeType = EvadeType.MovementSpeedBuff,
-                castType = CastType.Position
-            });
+            //Spells.Add(
+            //new EvadeSpellData
+            //{
+            //    charName = "Trundle",
+            //    dangerlevel = 4,
+            //    name = "Frozen Domain",
+            //    spellName = "TrundleW",
+            //    spellDelay = 250,
+            //    spellKey = SpellSlot.W,
+            //    speedArray = new[] { 20f, 25f, 30f, 35f, 40f },
+            //    evadeType = EvadeType.MovementSpeedBuff,
+            //    castType = CastType.Position
+            //});
 
             #endregion
 
@@ -1091,11 +1093,11 @@ using EloBuddy;
                 dangerlevel = 3,
                 name = "Timewarp",
                 spellName = "ZileanE",
-                spellDelay = 50,
+                spellDelay = 250,
                 spellKey = SpellSlot.E,              
                 speedArray = new[] { 40f, 55f, 70f, 85f, 99f },
                 evadeType = EvadeType.MovementSpeedBuff,
-                castType = CastType.Target     
+                castType = CastType.Self   
             });
 
             #endregion
@@ -1106,10 +1108,10 @@ using EloBuddy;
             new EvadeSpellData
             {
                 charName = "AllChampions",
-                dangerlevel = 4,
+                dangerlevel = 3,
                 name = "Talisman of Ascension",
                 spellName = "TalismanOfAscension",
-                spellDelay = 250,
+                spellDelay = 50,
                 spellKey = SpellSlot.Q,
                 evadeType = EvadeType.MovementSpeedBuff,
                 speedArray = new[] { 40f, 40f, 40f, 40f, 40f },
@@ -1122,10 +1124,10 @@ using EloBuddy;
             new EvadeSpellData
             {
                 charName = "AllChampions",
-                dangerlevel = 4,
+                dangerlevel = 3,
                 name = "Youmuu's Ghostblade",
                 spellName = "YoumuusGhostblade",
-                spellDelay = 250,
+                spellDelay = 50,
                 spellKey = SpellSlot.Q,
                 evadeType = EvadeType.MovementSpeedBuff,
                 speedArray = new[] { 20f, 20f, 20f, 20f, 20f },

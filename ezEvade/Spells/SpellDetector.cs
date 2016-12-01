@@ -16,6 +16,7 @@ using EloBuddy;
     public class SpecialSpellEventArgs : EventArgs
     {
         public bool noProcess { get; set; }
+        public SpellData spellData { get; set; }
     }
 
     internal class SpellDetector
@@ -173,8 +174,11 @@ using EloBuddy;
                 {
                     if (spellData.usePackets == false)
                     {
-                        var specialSpellArgs = new SpecialSpellEventArgs();
+                        var specialSpellArgs = new SpecialSpellEventArgs { spellData = spellData };
                         OnProcessSpecialSpell?.Invoke(hero, args, spellData, specialSpellArgs);
+
+                        // optional update from specialSpellArgs
+                        spellData = specialSpellArgs.spellData;
 
                         if (specialSpellArgs.noProcess == false && spellData.noProcess == false)
                         {
@@ -201,7 +205,7 @@ using EloBuddy;
                                 }
                             }
 
-                            if (foundMissile == false || spellData.dontcheckDuplicates)
+                            if (foundMissile == false)
                             {
                                 CreateSpellData(hero, hero.ServerPosition, args.End, spellData);
                             }
@@ -264,9 +268,8 @@ using EloBuddy;
 
                     if (spellData.useEndPosition)
                     {
-                        var range = spellEndPos.To2D().Distance(spellStartPos.To2D());
+                        var range = endPosition.Distance(startPosition);
                         endTick = spellData.spellDelay + (range / spellData.projectileSpeed) * 1000;
-                        endPosition = spellEndPos.To2D();
                     }
 
                     if (obj != null)
@@ -305,7 +308,20 @@ using EloBuddy;
                 }
                 else if (spellType == SpellType.Cone)
                 {
-                    return;
+                    endPosition = startPosition + direction * spellData.range;
+                    endTick = spellData.spellDelay;
+
+                    if (endPosition.Distance(startPosition) > spellData.range)
+                        endPosition = startPosition + direction * spellData.range;
+
+                    if (spellData.projectileSpeed == 0 && hero != null)
+                    {
+                        endPosition = hero.ServerPosition.To2D();
+                    }
+                    else if (spellData.projectileSpeed > 0)
+                    {
+                        endTick = endTick + 1000 * startPosition.Distance(endPosition) / spellData.projectileSpeed;
+                    }
                 }
                 else
                 {
@@ -327,7 +343,6 @@ using EloBuddy;
                 endTick += extraEndTick;
 
                 Spell newSpell = new Spell();
-
                 newSpell.startTime = EvadeUtils.TickCount;
                 newSpell.endTime = EvadeUtils.TickCount + endTick;
                 newSpell.startPos = startPosition;
@@ -338,11 +353,17 @@ using EloBuddy;
                 newSpell.spellType = spellType;
                 newSpell.radius = spellRadius > 0 ? spellRadius : newSpell.GetSpellRadius();
 
-                if (hero != null)
+                if (spellType == SpellType.Cone)
                 {
-                    newSpell.heroID = hero.NetworkId;
+                    newSpell.radius = 100 + (newSpell.radius * 3); // for now.. eh
+                    newSpell.cnStart = startPosition + direction;
+                    newSpell.cnLeft = endPosition + direction.Perpendicular() * newSpell.radius;
+                    newSpell.cnRight = endPosition - direction.Perpendicular() * newSpell.radius;
                 }
 
+                if (hero != null)
+                    newSpell.heroID = hero.NetworkId;
+ 
                 if (obj != null)
                 {
                     newSpell.spellObject = obj;
@@ -822,10 +843,10 @@ using EloBuddy;
 
                             if (!onProcessSpells.ContainsKey(spell.spellName.ToLower() + "trap"))
                             {
-                                if (spell.trapBaseName == "")
+                                if (string.IsNullOrEmpty(spell.trapBaseName))
                                     spell.trapBaseName = spell.spellName + "1";
   
-                                if (spell.trapTroyName == "")
+                                if (string.IsNullOrEmpty(spell.trapTroyName))
                                     spell.trapTroyName = spell.spellName + "2";
 
                                 onProcessTraps.Add(spell.trapBaseName.ToLower(), spell);
@@ -860,11 +881,11 @@ using EloBuddy;
                     foreach (var spell in SpellDatabase.Spells.Where(
                         s => (s.charName == hero.ChampionName) || (s.charName == "AllChampions")))
                     {
+
                         if (spell.hasTrap && spell.projectileSpeed < 3000 || !spell.hasTrap)
                         {
-                            if (!(spell.spellType == SpellType.Circular
-                                  || spell.spellType == SpellType.Line
-                                  || spell.spellType == SpellType.Arc))
+                            if (spell.spellType != SpellType.Circular && spell.spellType != SpellType.Line &&
+                                spell.spellType != SpellType.Arc && spell.spellType != SpellType.Cone)
                                 continue;
 
                             if (spell.charName == "AllChampions")
@@ -878,7 +899,7 @@ using EloBuddy;
 
                             if (!onProcessSpells.ContainsKey(spell.spellName.ToLower()))
                             {
-                                if (spell.missileName == "")
+                                if (string.IsNullOrEmpty(spell.missileName))
                                     spell.missileName = spell.spellName;
 
                                 onProcessSpells.Add(spell.spellName.ToLower(), spell);
@@ -905,7 +926,7 @@ using EloBuddy;
                                 string menuName = spell.charName + " (" + spell.spellKey.ToString() + ") Settings";
 
                                 var enableSpell = !spell.defaultOff;
-                                var isnewSpell = spell.name.Contains("[Beta]");
+                                var isnewSpell = spell.name.Contains("[Beta]") || spell.spellType == SpellType.Cone;
 
                                 Menu newSpellMenu = new Menu(menuName, spell.charName + spell.spellName + "Settings");
 
@@ -942,10 +963,8 @@ using EloBuddy;
                             }
                         }
                     }
-
                 }
             }
-
         }
     }
 }
