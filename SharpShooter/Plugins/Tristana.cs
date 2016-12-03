@@ -60,7 +60,7 @@ using EloBuddy;
             Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
             Orbwalking.AfterAttack += Orbwalking_AfterAttack;
 
-            Chat.Print("Sharpshooter: Tristana Loaded.");
+            Console.WriteLine("Sharpshooter: Tristana Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Tristana</font> Loaded.");
         }

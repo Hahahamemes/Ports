@@ -55,7 +55,7 @@ using EloBuddy;
             Interrupter2.OnInterruptableTarget += Interrupter2_OnInterruptableTarget;
             Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
 
-            Chat.Print("Sharpshooter: Vayne Loaded.");
+            Console.WriteLine("Sharpshooter: Vayne Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Vayne</font> Loaded.");
         }
@@ -201,6 +201,7 @@ using EloBuddy;
                     if (buff.IsValidBuff())
                         if (buff.EndTime - Game.Time >
                             buff.EndTime - buff.StartTime -
+                            // ReSharper disable once PossibleLossOfFraction
                             MenuProvider.Champion.Misc.GetSliderValue("Q Stealth duration (ms)").Value/1000)
                             if (!ObjectManager.Player.Position.UnderTurret(true))
                                 args.Process = false;

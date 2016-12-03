@@ -43,7 +43,7 @@ using EloBuddy;
             Game.OnUpdate += Game_OnUpdate;
             Drawing.OnDraw += Drawing_OnDraw;
 
-            Chat.Print("Sharpshooter: Twitch Loaded.");
+            Console.WriteLine("Sharpshooter: Twitch Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Twitch</font> Loaded.");
         }

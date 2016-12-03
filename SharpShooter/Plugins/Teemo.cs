@@ -48,7 +48,7 @@ using EloBuddy;
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
             Orbwalking.AfterAttack += Orbwalking_AfterAttack;
 
-            Chat.Print("Sharpshooter: Teemo Loaded.");
+            Console.WriteLine("Sharpshooter: Teemo Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Teemo</font> Loaded.");
         }

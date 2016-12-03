@@ -72,7 +72,7 @@ using EloBuddy;
             Interrupter2.OnInterruptableTarget += Interrupter2_OnInterruptableTarget;
             Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
 
-            Chat.Print("Sharpshooter: Ryze Loaded.");
+            Console.WriteLine("Sharpshooter: Ryze Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Ryze</font> Loaded.");
         }

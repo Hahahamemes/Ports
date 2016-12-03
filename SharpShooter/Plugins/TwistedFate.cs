@@ -13,7 +13,7 @@ using EloBuddy;
         private Cards _cardiNeed = Cards.None;
         private readonly SpellSlot _flash;
         private readonly Spell _q;
-        private readonly Spell _w;
+        private static Spell _w;
         private Spell _e;
         private readonly Spell _r;
 
@@ -75,12 +75,11 @@ using EloBuddy;
             Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
 
-            Chat.Print("Sharpshooter: Twisted Fate Loaded.");
+            Console.WriteLine("Sharpshooter: Twisted Fate Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Twisted Fate</font> Loaded.");
         }
 
-        private bool Picking => _w.IsReadyPerfectly() && _w.Instance.Name != "PickACard";
 
         private void Game_OnUpdate(EventArgs args)
         {
@@ -285,7 +284,7 @@ using EloBuddy;
                 _cardiNeed = Cards.None;
             }
 
-            if (Picking)
+            if (_w.IsReadyPerfectly() && _w.Instance.Name != "PickACard")
             {
                 if (_cardiNeed != Cards.None)
                 {
@@ -302,7 +301,7 @@ using EloBuddy;
         {
             if (args.Unit.IsMe)
             {
-                if (Picking)
+                if (_w.IsReadyPerfectly() && _w.Instance.Name != "PickACard")
                 {
                     if (MenuProvider.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
                     {
@@ -404,8 +403,6 @@ using EloBuddy;
                 {
                     Render.Circle.DrawCircle(ObjectManager.Player.Position, _r.Range,
                         MenuProvider.Champion.Drawings.DrawRrange.Color);
-                    LeagueSharp.Common.Utility.DrawCircle(ObjectManager.Player.Position, _r.Range,
-                        MenuProvider.Champion.Drawings.DrawRrange.Color, 2, 30, true);
                 }
 
                 if (MenuProvider.Champion.Drawings.GetCircleValue("Draw Flash+AA Range").Active)
@@ -466,7 +463,7 @@ using EloBuddy;
         {
             _cardiNeed = card;
 
-            if (!Picking)
+            if (!(_w.IsReadyPerfectly() && _w.Instance.Name != "PickACard"))
             {
                 if (_w.IsReadyPerfectly())
                 {

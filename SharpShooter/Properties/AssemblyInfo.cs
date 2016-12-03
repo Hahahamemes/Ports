@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // 이러한 특성 값을 변경하세요.
 
 [assembly: AssemblyTitle("SharpShooter Reworked")]
-[assembly: AssemblyDescription("SharpShooter Reworked by HYPNOTIK60FPS")]
+[assembly: AssemblyDescription("SharpShooter Reworked by xcsoft")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("xcsoft")]
 [assembly: AssemblyProduct("SharpShooter")]
-[assembly: AssemblyCopyright("Copyright © HYPNOTIK60FPS. All rights reserved.")]
-[assembly: AssemblyTrademark("HYPNOTIK")]
+[assembly: AssemblyCopyright("Copyright © xcsoft. All rights reserved.")]
+[assembly: AssemblyTrademark("xcsoft")]
 [assembly: AssemblyCulture("")]
 
 // ComVisible을 false로 설정하면 이 어셈블리의 형식이 COM 구성 요소에 
@@ -35,5 +35,5 @@ using System.Runtime.InteropServices;
 // 지정되도록 할 수 있습니다.
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("5.22.0.22")]
+[assembly: AssemblyVersion("6.23.0.23")]
 [assembly: AssemblyFileVersion("0.0.0.0")]

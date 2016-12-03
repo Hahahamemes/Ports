@@ -51,7 +51,7 @@ using EloBuddy;
             Interrupter2.OnInterruptableTarget += Interrupter2_OnInterruptableTarget;
             //Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
             Obj_AI_Base.OnSpellCast += OnSpellCast;
-            Chat.Print("Sharpshooter: Ashe Loaded.");
+            Console.WriteLine("Sharpshooter: Ashe Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Ashe</font> Loaded." +
                 " || Rewrited by Hikigaya");

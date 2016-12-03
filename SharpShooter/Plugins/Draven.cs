@@ -73,7 +73,7 @@ using EloBuddy;
             GameObject.OnDelete += GameObject_OnDelete;
             EloBuddy.Player.OnIssueOrder += Obj_AI_Base_OnIssueOrder;
 
-            Chat.Print("Sharpshooter: Draven Loaded.");
+            Console.WriteLine("Sharpshooter: Draven Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Draven</font> Loaded.");
         }

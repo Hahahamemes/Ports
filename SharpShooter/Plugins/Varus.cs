@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
-using SPrediction;
 
 using EloBuddy; 
  using LeagueSharp.Common; 
@@ -28,7 +27,7 @@ using EloBuddy;
             _e.SetSkillshot(1.0f, 250f, 1750f, false, SkillshotType.SkillshotCircle);
             _r.SetSkillshot(0.25f, 120f, 1200f, false, SkillshotType.SkillshotLine);
 
-            _q.SetCharged("VarusQ", "VarusQ", 250, 1600, 1.2f);
+            _q.SetCharged (250, 1600, 1.2f);
 
             MenuProvider.Champion.Combo.AddUseQ();
             MenuProvider.Champion.Combo.AddItem("Q Min Charge", new Slider(800, 0, 1600));
@@ -63,7 +62,7 @@ using EloBuddy;
             Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
 
-            Chat.Print("Sharpshooter: Varus Loaded.");
+            Console.WriteLine("Sharpshooter: Varus Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Varus</font> Loaded.");
         }
@@ -123,9 +122,6 @@ using EloBuddy;
                                                     {
                                                         if (target.IsValidTarget(_q.Range))
                                                         {
-                                                            if (ConfigMenu.SelectedPrediction.SelectedIndex == 0)
-                                                                _q.SPredictionCast(target, HitChance.High);
-                                                            else
                                                                 _q.Cast(target, false, true);
                                                         }
                                                     }
@@ -141,9 +137,6 @@ using EloBuddy;
                                                     var target1 = TargetSelector.GetTarget(_q.Range, _q.DamageType);
                                                     if (target1 != null)
                                                     {
-                                                        if (ConfigMenu.SelectedPrediction.SelectedIndex == 0)
-                                                            _q.SPredictionCast(target1, HitChance.High);
-                                                        else
                                                             _q.Cast(target1, false, true);
                                                     }
                                                 }
@@ -158,9 +151,6 @@ using EloBuddy;
                                                     var target = TargetSelector.GetTarget(_q.Range, _q.DamageType);
                                                     if (target != null)
                                                     {
-                                                        if (ConfigMenu.SelectedPrediction.SelectedIndex == 0)
-                                                            _q.SPredictionCast(target, HitChance.High);
-                                                        else
                                                             _q.Cast(target, false, true);
                                                     }
                                                 }

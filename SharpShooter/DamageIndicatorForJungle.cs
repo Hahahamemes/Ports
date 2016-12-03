@@ -33,14 +33,7 @@ using EloBuddy;
             new JungleMobOffsets {BaseSkinName = "SRU_Krug", Width = 80, Height = 2, XOffset = 58, YOffset = 22},
             new JungleMobOffsets {BaseSkinName = "SRU_KrugMini", Width = 55, Height = 2, XOffset = 40, YOffset = 20},
             new JungleMobOffsets {BaseSkinName = "SRU_Razorbeak", Width = 74, Height = 2, XOffset = 53, YOffset = 22},
-            new JungleMobOffsets
-            {
-                BaseSkinName = "SRU_RazorbeakMini",
-                Width = 49,
-                Height = 2,
-                XOffset = 36,
-                YOffset = 20
-            },
+            new JungleMobOffsets{BaseSkinName = "SRU_RazorbeakMini", Width = 49, Height = 2, XOffset = 36, YOffset = 20},
             new JungleMobOffsets {BaseSkinName = "SRU_Murkwolf", Width = 74, Height = 2, XOffset = 53, YOffset = 22},
             new JungleMobOffsets {BaseSkinName = "SRU_MurkwolfMini", Width = 55, Height = 2, XOffset = 40, YOffset = 20}
             //new JungleMobOffsets { BaseSkinName = "SRU_ChaosMinionMelee", Width = 62, Height = 2, XOffset = 44, YOffset= 21 },

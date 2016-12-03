@@ -57,7 +57,7 @@ using EloBuddy;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
             Obj_AI_Base.OnPlayAnimation += Obj_AI_Base_OnPlayAnimation;
 
-            Chat.Print("Sharpshooter: Riven Loaded.");
+            Console.WriteLine("Sharpshooter: Riven Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Riven</font> Loaded.");
         }

@@ -122,16 +122,14 @@ using EloBuddy;
             Interrupter2.OnInterruptableTarget += Interrupter2_OnInterruptableTarget;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
 
-            Chat.Print("Sharpshooter: Lulu Loaded.");
+            Console.WriteLine("Sharpshooter: Lulu Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Lulu</font> Loaded.");
         }
 
-        private GameObject MyPix => ObjectManager.Player.Pet;
-
         private void Game_OnUpdate(EventArgs args)
         {
-            _q2.UpdateSourcePosition(MyPix.Position, MyPix.Position);
+            _q2.UpdateSourcePosition(ObjectManager.Player.Pet.Position, ObjectManager.Player.Pet.Position);
 
             if (!ObjectManager.Player.IsDead)
             {
@@ -480,7 +478,7 @@ using EloBuddy;
                 {
                     Render.Circle.DrawCircle(ObjectManager.Player.Position, _q.Range,
                         MenuProvider.Champion.Drawings.DrawQrange.Color);
-                    Render.Circle.DrawCircle(MyPix.Position, _q.Range, MenuProvider.Champion.Drawings.DrawQrange.Color);
+                    Render.Circle.DrawCircle(ObjectManager.Player.Pet.Position, _q.Range, MenuProvider.Champion.Drawings.DrawQrange.Color);
                 }
 
                 if (MenuProvider.Champion.Drawings.DrawWrange.Active && _w.IsReadyPerfectly())
@@ -534,7 +532,7 @@ using EloBuddy;
                 _qTargets.Add(new QTarget {Target = target, Pix = false});
             }
 
-            foreach (var target in HeroManager.Enemies.Where(x => x.IsValidTarget(_q.Range, true, MyPix.Position)))
+            foreach (var target in HeroManager.Enemies.Where(x => x.IsValidTarget(_q.Range, true, ObjectManager.Player.Pet.Position)))
             {
                 _qTargets.Add(new QTarget {Target = target, Pix = true});
             }

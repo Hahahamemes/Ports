@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
-using SPrediction;
 using SharpDX;
 using Collision = LeagueSharp.Common.Collision;
 using Color = System.Drawing.Color;
@@ -74,7 +73,7 @@ using EloBuddy;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
             Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
 
-            Chat.Print("Sharpshooter: Jinx Loaded.");
+            Console.WriteLine("Sharpshooter: Jinx Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Jinx</font> Loaded.");
         }
@@ -137,7 +136,7 @@ using EloBuddy;
                                     {
                                         var target = TargetSelector.GetTargetNoCollision(_w);
                                         if (target.IsValidTarget(_w.Range))
-                                            _w.SPredictionCast(target, _w.MinHitChance);
+                                            _w.Cast(target);
                                     }
 
                             if (MenuProvider.Champion.Combo.UseE)
@@ -225,7 +224,7 @@ using EloBuddy;
                                         {
                                             var target = TargetSelector.GetTargetNoCollision(_w);
                                             if (target.IsValidTarget(_w.Range))
-                                                _w.SPredictionCast(target, _w.MinHitChance);
+                                                _w.Cast(target);
                                         }
 
                             break;

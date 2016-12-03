@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
-using SPrediction;
 
 using EloBuddy; 
  using LeagueSharp.Common; 
@@ -62,7 +61,7 @@ using EloBuddy;
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
             Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
 
-            Chat.Print("Sharpshooter: Karthus Loaded.");
+            Console.WriteLine("Sharpshooter: Karthus Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Karthus</font> Loaded.");
         }
@@ -85,9 +84,6 @@ using EloBuddy;
                                     var target = TargetSelector.GetTarget(_q.Range, _q.DamageType);
                                     if (target != null)
                                     {
-                                        if (ConfigMenu.SelectedPrediction.SelectedIndex == 0)
-                                            _q.SPredictionCast(target, HitChance.High);
-                                        else
                                             _q.Cast(target, false, true);
                                     }
                                 }
@@ -113,9 +109,6 @@ using EloBuddy;
                                     var target = TargetSelector.GetTarget(_q.Range, _q.DamageType);
                                     if (target != null)
                                     {
-                                        if (ConfigMenu.SelectedPrediction.SelectedIndex == 0)
-                                            _q.SPredictionCast(target, HitChance.High);
-                                        else
                                             _q.Cast(target, false, true);
                                     }
                                 }

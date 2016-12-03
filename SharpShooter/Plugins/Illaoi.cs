@@ -54,7 +54,7 @@ using EloBuddy;
             Orbwalking.AfterAttack += Orbwalking_AfterAttack;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
 
-            Chat.Print("Sharpshooter: illaoi Loaded.");
+            Console.WriteLine("Sharpshooter: illaoi Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Illaoi</font> Loaded.");
         }
@@ -113,7 +113,7 @@ using EloBuddy;
                                         x =>
                                             x.IsValidTarget(_r.Range) &&
                                             ObjectManager.Player.ServerPosition.Distance(
-                                                Prediction.GetPrediction(x, 0.5f).UnitPosition) < _r.Range) >=
+                                                LeagueSharp.Common.Prediction.GetPrediction(x, 0.5f).UnitPosition) < _r.Range) >=
                                     MenuProvider.Champion.Combo.GetSliderValue("Use R if Will Hit >=").Value)
                                 {
                                     _r.Cast();

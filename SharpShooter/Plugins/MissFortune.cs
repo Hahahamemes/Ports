@@ -69,18 +69,17 @@ using EloBuddy;
             EloBuddy.Player.OnIssueOrder += Obj_AI_Base_OnIssueOrder;
             Obj_AI_Base.OnBuffGain += Obj_AI_Base_OnBuffAdd;
 
-            Chat.Print("Sharpshooter: MissFortune Loaded.");
+            Console.WriteLine("Sharpshooter: MissFortune Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">MissFortune</font> Loaded.");
         }
 
-        private bool UsingR => ObjectManager.Player.HasBuff(RBuffName);
 
         private void Game_OnUpdate(EventArgs args)
         {
             if (!ObjectManager.Player.IsDead)
             {
-                if (Orbwalking.CanMove(100) && !UsingR)
+                if (Orbwalking.CanMove(100) && !ObjectManager.Player.HasBuff(RBuffName))
                 {
                     switch (MenuProvider.Orbwalker.ActiveMode)
                     {
@@ -207,7 +206,7 @@ using EloBuddy;
                 {
                     if (!_pressed)
                     {
-                        if (UsingR)
+                        if (ObjectManager.Player.HasBuff(RBuffName))
                         {
                             _iWantToCancelR = true;
                             EloBuddy.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
@@ -322,7 +321,7 @@ using EloBuddy;
             {
                 if (MenuProvider.Champion.Misc.GetBoolValue("Block Movement order While Using R"))
                 {
-                    if (UsingR)
+                    if (ObjectManager.Player.HasBuff(RBuffName))
                     {
                         if (!_iWantToCancelR)
                         {
@@ -392,7 +391,7 @@ using EloBuddy;
                     }
                 }
 
-                if (UsingR)
+                if (ObjectManager.Player.HasBuff(RBuffName))
                 {
                     var playerPos = Drawing.WorldToScreen(ObjectManager.Player.Position);
                     Drawing.DrawText(playerPos.X, playerPos.Y - 20, drawRKillable.Color,
@@ -471,7 +470,7 @@ using EloBuddy;
                         var targetServerPosition = target.ServerPosition;
                         var time = ObjectManager.Player.ServerPosition.Distance(target.ServerPosition) / _q.Speed +
                                    _q.Delay;
-                        var predic = Prediction.GetPrediction(longRangeTarget, time);
+                        var predic = LeagueSharp.Common.Prediction.GetPrediction(longRangeTarget, time);
 
                         var cone40 = new Geometry.Polygon.Sector(targetServerPosition, direction, 40f * radian, 450f);
 

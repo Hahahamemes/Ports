@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
-using SPrediction;
 
 using EloBuddy; 
  using LeagueSharp.Common; 
@@ -15,7 +14,6 @@ using EloBuddy;
         private readonly Spell _w;
         private readonly Spell _e;
         private readonly Spell _r;
-        private bool IsZombie => ObjectManager.Player.HasBuff("kogmawicathiansurprise");
 
         public KogMaw()
         {
@@ -63,7 +61,7 @@ using EloBuddy;
             Drawing.OnDraw += Drawing_OnDraw;
             Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
 
-            Chat.Print("Sharpshooter: KogMaw Loaded.");
+            Console.WriteLine("Sharpshooter: KogMaw Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">KogMaw</font> Loaded.");
         }
@@ -89,7 +87,7 @@ using EloBuddy;
                                     {
                                         var target = TargetSelector.GetTargetNoCollision(_q);
                                         if (target != null)
-                                            _q.SPredictionCast(target, _q.MinHitChance);
+                                            _q.Cast(target);
                                     }
 
                             if (MenuProvider.Champion.Combo.UseW)
@@ -119,7 +117,7 @@ using EloBuddy;
                                         {
                                             var target = TargetSelector.GetTarget(_r.Range, _r.DamageType);
                                             if (target != null)
-                                                _r.SPredictionCast(target, _r.MinHitChance);
+                                                _r.Cast(target);
                                         }
                                         else
                                         {
@@ -130,7 +128,7 @@ using EloBuddy;
                                                             TargetSelector.DamageType.Magical, _r.Range) &&
                                                         _r.GetPrediction(x).Hitchance >= _r.MinHitChance);
                                             if (killableTarget != null)
-                                                _r.SPredictionCast(killableTarget, _r.MinHitChance);
+                                                _r.Cast(killableTarget);
                                         }
                                     }
 
@@ -144,7 +142,7 @@ using EloBuddy;
                                     {
                                         var target = TargetSelector.GetTargetNoCollision(_q);
                                         if (target != null)
-                                            _q.SPredictionCast(target, _q.MinHitChance);
+                                            _q.Cast(target);
                                     }
 
                             if (MenuProvider.Champion.Harass.UseE)
@@ -228,7 +226,7 @@ using EloBuddy;
         {
             if (!args.Unit.IsMe) return;
 
-            if (IsZombie)
+            if (ObjectManager.Player.HasBuff("kogmawicathiansurprise"))
                 args.Process = false;
 
             switch (MenuProvider.Orbwalker.ActiveMode)

@@ -68,7 +68,7 @@ using EloBuddy;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
 
-            Chat.Print("Sharpshooter: Kindred Loaded.");
+            Console.WriteLine("Sharpshooter: Kindred Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Kindred</font> Loaded.");
         }

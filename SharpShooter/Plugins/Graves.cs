@@ -64,7 +64,7 @@ using EloBuddy;
             Orbwalking.AfterAttack += Orbwalking_AfterAttack;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
 
-            Chat.Print("Sharpshooter: Graves Loaded.");
+            Console.WriteLine("Sharpshooter: Graves Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Graves</font> Loaded.");
         }

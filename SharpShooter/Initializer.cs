@@ -1,5 +1,6 @@
 using System;
 using LeagueSharp;
+using LeagueSharp.Common;
 
 using EloBuddy; 
  using LeagueSharp.Common; 
@@ -21,6 +22,7 @@ using EloBuddy;
                 Activator.Load();
             }
 
+            
             MenuProvider.SupportedChampions.AddItem("1. Ashe");
             MenuProvider.SupportedChampions.AddItem("2. Caitlyn");
             MenuProvider.SupportedChampions.AddItem("3. Corki");

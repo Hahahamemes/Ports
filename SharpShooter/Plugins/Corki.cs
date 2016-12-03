@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
-using SPrediction;
 
 using EloBuddy; 
  using LeagueSharp.Common; 
@@ -53,7 +52,7 @@ using EloBuddy;
             Game.OnUpdate += Game_OnUpdate;
             Drawing.OnDraw += Drawing_OnDraw;
 
-            Chat.Print("Sharpshooter: Corki Loaded.");
+            Console.WriteLine("Sharpshooter: Corki Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Corki</font> Loaded.");
         }
@@ -74,9 +73,6 @@ using EloBuddy;
                                     var target = TargetSelector.GetTarget(_q.Range, _q.DamageType);
                                     if (target != null)
                                     {
-                                        if (ConfigMenu.SelectedPrediction.SelectedIndex == 0)
-                                            _q.SPredictionCast(target, HitChance.High);
-                                        else
                                             _q.Cast(target, false, true);
                                     }
                                 }
@@ -94,7 +90,7 @@ using EloBuddy;
                                 {
                                     var target = TargetSelector.GetTargetNoCollision(_r);
                                     if (target != null)
-                                        _r.SPredictionCast(target, _r.MinHitChance);
+                                        _r.Cast(target);
                                 }
                             break;
                         }
@@ -107,9 +103,6 @@ using EloBuddy;
                                         var target = TargetSelector.GetTarget(_q.Range, _q.DamageType);
                                         if (target != null)
                                         {
-                                            if (ConfigMenu.SelectedPrediction.SelectedIndex == 0)
-                                                _q.SPredictionCast(target, HitChance.High);
-                                            else
                                                 _q.Cast(target, false, true);
                                         }
                                     }
@@ -122,7 +115,7 @@ using EloBuddy;
                                         {
                                             var target = TargetSelector.GetTargetNoCollision(_r);
                                             if (target != null)
-                                                _r.SPredictionCast(target, _r.MinHitChance);
+                                                _r.Cast(target);
                                         }
                             break;
                         }

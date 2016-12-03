@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
-using SPrediction;
 using SharpDX;
 using Collision = LeagueSharp.Common.Collision;
 using Color = System.Drawing.Color;
@@ -79,7 +78,7 @@ using EloBuddy;
             _baronLocation = new Vector3(5064f, 10568f, -71f);
             _dragonLocation = new Vector3(9796f, 4432f, -71f);
 
-            Chat.Print("Sharpshooter: Kalista Loaded.");
+            Console.WriteLine("Sharpshooter: Kalista Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Kalista</font> Loaded.");
         }
@@ -118,7 +117,7 @@ using EloBuddy;
                                             var target = TargetSelector.GetTargetNoCollision(_q);
                                             if (target != null)
                                                 if (ObjectManager.Player.Mana - _qManaCost[_q.Level] >= 40)
-                                                    _q.SPredictionCast(target, _q.MinHitChance);
+                                                    _q.Cast(target);
                                                 else
                                                 {
                                                     var killableTarget =
@@ -135,13 +134,16 @@ using EloBuddy;
 
                             if (MenuProvider.Champion.Combo.UseE)
                                 if (_e.IsReadyPerfectly())
-                                    if (
-                                        HeroManager.Enemies.Any(
-                                            x =>
+                                {
+                                    foreach (var enemy in HeroManager.Enemies.Where(x =>
                                                 HealthPrediction.GetHealthPrediction(x, 250) > 0 &&
                                                 x.IsKillableAndValidTarget(_e.GetDamage(x) - 30,
                                                     TargetSelector.DamageType.Physical, _e.Range)))
-                                        _e.Cast();
+                                    {
+                                            _e.Cast();
+                                    }
+                                }
+                                    
 
                             break;
                         }
@@ -155,7 +157,7 @@ using EloBuddy;
                                             {
                                                 var target = TargetSelector.GetTargetNoCollision(_q);
                                                 if (target != null)
-                                                    _q.SPredictionCast(target, _q.MinHitChance);
+                                                    _q.Cast(target);
                                             }
 
                             break;

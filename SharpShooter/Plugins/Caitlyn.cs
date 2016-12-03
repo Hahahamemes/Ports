@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
-using SPrediction;
 using SharpDX;
 using Collision = LeagueSharp.Common.Collision;
 using Color = System.Drawing.Color;
@@ -66,7 +65,7 @@ using EloBuddy;
             GameObject.OnDelete += GameObject_OnDelete;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
 
-            Chat.Print("Sharpshooter: Caitlyn Loaded.");
+            Console.WriteLine("Sharpshooter: Caitlyn Loaded.");
             Chat.Print(
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Caitlyn</font> Loaded.");
         }
@@ -120,9 +119,6 @@ using EloBuddy;
                                             var target = TargetSelector.GetTarget(_q.Range, _q.DamageType);
                                             if (target != null)
                                             {
-                                                if (ConfigMenu.SelectedPrediction.SelectedIndex == 0)
-                                                    _q.SPredictionCast(target, HitChance.High);
-                                                else
                                                     _q.Cast(target, false, true);
                                             }
                                         }

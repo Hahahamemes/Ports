@@ -2,7 +2,6 @@ using System;
 using System.Drawing;
 using LeagueSharp;
 using LeagueSharp.Common;
-using SPrediction;
 
 using EloBuddy; 
  using LeagueSharp.Common; 
@@ -38,8 +37,7 @@ using EloBuddy;
 
                 Champion.AddOrbwalker();
                 Champion.AddTargetSelector();
-                SPrediction.Prediction.Initialize(MenuInstance);
-                MenuInstance.SubMenu("SPRED").Item("PREDICTONLIST").SetValue(new StringList(new[] { "SPrediction", "Common Predicion" }, 1));                
+                
             }
             else
             {
